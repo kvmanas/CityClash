@@ -1,0 +1,33 @@
+.sidenav-container {
+  height: 100%;
+   z-index: 999999;
+}
+
+.sidenav {
+  width: 150px;
+}
+
+.hideSideNav {
+  display: none;
+}
+.hideDesktopLinks {
+  display: none;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+mat-toolbar a {
+  display: inline-block;
+  margin: 0 20px;
+  color: white;
+  text-decoration: none;
+}
+
+// @media (min-width: 950px) {
+//   .sidenav {
+//     display: none;
+//   }
+// }
+#logOut {
+  cursor: pointer;
+}

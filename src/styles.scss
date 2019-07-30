@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/purple-green.css';
+// deeppurple-amber.css indigo-pink.css pink-bluegrey.css purple-green.css
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Verdana, Helvetica, sans-serif;
+}
