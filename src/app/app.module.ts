@@ -7,12 +7,14 @@ import { AngularMaterialModule } from './Modules/angular-material/angular-materi
 import { HomeComponent } from './Components/home/home.component';
 import { NavigationBarComponent } from './Components/navigation-bar/navigation-bar.component';
 import { BackgroundComponent } from './Components/background/background.component';
+import { FooterComponent } from './Components/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavigationBarComponent,
-    BackgroundComponent
+    BackgroundComponent,
+    FooterComponent
   ],
   imports: [BrowserModule, AppRoutingModule, AngularMaterialModule],
   providers: [],
