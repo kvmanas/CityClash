@@ -7,14 +7,14 @@ import { AngularMaterialModule } from './Modules/angular-material/angular-materi
 import { HomeComponent } from './Components/home/home.component';
 import { NavigationBarComponent } from './Components/navigation-bar/navigation-bar.component';
 import { BackgroundComponent } from './Components/background/background.component';
-
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NavigationBarComponent, BackgroundComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    AngularMaterialModule
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    NavigationBarComponent,
+    BackgroundComponent
   ],
+  imports: [BrowserModule, AppRoutingModule, AngularMaterialModule],
   providers: [],
   bootstrap: [AppComponent]
 })
