@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Web3Service } from '../../../Services/Web3/web3.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class MainComponent implements OnInit {
   constructor(private web3service: Web3Service) {}
   ngOnInit() {}
   login = () => {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Web3Service } from '../../../Services/Web3/web3.service';
-import { Web3Model } from '../../../Model/web3.model';
+import { Web3Model } from '../../../Models/web3.model';
 
 @Component({
   selector: 'app-footer',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, interval } from 'rxjs';
-import { Web3Model } from '../../Model/web3.model';
+import { Web3Model } from '../../Models/web3.model';
 declare let require: any;
 
 const Web3 = require('web3');
@@ -17,7 +17,7 @@ export class Web3Service {
     Web3Model
   >({
     account: 'User not Logged in',
-    network: null
+    network: 'User not connected'
   });
   RefreshedAccount = interval(1000);
   public async web3login() {

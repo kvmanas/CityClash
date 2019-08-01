@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -9,6 +9,9 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./navigation-bar.component.scss']
 })
 export class NavigationBarComponent implements OnInit {
+  @Input()
+  ContentType: number;
+
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.XSmall)
     .pipe(map(result => result.matches));
