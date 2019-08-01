@@ -16,6 +16,12 @@ export class FooterComponent implements OnInit {
     this.web3service.Web3Details$.subscribe((data: Web3Model) => {
       this.UserAddress = data.account;
       this.Network = data.network;
+      if (!this.UserAddress) {
+        this.UserAddress = 'User not Logged in';
+      }
+      if (!this.Network) {
+        this.Network = 'User not connected';
+      }
     });
   }
 }

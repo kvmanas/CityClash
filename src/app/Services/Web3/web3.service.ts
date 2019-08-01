@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, interval } from 'rxjs';
+import { BehaviorSubject, interval, Subscription } from 'rxjs';
 import { Web3Model } from '../../Models/web3.model';
 declare let require: any;
 
@@ -16,52 +16,62 @@ export class Web3Service {
   public Web3Details$: BehaviorSubject<Web3Model> = new BehaviorSubject<
     Web3Model
   >({
-    account: 'User not Logged in',
-    network: 'User not connected'
+    account: null,
+    network: null
   });
   RefreshedAccount = interval(1000);
+  private AccountSubscription: Subscription;
   public async web3login() {
-    // check dapp browser
-    if (window.ethereum || window.web3) {
-      // Modern dapp browsers...
-      if (window.ethereum) {
-        window.web3 = new Web3(ethereum);
-        try {
-          // Request account access if needed
-          await ethereum.enable();
-          // Acccounts now exposed
-        } catch (error) {
-          // User denied account access...
-          console.log(error);
+    return new Promise(async (resolve, reject) => {
+      // check dapp browser
+      if (window.ethereum || window.web3) {
+        // Modern dapp browsers...
+        if (window.ethereum) {
+          window.web3 = new Web3(ethereum);
+          try {
+            // Request account access if needed
+            await ethereum.enable();
+            // Acccounts now exposed
+          } catch (error) {
+            // User denied account access...
+            reject(error);
+          }
         }
-      }
-      //Legacy dapp browsers...
-      else {
-        window.web3 = new Web3(web3.currentProvider);
-        // // Acccounts always exposed
-        // web3.eth.sendTransaction({
-        //   /* ... */
-        // });
-      }
-      this.RefreshedAccount.subscribe(async () => {
-        let Account = await this.GetAccount();
-        const Network = await this.GetNetwork();
-        console.log('Network id', Network);
-        if (Account == null) {
-          Account = 'User not Logged in';
+        //Legacy dapp browsers...
+        else {
+          window.web3 = new Web3(web3.currentProvider);
+          // // Acccounts always exposed
+          // web3.eth.sendTransaction({
+          //   /* ... */
+          // });
         }
-        this.Web3Details$.next({
-          account: Account,
-          network: Network
+        this.AccountSubscription = this.RefreshedAccount.subscribe(async () => {
+          let Account = await this.GetAccount();
+          const Network = await this.GetNetwork();
+          if (Account == null) {
+            Account = null;
+          }
+          this.Web3Details$.next({
+            account: Account,
+            network: Network
+          });
+          resolve('Logged In');
         });
-      });
-    }
-    // Non-dapp browsers...
-    else {
-      console.log(
-        'Non-Ethereum browser detected. You should consider trying MetaMask!'
-      );
-    }
+      }
+      // Non-dapp browsers...
+      else {
+        reject(
+          'Non-Ethereum browser detected. You should consider trying MetaMask!'
+        );
+      }
+    });
+  }
+  public async web3logout() {
+    this.AccountSubscription.unsubscribe();
+    this.Web3Details$.next({
+      account: null,
+      network: null
+    });
   }
   private async GetAccount(): Promise<string> {
     return new Promise((resolve, reject) => {
