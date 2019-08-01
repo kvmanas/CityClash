@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, interval } from 'rxjs';
+import { Web3Model } from '../../Model/web3.model';
 declare let require: any;
 
 const Web3 = require('web3');
@@ -12,9 +13,12 @@ declare let web3: any;
 })
 export class Web3Service {
   constructor() {}
-  public address$: BehaviorSubject<string> = new BehaviorSubject<string>(
-    'User not Logged in'
-  );
+  public Web3Details$: BehaviorSubject<Web3Model> = new BehaviorSubject<
+    Web3Model
+  >({
+    account: 'User not Logged in',
+    network: null
+  });
   RefreshedAccount = interval(1000);
   public async web3login() {
     // check dapp browser
@@ -41,10 +45,15 @@ export class Web3Service {
       }
       this.RefreshedAccount.subscribe(async () => {
         let Account = await this.GetAccount();
+        const Network = await this.GetNetwork();
+        console.log('Network id', Network);
         if (Account == null) {
           Account = 'User not Logged in';
         }
-        this.address$.next(Account);
+        this.Web3Details$.next({
+          account: Account,
+          network: Network
+        });
       });
     }
     // Non-dapp browsers...
@@ -54,22 +63,47 @@ export class Web3Service {
       );
     }
   }
-  private async GetAccount() {
-    return web3.eth.getAccounts((err, accs) => {
-      if (err != null) {
-        console.warn('There was an error fetching your accounts.');
-        return null;
-      }
+  private async GetAccount(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      web3.eth.getAccounts((err, accs) => {
+        if (err != null) {
+          reject('There was an error fetching your accounts.');
+        }
 
-      // Get the initial account balance so it can be displayed.
-      if (accs.length === 0) {
-        console.warn(
-          "Couldn't get any accounts! Make sure your Ethereum client is configured correctly."
-        );
-        return null;
-      } else {
-        return accs[0];
-      }
+        // Get the initial account balance so it can be displayed.
+        if (accs.length === 0) {
+          reject(
+            "Couldn't get any accounts! Make sure your Ethereum client is configured correctly."
+          );
+        } else {
+          resolve(accs[0]);
+        }
+      });
+    });
+  }
+  private GetNetwork(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      window.web3.eth.net.getId((err, netId) => {
+        if (err) {
+          reject('Something Went Wrong, while getting network ID ');
+        }
+        switch (netId) {
+          case 1:
+            resolve('Main');
+            break;
+          case 3:
+            resolve('Ropsten');
+            break;
+          case 42:
+            resolve('Kovan');
+            break;
+          case 4:
+            resolve('Rinkeby');
+            break;
+          default:
+            resolve(null);
+        }
+      });
     });
   }
 }

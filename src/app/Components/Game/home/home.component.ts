@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Web3Service } from '../../Services/Web3/web3.service';
+import { Web3Service } from '../../../Services/Web3/web3.service';
 
 @Component({
   selector: 'app-home',
@@ -8,11 +8,7 @@ import { Web3Service } from '../../Services/Web3/web3.service';
 })
 export class HomeComponent implements OnInit {
   constructor(private web3service: Web3Service) {}
-  ngOnInit() {
-    this.web3service.address$.subscribe(data => {
-      //console.log(data);
-    });
-  }
+  ngOnInit() {}
   login = () => {
     this.web3service.web3login();
   };
