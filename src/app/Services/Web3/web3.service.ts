@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, interval } from 'rxjs';
 declare let require: any;
 
 const Web3 = require('web3');
@@ -11,7 +12,9 @@ declare let web3: any;
 })
 export class Web3Service {
   constructor() {}
-
+  public address$: BehaviorSubject<string> = new BehaviorSubject<string>(
+    'User not Logged in'
+  );
   public async web3login() {
     // Modern dapp browsers...
     if (window.ethereum) {
@@ -19,7 +22,11 @@ export class Web3Service {
       try {
         // Request account access if needed
         await ethereum.enable();
-        this.GetAccount();
+        const RefreshedAccount = interval(1000);
+        RefreshedAccount.subscribe(async () => {
+          let asd = await this.GetAccount();
+          this.address$.next(asd);
+        });
         // Acccounts now exposed
       } catch (error) {
         // User denied account access...
@@ -29,7 +36,11 @@ export class Web3Service {
     // Legacy dapp browsers...
     else if (window.web3) {
       window.web3 = new Web3(web3.currentProvider);
-      this.GetAccount();
+      const RefreshedAccount = interval(1000);
+      RefreshedAccount.subscribe(async () => {
+        let asd = await this.GetAccount();
+        this.address$.next(asd);
+      });
       // // Acccounts always exposed
       // web3.eth.sendTransaction({
       //   /* ... */
@@ -42,11 +53,11 @@ export class Web3Service {
       );
     }
   }
-  private GetAccount() {
-    web3.eth.getAccounts((err, accs) => {
+  private async GetAccount() {
+    return web3.eth.getAccounts((err, accs) => {
       if (err != null) {
         console.warn('There was an error fetching your accounts.');
-        return;
+        return 'null';
       }
 
       // Get the initial account balance so it can be displayed.
@@ -54,9 +65,9 @@ export class Web3Service {
         console.warn(
           "Couldn't get any accounts! Make sure your Ethereum client is configured correctly."
         );
-        return;
+        return 'null';
       } else {
-        console.log(accs);
+        return accs[0];
       }
     });
   }
