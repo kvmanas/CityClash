@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
   constructor(private web3service: Web3Service) {}
   ngOnInit() {
     this.web3service.address$.subscribe(data => {
-      console.log(data);
+      //console.log(data);
     });
   }
   login = () => {

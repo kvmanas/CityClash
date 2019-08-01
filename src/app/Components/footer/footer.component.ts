@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Web3Service } from '../../Services/Web3/web3.service';
 
 @Component({
   selector: 'app-footer',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  UserAddress: string;
+  constructor(private web3service: Web3Service) {
+    this.web3service.address$.subscribe(data => {
+      this.UserAddress = data;
+    });
   }
 
+  ngOnInit() {}
 }
