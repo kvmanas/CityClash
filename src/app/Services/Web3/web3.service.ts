@@ -20,7 +20,7 @@ export class Web3Service {
     network: null
   });
   RefreshedAccount = interval(1000);
-  private AccountSubscription: Subscription;
+  public AccountSubscription: Subscription;
   public async web3login() {
     return new Promise(async (resolve, reject) => {
       // check dapp browser
@@ -48,13 +48,16 @@ export class Web3Service {
         this.AccountSubscription = this.RefreshedAccount.subscribe(async () => {
           let Account = await this.GetAccount();
           const Network = await this.GetNetwork();
-          if (Account == null) {
-            Account = null;
-          }
           this.Web3Details$.next({
             account: Account,
             network: Network
           });
+          localStorage.setItem('isLogged', 'true');
+          if (Account == null) {
+            await this.web3logout();
+            Account = null;
+            reject('Something Went Wrong');
+          }
           resolve('Logged In');
         });
       }
@@ -72,19 +75,18 @@ export class Web3Service {
       account: null,
       network: null
     });
+    localStorage.setItem('isLogged', 'false');
   }
   private async GetAccount(): Promise<string> {
     return new Promise((resolve, reject) => {
       web3.eth.getAccounts((err, accs) => {
         if (err != null) {
-          reject('There was an error fetching your accounts.');
+          resolve(null);
         }
 
         // Get the initial account balance so it can be displayed.
         if (accs.length === 0) {
-          reject(
-            "Couldn't get any accounts! Make sure your Ethereum client is configured correctly."
-          );
+          resolve(null);
         } else {
           resolve(accs[0]);
         }

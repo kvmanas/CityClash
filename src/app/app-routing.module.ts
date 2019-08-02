@@ -28,7 +28,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'Villages',
+    path: 'Game',
     component: GrouterComponent,
     canActivate: [AuthGuard],
     children: [
@@ -37,7 +37,7 @@ const routes: Routes = [
         component: GmainComponent
       },
       {
-        path: 'Build',
+        path: 'Village',
         component: BuildComponent
       }
     ]

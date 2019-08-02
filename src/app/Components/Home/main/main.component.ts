@@ -9,9 +9,15 @@ import { Router } from '@angular/router';
 })
 export class MainComponent implements OnInit {
   constructor(private web3service: Web3Service, private route: Router) {}
-  ngOnInit() {}
+
+  async ngOnInit() {
+    const isLogged = sessionStorage.getItem('isLogged');
+    if (isLogged === 'true') {
+      this.route.navigateByUrl('/Game');
+    }
+  }
   login = async () => {
     await this.web3service.web3login();
-    this.route.navigateByUrl('/Villages');
+    this.route.navigateByUrl('/Game');
   };
 }
