@@ -16,6 +16,21 @@ contract CityClash is Ownable{
     mapping(address => PlayerModel) public Players;
     address public CityToken;
     uint256 private TownBasicPrice;
+    uint256 public SellCommission;
+    struct MarketOrders{
+        address SellVillage;
+        address payable Seller;
+        uint256 TownPosition;
+        address Buyer;
+        uint256 SellPrice;
+        bool IsFilled;
+    }
+    MarketOrders[] public SellOrders;
+    // struct BuildingModel{
+    //     uint256 id;
+
+    // }
+
     constructor( uint256 initialSupply,
         string memory tokenName,
         uint8 decimalUnits,
@@ -48,6 +63,54 @@ contract CityClash is Ownable{
         require(VillageOwner[_village] == msg.sender,"User is not Village owner");
         Village(_village).DestroyVillage();
         VillageOwner[_village] = address(0);
+    }
+    /**
+    * This function used to sell village
+    * @param _village address of village to sell
+    * @param _amount sell price
+    * @param _position Village position on User Town list
+    */
+    function SellUserVillage(address _village, uint256 _amount, uint256 _position) public{
+        require(VillageOwner[_village] == msg.sender,"User is not Village owner");
+        require(_amount > 0, "must be greater than zero");
+        //check error when position greater than array
+        require(Players[msg.sender].Towns[_position] == _village,"Invalid Town Index");
+        MarketOrders memory Order;
+        Order.SellVillage = _village;
+        Order.Seller = msg.sender;
+        Order.SellPrice = _amount;
+        Order.TownPosition = _position;
+        SellOrders.push(Order);
+        VillageOwner[_village] = address(this);
+    }
+    /**
+    * This function used to cancel sell village order
+    * @param _position Array Index of Sell Orders list
+    */
+    function CancelSellOrder(uint256 _position) public{
+        require(_position > 0 && _position < SellOrders.length,"Invalid Array Index");
+        MarketOrders memory village = SellOrders[_position];
+        require(VillageOwner[village.SellVillage] == address(this),"Order already filled/canceled");
+        require(village.Seller == msg.sender,"Order is not Made by user");
+        SellOrders[_position].IsFilled = true;
+        VillageOwner[village.SellVillage] = msg.sender;
+    }
+    /**
+    * This function used to buy another user village
+    * @param _position Array Index of Sell Orders list
+    */
+    function BuyUserVillage(uint256 _position) public payable{
+        require(_position > 0 && _position < SellOrders.length,"Invalid Array Index");
+        MarketOrders memory village = SellOrders[_position];
+        require(VillageOwner[village.SellVillage] == address(this),"Order already filled/canceled");
+        require(village.Seller != msg.sender,"Order Made by user, use Cancel Order insted");
+        require(msg.value == village.SellPrice,"Price not matched");
+        village.Seller.transfer(msg.value);
+        SellOrders[_position].IsFilled = true;
+        VillageOwner[village.SellVillage] = msg.sender;
+        Players[msg.sender].Towns.push(village.SellVillage);
+        Players[village.Seller].Towns[village.TownPosition] = address(0);
+        //impliment gem reducton from user and give seller gem  , deduct commission from seller
     }
     /**
     * This function handles deposits of Gems to the contract.
