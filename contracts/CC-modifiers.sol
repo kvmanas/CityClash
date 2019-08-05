@@ -32,6 +32,6 @@ contract CCmodifiers{
         require(_address1 != _address2,"Address is equal");
     }
     function isSameValue(uint256 _value1,uint256 _value2) internal pure{
-        require(_value1 == _value1,"Value not equal");
+        require(_value1 == _value2,"Value not equal");
     }
 }
