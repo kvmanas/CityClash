@@ -59,12 +59,8 @@ contract CityClash is Ownable{
     * Requires Gems to create new village.
     * Required Gems = (Number of Villages hold by user) * [(Town Basic Price) ** (Number of Villages hold by user)]
     * @param _village address of village to destroy
+    * @param _position position of village to destroy
     */
-    function DestroyUserVillage(address _village) public{
-        require(VillageOwner[_village] == msg.sender,"User is not Village owner");
-        Village(_village).DestroyVillage();
-        VillageOwner[_village] = address(0);
-    }
     function DestroyUserVillage(address _village,uint256 _position) public{
         require(VillageOwner[_village] == msg.sender,"User is not Village owner");
         require(_position >= 0 && _position < Players[msg.sender].Towns.length,"Invalid Array Index");

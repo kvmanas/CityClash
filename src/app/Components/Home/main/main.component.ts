@@ -11,7 +11,7 @@ export class MainComponent implements OnInit {
   constructor(private web3service: Web3Service, private route: Router) {}
 
   async ngOnInit() {
-    const isLogged = sessionStorage.getItem('isLogged');
+    const isLogged = localStorage.getItem('isLogged');
     if (isLogged === 'true') {
       this.route.navigateByUrl('/Game');
     }
