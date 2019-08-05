@@ -48,6 +48,7 @@ contract CityClash is Ownable{
         uint256 GemsRequired = NumberOfTown.mul(TownBasicPrice ** NumberOfTown);
         require(Players[msg.sender].GemsCount >= GemsRequired, "insufficient gems");
         Players[msg.sender].GemsCount = Players[msg.sender].GemsCount.sub(GemsRequired);
+        Players[owner()].GemsCount = Players[owner()].GemsCount.add(GemsRequired);
         address NewTown = address(new Village());
         VillageOwner[NewTown] = msg.sender;
         Villages.push(NewTown);
@@ -64,6 +65,14 @@ contract CityClash is Ownable{
         Village(_village).DestroyVillage();
         VillageOwner[_village] = address(0);
     }
+    function DestroyUserVillage(address _village,uint256 _position) public{
+        require(VillageOwner[_village] == msg.sender,"User is not Village owner");
+        require(_position >= 0 && _position < Players[msg.sender].Towns.length,"Invalid Array Index");
+        require(Players[msg.sender].Towns[_position] == _village,"Invalid Town Index");
+        Village(_village).DestroyVillage();
+        VillageOwner[_village] = address(0);
+        Players[msg.sender].Towns[_position] = address(0);
+    }
     /**
     * This function used to sell village
     * @param _village address of village to sell
@@ -73,7 +82,7 @@ contract CityClash is Ownable{
     function SellUserVillage(address _village, uint256 _amount, uint256 _position) public{
         require(VillageOwner[_village] == msg.sender,"User is not Village owner");
         require(_amount > 0, "must be greater than zero");
-        //check error when position greater than array
+        require(_position >= 0 && _position < Players[msg.sender].Towns.length,"Invalid Array Index");
         require(Players[msg.sender].Towns[_position] == _village,"Invalid Town Index");
         MarketOrders memory Order;
         Order.SellVillage = _village;
@@ -88,7 +97,7 @@ contract CityClash is Ownable{
     * @param _position Array Index of Sell Orders list
     */
     function CancelSellOrder(uint256 _position) public{
-        require(_position > 0 && _position < SellOrders.length,"Invalid Array Index");
+        require(_position >= 0 && _position < SellOrders.length,"Invalid Array Index");
         MarketOrders memory village = SellOrders[_position];
         require(VillageOwner[village.SellVillage] == address(this),"Order already filled/canceled");
         require(village.Seller == msg.sender,"Order is not Made by user");
@@ -100,11 +109,19 @@ contract CityClash is Ownable{
     * @param _position Array Index of Sell Orders list
     */
     function BuyUserVillage(uint256 _position) public payable{
-        require(_position > 0 && _position < SellOrders.length,"Invalid Array Index");
+        require(_position >= 0 && _position < SellOrders.length,"Invalid Array Index");
         MarketOrders memory village = SellOrders[_position];
         require(VillageOwner[village.SellVillage] == address(this),"Order already filled/canceled");
         require(village.Seller != msg.sender,"Order Made by user, use Cancel Order insted");
         require(msg.value == village.SellPrice,"Price not matched");
+        uint256 NumberOfTown = Players[msg.sender].Towns.length;
+        uint256 GemsRequired = NumberOfTown.mul(TownBasicPrice ** NumberOfTown).div(2);
+        require(Players[msg.sender].GemsCount >= GemsRequired, "insufficient gems");
+        Players[msg.sender].GemsCount = Players[msg.sender].GemsCount.sub(GemsRequired);
+        uint256 GemtoSeller = GemsRequired.mul(SellCommission).div(100);
+        uint256 GemtoOwner = GemsRequired.sub(GemtoSeller);
+        Players[village.Seller].GemsCount = Players[village.Seller].GemsCount.add(GemtoSeller);
+        Players[owner()].GemsCount = Players[owner()].GemsCount.add(GemtoOwner);
         village.Seller.transfer(msg.value);
         SellOrders[_position].IsFilled = true;
         VillageOwner[village.SellVillage] = msg.sender;
