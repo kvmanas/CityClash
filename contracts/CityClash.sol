@@ -4,28 +4,13 @@ import "./Ownable.sol";
 import "./Village.sol";
 import "./ERC20.sol";
 import "./IERC20.sol";
-contract CityClash is Ownable{
+import "./CC-modifiers.sol";
+
+contract CityClash is Ownable , CCmodifiers{
     using SafeMath for uint256;
-    address[] public Villages;
-    struct PlayerModel{
-        uint256 LastAttack;
-        address[] Towns;
-        uint256 GemsCount;
-    }
-    mapping(address => address) public VillageOwner;
-    mapping(address => PlayerModel) public Players;
     address public CityToken;
     uint256 private TownBasicPrice;
     uint256 public SellCommission;
-    struct MarketOrders{
-        address SellVillage;
-        address payable Seller;
-        uint256 TownPosition;
-        address Buyer;
-        uint256 SellPrice;
-        bool IsFilled;
-    }
-    MarketOrders[] public SellOrders;
     // struct BuildingModel{
     //     uint256 id;
 
@@ -44,15 +29,13 @@ contract CityClash is Ownable{
     * Required Gems = (Number of Villages hold by user) * [(Town Basic Price) ** (Number of Villages hold by user)]
     */
     function CreateVillage() public{
-        uint256 NumberOfTown = Players[msg.sender].Towns.length;
+        uint256 NumberOfTown = Game.getPlayerTowns().length;
         uint256 GemsRequired = NumberOfTown.mul(TownBasicPrice ** NumberOfTown);
-        require(Players[msg.sender].GemsCount >= GemsRequired, "insufficient gems");
-        Players[msg.sender].GemsCount = Players[msg.sender].GemsCount.sub(GemsRequired);
-        Players[owner()].GemsCount = Players[owner()].GemsCount.add(GemsRequired);
+        Game.subThisPlayerGems(GemsRequired);
+        Game.addPlayerGems(address(this),GemsRequired);
         address NewTown = address(new Village());
-        VillageOwner[NewTown] = msg.sender;
-        Villages.push(NewTown);
-        Players[msg.sender].Towns.push(NewTown);
+        Game.Villages.push(NewTown);
+        Game.addPlayerVillage(NewTown);
     }
     /**
     * This function handles creation of new village
@@ -61,13 +44,13 @@ contract CityClash is Ownable{
     * @param _village address of village to destroy
     * @param _position position of village to destroy
     */
-    function DestroyUserVillage(address _village,uint256 _position) public{
-        require(VillageOwner[_village] == msg.sender,"User is not Village owner");
-        require(_position >= 0 && _position < Players[msg.sender].Towns.length,"Invalid Array Index");
-        require(Players[msg.sender].Towns[_position] == _village,"Invalid Town Index");
+    function DestroyUserVillage(address _village,uint256 _position) public isVillageOwner
+    isArrayIndex(Game.getPlayerTowns(),_position) {
+        //check provided position and index corresponding to village
+        isSameAddress(Game.getPlayerTowns()[_position],_village);
         Village(_village).DestroyVillage();
-        VillageOwner[_village] = address(0);
-        Players[msg.sender].Towns[_position] = address(0);
+        Game.VillageOwner[_village] = address(0);
+        Game.getPlayerTowns()[_position] = address(0);
     }
     /**
     * This function used to sell village
@@ -75,54 +58,55 @@ contract CityClash is Ownable{
     * @param _amount sell price
     * @param _position Village position on User Town list
     */
-    function SellUserVillage(address _village, uint256 _amount, uint256 _position) public{
-        require(VillageOwner[_village] == msg.sender,"User is not Village owner");
+    function SellUserVillage(address _village, uint256 _amount, uint256 _position) public isVillageOwner
+    isArrayIndex(Game.getPlayerTowns(),_position){
         require(_amount > 0, "must be greater than zero");
-        require(_position >= 0 && _position < Players[msg.sender].Towns.length,"Invalid Array Index");
-        require(Players[msg.sender].Towns[_position] == _village,"Invalid Town Index");
-        MarketOrders memory Order;
+        //check provided position and index corresponding to village
+        isSameAddress(Game.getPlayerTowns()[_position],_village);
+        CClibrary.MarketOrders memory Order;
         Order.SellVillage = _village;
         Order.Seller = msg.sender;
         Order.SellPrice = _amount;
         Order.TownPosition = _position;
-        SellOrders.push(Order);
-        VillageOwner[_village] = address(this);
+        Game.SellOrders.push(Order);
+        Game.VillageOwner[_village] = address(this);
     }
     /**
     * This function used to cancel sell village order
     * @param _position Array Index of Sell Orders list
     */
-    function CancelSellOrder(uint256 _position) public{
-        require(_position >= 0 && _position < SellOrders.length,"Invalid Array Index");
-        MarketOrders memory village = SellOrders[_position];
-        require(VillageOwner[village.SellVillage] == address(this),"Order already filled/canceled");
-        require(village.Seller == msg.sender,"Order is not Made by user");
-        SellOrders[_position].IsFilled = true;
-        VillageOwner[village.SellVillage] = msg.sender;
+    function CancelSellOrder(uint256 _position) public isArrayLength(Game.SellOrders.length,_position){
+        CClibrary.MarketOrders memory village = Game.SellOrders[_position];
+        //check village belongs to contract address
+        // if village not belongs to contract = already filled or cancelled order
+        isSameAddress(Game.VillageOwner[village.SellVillage],address(this));
+        //check Order is made by this user
+        isSameAddress(village.Seller, msg.sender);
+        Game.SellOrders[_position].IsFilled = true;
+        Game.VillageOwner[village.SellVillage] = msg.sender;
     }
     /**
     * This function used to buy another user village
     * @param _position Array Index of Sell Orders list
     */
-    function BuyUserVillage(uint256 _position) public payable{
-        require(_position >= 0 && _position < SellOrders.length,"Invalid Array Index");
-        MarketOrders memory village = SellOrders[_position];
-        require(VillageOwner[village.SellVillage] == address(this),"Order already filled/canceled");
-        require(village.Seller != msg.sender,"Order Made by user, use Cancel Order insted");
-        require(msg.value == village.SellPrice,"Price not matched");
-        uint256 NumberOfTown = Players[msg.sender].Towns.length;
+    function BuyUserVillage(uint256 _position) public payable isArrayLength(Game.SellOrders.length,_position)
+    {
+        CClibrary.MarketOrders memory village = Game.SellOrders[_position];
+        isSameAddress(Game.VillageOwner[village.SellVillage],address(this));
+        //check Order is not made by User
+        isNotSameAddress(village.Seller,msg.sender);
+        isSameValue(msg.value,village.SellPrice);
+        uint256 NumberOfTown = Game.getPlayerTowns().length;
         uint256 GemsRequired = NumberOfTown.mul(TownBasicPrice ** NumberOfTown).div(2);
-        require(Players[msg.sender].GemsCount >= GemsRequired, "insufficient gems");
-        Players[msg.sender].GemsCount = Players[msg.sender].GemsCount.sub(GemsRequired);
+        Game.subThisPlayerGems(GemsRequired);
         uint256 GemtoSeller = GemsRequired.mul(SellCommission).div(100);
-        uint256 GemtoOwner = GemsRequired.sub(GemtoSeller);
-        Players[village.Seller].GemsCount = Players[village.Seller].GemsCount.add(GemtoSeller);
-        Players[owner()].GemsCount = Players[owner()].GemsCount.add(GemtoOwner);
+        uint256 GemtoContract = GemsRequired.sub(GemtoSeller);
+        Game.addPlayerGems(village.Seller,GemtoSeller);
+        Game.addPlayerGems(address(this),GemtoContract);
         village.Seller.transfer(msg.value);
-        SellOrders[_position].IsFilled = true;
-        VillageOwner[village.SellVillage] = msg.sender;
-        Players[msg.sender].Towns.push(village.SellVillage);
-        Players[village.Seller].Towns[village.TownPosition] = address(0);
+        Game.SellOrders[_position].IsFilled = true;
+        Game.addPlayerVillage(village.SellVillage);
+        Game.Players[village.Seller].Towns[village.TownPosition] = address(0);
         //impliment gem reducton from user and give seller gem  , deduct commission from seller
     }
     /**
@@ -133,16 +117,15 @@ contract CityClash is Ownable{
     */
     function depositGems(uint256 _amount) public {
         require(IToken(CityToken).transferFrom(msg.sender, address(this), _amount),"Token Transfer Error");
-        Players[msg.sender].GemsCount = Players[msg.sender].GemsCount.add(_amount);
+        Game.addPlayerGems(msg.sender,_amount);
     }
     /**
     *This function handles withdrawals of Gems from the contract.
     * If token transfer fails, transaction is reverted and remaining gas is refunded.
     * @param _amount uint of the amount of the token the user wishes to withdraw
     */
-    function withdrawGems(uint256 _amount) public {
-        require(Players[msg.sender].GemsCount >= _amount,"insufficient balance");
-        Players[msg.sender].GemsCount = Players[msg.sender].GemsCount.sub(_amount);
+    function withdrawGems(uint256 _amount) public HaveGem(_amount) {
+        Game.subThisPlayerGems(_amount);
         require(IToken(CityToken).transfer(msg.sender, _amount),"Token Transfer Error");
     }
 
@@ -151,9 +134,13 @@ contract CityClash is Ownable{
     * Only Owner  can execute this function.
     * @param _value  Basic price of the town
     */
-    function changeTownBasicPrice(uint256 _value) public onlyOwner{
+    function changeTownBasicPrice(uint256 _value) public{
         require(_value >= 0, "Value must be greater than zero");
         TownBasicPrice = _value;
+    }
+    function changeSellCommission(uint256 _value) public{
+        require(_value >= 0 && _value <= 100, "Value must be b/w 0 to 100");
+        SellCommission = _value;
     }
 
 }
