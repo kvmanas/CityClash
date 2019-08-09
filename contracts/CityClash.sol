@@ -42,7 +42,7 @@ contract CityClash is Ownable , CCmodifiers{
     * @param _village address of village to destroy
     * @param _position position of village to destroy
     */
-    function DestroyUserVillage(address _village,uint256 _position) public isVillageOwner
+    function DestroyUserVillage(address _village,uint256 _position) public isVillageOwner(_village)
     isArrayIndex(Game.getPlayerTowns(),_position) {
         //check provided position and index corresponding to village
         isSameAddress(Game.getPlayerTowns()[_position],_village);
@@ -57,7 +57,7 @@ contract CityClash is Ownable , CCmodifiers{
     * @param _amount sell price
     * @param _position Village position on User Town list
     */
-    function SellUserVillage(address _village, uint256 _amount, uint256 _position) public isVillageOwner
+    function SellUserVillage(address _village, uint256 _amount, uint256 _position) public isVillageOwner(_village)
     isArrayIndex(Game.getPlayerTowns(),_position){
         require(_amount > 0, "must be greater than zero");
         //check provided position and index corresponding to village

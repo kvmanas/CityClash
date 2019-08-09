@@ -2,8 +2,8 @@ pragma solidity ^0.5.0;
 import "./CC-variables.sol";
 contract CCmodifiers is CCvariables{
     //check User is Village owner
-    modifier isVillageOwner() {
-        require(Game.VillageOwner[msg.sender] == msg.sender,"User is not Village owner");
+    modifier isVillageOwner(address _Village) {
+        require(Game.VillageOwner[_Village] == msg.sender,"User is not Village owner");
         _;
     }
     /**
