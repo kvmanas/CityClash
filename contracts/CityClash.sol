@@ -1,5 +1,4 @@
 pragma solidity ^0.5.0;
-import "./SafeMath.sol";
 import "./Ownable.sol";
 import "./Village.sol";
 import "./ERC20.sol";
@@ -7,9 +6,8 @@ import "./IERC20.sol";
 import "./CC-modifiers.sol";
 
 contract CityClash is Ownable , CCmodifiers{
-    using SafeMath for uint256;
     address public CityToken;
-    uint256 private TownBasicPrice;
+    uint256 public TownBasicPrice;
     uint256 public SellCommission;
     // struct BuildingModel{
     //     uint256 id;
@@ -134,11 +132,16 @@ contract CityClash is Ownable , CCmodifiers{
     * Only Owner  can execute this function.
     * @param _value  Basic price of the town
     */
-    function changeTownBasicPrice(uint256 _value) public{
+    function changeTownBasicPrice(uint256 _value) public onlyOwner{
         require(_value >= 0, "Value must be greater than zero");
         TownBasicPrice = _value;
     }
-    function changeSellCommission(uint256 _value) public{
+     /**
+    *This function handles changing of Town sell commission in Gems.
+    * Only Owner  can execute this function.
+    * @param _value  Basic price of the town
+    */
+    function changeSellCommission(uint256 _value) public onlyOwner{
         require(_value >= 0 && _value <= 100, "Value must be b/w 0 to 100");
         SellCommission = _value;
     }
