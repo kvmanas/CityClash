@@ -148,4 +148,40 @@ contract CityClash is Ownable , CCmodifiers{
         SellCommission = _value;
     }
 
+    function AddBuilding(bytes32 _name, bytes32 _hash) public onlyOwner{
+        CClibrary.BuildingModel memory NewBuilding;
+        NewBuilding.name = _name;
+        NewBuilding.image = _hash;
+        Game.Buildings.push(NewBuilding);
+    }
+    function AddTroops(bytes32 _name, bytes32 _hash) public onlyOwner{
+        CClibrary.TroopsModel memory NewTroop;
+        NewTroop.name = _name;
+        NewTroop.image = _hash;
+        Game.Troops.push(NewTroop);
+    }
+    //upgrade or add upgrade details
+    function ChangeBuildingUpgrade(uint256 _ID, uint256 _level, uint256 _RequiredBuilding, uint256 _RequiredLevel, uint256 _RequiredGold, uint256 _RequiredElixr, uint256 _RequiredGem, uint256 _GoldRate, uint256 _ElixrRate, uint256 _GemReward) public onlyOwner{
+        CClibrary.UpgradeModel memory NewUpgrade;
+        NewUpgrade.RequiredBuilding = _RequiredBuilding;
+        NewUpgrade.RequiredLevel = _RequiredLevel;
+        NewUpgrade.RequiredGold = _RequiredGold;
+        NewUpgrade.RequiredElixr = _RequiredElixr;
+        NewUpgrade.RequiredGem = _RequiredGem;
+        NewUpgrade.GoldRate = _GoldRate;
+        NewUpgrade.ElixrRate = _ElixrRate;
+        NewUpgrade.GemReward = _GemReward;
+        Game.Buildings[_ID].Upgrade[_level] = NewUpgrade;
+    }
+    function ChangeTroopTrain(uint256 _ID, uint256 _level, uint256 _Defence, uint256 _Attack, uint256 _Steal, uint256 _RequiredGold, uint256 _RequiredElixr, uint256 _RequiredGem) public onlyOwner{
+        CClibrary.TrainModel memory NewTrain;
+        NewTrain.Defence = _Defence;
+        NewTrain.Attack = _Attack;
+        NewTrain.Steal = _Steal;
+        NewTrain.RequiredGold = _RequiredGold;
+        NewTrain.RequiredElixr = _RequiredElixr;
+        NewTrain.RequiredGem = _RequiredGem;
+        Game.Troops[_ID].Train[_level] = NewTrain;
+    }
+
 }

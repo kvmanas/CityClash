@@ -18,11 +18,42 @@ library CClibrary{
         uint256 SellPrice;
         bool IsFilled;
     }
+    struct UpgradeModel{
+        uint256 RequiredBuilding;
+        uint256 RequiredLevel;
+        uint256 RequiredGold;
+        uint256 RequiredElixr;
+        uint256 RequiredGem;
+        uint256 GoldRate;
+        uint256 ElixrRate;
+        uint256 GemReward;
+    }
+    struct BuildingModel{
+        bytes32 name;
+        bytes32 image;
+        mapping(uint256 => UpgradeModel) Upgrade;
+    }
+    struct TrainModel{
+        uint256 Defence;
+        uint256 Attack;
+        uint256 Steal;
+        uint256 RequiredGold;
+        uint256 RequiredElixr;
+        uint256 RequiredGem;
+        //future troop housesapce implimentaton
+    }
+    struct TroopsModel{
+        bytes32 name;
+        bytes32 image;
+        mapping(uint256 => TrainModel) Train;
+    }
     struct CCModel{
         address[] Villages;
         mapping(address => address) VillageOwner;
         mapping(address => PlayerModel) Players;
         MarketOrders[] SellOrders;
+        BuildingModel[] Buildings;
+        TroopsModel[] Troops;
     }
     /**
     * Get Player Town details as array

@@ -111,6 +111,4 @@ contract CCvariables{
         }
         return (_SellVillage, _Seller, _Buyer, _SellPrice, _Position);
     }
-
-
 }
