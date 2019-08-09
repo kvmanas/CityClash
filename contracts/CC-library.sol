@@ -29,7 +29,7 @@ library CClibrary{
     * @param self Game
     * @return user town address
     */
-    function getPlayerTowns(CCModel storage self) public view returns(address[] memory){
+    function getPlayerTowns(CCModel storage self) internal view returns(address[] memory){
         return self.Players[msg.sender].Towns;
     }
      /**

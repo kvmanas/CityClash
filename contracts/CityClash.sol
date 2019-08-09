@@ -48,7 +48,8 @@ contract CityClash is Ownable , CCmodifiers{
         isSameAddress(Game.getPlayerTowns()[_position],_village);
         Village(_village).DestroyVillage();
         Game.VillageOwner[_village] = address(0);
-        Game.getPlayerTowns()[_position] = address(0);
+        Game.Players[msg.sender].Towns[_position] = Game.getPlayerTowns()[Game.getPlayerTowns().length - 1];
+        Game.Players[msg.sender].Towns.pop();
     }
     /**
     * This function used to sell village
@@ -104,7 +105,8 @@ contract CityClash is Ownable , CCmodifiers{
         village.Seller.transfer(msg.value);
         Game.SellOrders[_position].IsFilled = true;
         Game.addPlayerVillage(village.SellVillage);
-        Game.Players[village.Seller].Towns[village.TownPosition] = address(0);
+        Game.Players[village.Seller].Towns[village.TownPosition] = Game.Players[village.Seller].Towns[ Game.Players[village.Seller].Towns.length - 1 ];
+        Game.Players[village.Seller].Towns.pop();
         //impliment gem reducton from user and give seller gem  , deduct commission from seller
     }
     /**
@@ -139,7 +141,7 @@ contract CityClash is Ownable , CCmodifiers{
      /**
     *This function handles changing of Town sell commission in Gems.
     * Only Owner  can execute this function.
-    * @param _value  Basic price of the town
+    * @param _value  sell commision in percentage
     */
     function changeSellCommission(uint256 _value) public onlyOwner{
         require(_value >= 0 && _value <= 100, "Value must be b/w 0 to 100");
