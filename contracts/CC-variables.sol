@@ -18,6 +18,9 @@ contract CCvariables{
         _LastAttack = Game.Players[_player].LastAttack;
         _GemsCount = Game.Players[_player].GemsCount;
     }
+    function GetPlayerGems(address _player) public view  returns(uint256 _GemsCount){
+        _GemsCount = Game.Players[_player].GemsCount;
+    }
     /**
     * function to Get All Villages .
     * @return  Villages
@@ -111,4 +114,19 @@ contract CCvariables{
         }
         return (_SellVillage, _Seller, _Buyer, _SellPrice, _Position);
     }
+
+    function GetBuildingUpgrades(uint256 _ID, uint256 _level) public view
+    returns(uint256 _RequiredBuilding, uint256 _RequiredLevel, uint256 _RequiredGold, uint256 _RequiredElixr,
+    uint256 _RequiredGem, uint256 _GoldRate, uint256 _ElixrRate, uint256 _GemReward, uint256 _Time){
+        _RequiredBuilding = Game.Buildings[_ID].Upgrade[_level].RequiredBuilding;
+        _RequiredLevel = Game.Buildings[_ID].Upgrade[_level].RequiredLevel;
+        _RequiredGold = Game.Buildings[_ID].Upgrade[_level].RequiredGold;
+        _RequiredElixr = Game.Buildings[_ID].Upgrade[_level].RequiredElixr;
+        _RequiredGem = Game.Buildings[_ID].Upgrade[_level].RequiredGem;
+        _GoldRate = Game.Buildings[_ID].Upgrade[_level].GoldRate;
+        _ElixrRate = Game.Buildings[_ID].Upgrade[_level].ElixrRate;
+        _GemReward = Game.Buildings[_ID].Upgrade[_level].GemReward;
+        _Time = Game.Buildings[_ID].Upgrade[_level].Time;
+    }
+
 }

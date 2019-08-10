@@ -27,6 +27,7 @@ library CClibrary{
         uint256 GoldRate;
         uint256 ElixrRate;
         uint256 GemReward;
+        uint256 Time;
     }
     struct BuildingModel{
         bytes32 name;
@@ -40,6 +41,8 @@ library CClibrary{
         uint256 RequiredGold;
         uint256 RequiredElixr;
         uint256 RequiredGem;
+        uint256 GemReward;
+        uint256 Time;
         //future troop housesapce implimentaton
     }
     struct TroopsModel{

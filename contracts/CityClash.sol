@@ -154,14 +154,23 @@ contract CityClash is Ownable , CCmodifiers{
         NewBuilding.image = _hash;
         Game.Buildings.push(NewBuilding);
     }
+    function DeleteBuilding(uint256 _ID) public onlyOwner isArrayLength(Game.Buildings.length,_ID){
+        delete Game.Buildings[_ID];
+    }
     function AddTroops(bytes32 _name, bytes32 _hash) public onlyOwner{
         CClibrary.TroopsModel memory NewTroop;
         NewTroop.name = _name;
         NewTroop.image = _hash;
         Game.Troops.push(NewTroop);
     }
+    function DeleteTroops(uint256 _ID) public onlyOwner isArrayLength(Game.Troops.length,_ID){
+        delete Game.Troops[_ID];
+    }
     //upgrade or add upgrade details
-    function ChangeBuildingUpgrade(uint256 _ID, uint256 _level, uint256 _RequiredBuilding, uint256 _RequiredLevel, uint256 _RequiredGold, uint256 _RequiredElixr, uint256 _RequiredGem, uint256 _GoldRate, uint256 _ElixrRate, uint256 _GemReward) public onlyOwner{
+    function ChangeBuildingUpgrade(uint256 _ID, uint256 _level, uint256 _RequiredBuilding,
+    uint256 _RequiredLevel, uint256 _RequiredGold, uint256 _RequiredElixr, uint256 _RequiredGem,
+    uint256 _GoldRate, uint256 _ElixrRate, uint256 _GemReward, uint256 _Time) public
+    isArrayLength(Game.Buildings.length,_ID) onlyOwner{
         CClibrary.UpgradeModel memory NewUpgrade;
         NewUpgrade.RequiredBuilding = _RequiredBuilding;
         NewUpgrade.RequiredLevel = _RequiredLevel;
@@ -171,9 +180,13 @@ contract CityClash is Ownable , CCmodifiers{
         NewUpgrade.GoldRate = _GoldRate;
         NewUpgrade.ElixrRate = _ElixrRate;
         NewUpgrade.GemReward = _GemReward;
+        NewUpgrade.Time = _Time;
         Game.Buildings[_ID].Upgrade[_level] = NewUpgrade;
     }
-    function ChangeTroopTrain(uint256 _ID, uint256 _level, uint256 _Defence, uint256 _Attack, uint256 _Steal, uint256 _RequiredGold, uint256 _RequiredElixr, uint256 _RequiredGem) public onlyOwner{
+    function ChangeTroopTrain(uint256 _ID, uint256 _level, uint256 _Defence, uint256 _Attack,
+    uint256 _Steal, uint256 _RequiredGold, uint256 _RequiredElixr, uint256 _RequiredGem
+    , uint256 _Time) public
+    isArrayLength(Game.Troops.length,_ID) onlyOwner{
         CClibrary.TrainModel memory NewTrain;
         NewTrain.Defence = _Defence;
         NewTrain.Attack = _Attack;
@@ -181,7 +194,7 @@ contract CityClash is Ownable , CCmodifiers{
         NewTrain.RequiredGold = _RequiredGold;
         NewTrain.RequiredElixr = _RequiredElixr;
         NewTrain.RequiredGem = _RequiredGem;
+        NewTrain.Time = _Time;
         Game.Troops[_ID].Train[_level] = NewTrain;
     }
-
 }
