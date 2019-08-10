@@ -6,6 +6,10 @@ contract CCmodifiers is CCvariables{
         require(Game.VillageOwner[_Village] == msg.sender,"User is not Village owner");
         _;
     }
+    modifier isVillage() {
+        require(Game.VillageOwner[msg.sender] != address(0),"User is not Village owner");
+        _;
+    }
     /**
     * check User has Gem to pay
     * @param _amount Gem amount

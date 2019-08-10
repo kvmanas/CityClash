@@ -1,12 +1,11 @@
 pragma solidity ^0.5.0;
 import "./Ownable.sol";
 import "./ICityClash.sol";
-import "./SafeMath.sol":
+import "./SafeMath.sol";
 
 contract Village is Ownable{
     using SafeMath for uint256;
     struct TroopsModel{
-        uint256 Level;
         uint256 Number;
         uint256 CoolOff;
     }
@@ -19,7 +18,7 @@ contract Village is Ownable{
         uint256 Elixr;
         uint256 GoldRate;
         uint256 ElixrRate;
-        uint256 LastAttack;
+        uint256 Attack;
         uint256 Defence;
         uint256 Steal;
         uint256 TimeStamp;
@@ -46,20 +45,34 @@ contract Village is Ownable{
         require(UserDetails.Buildings[_ID].CoolOff < now, "Upgrading in Process");
         require(UserDetails.Buildings[_RequiredBuilding].Level >= _RequiredLevel, "Building Requirement not met");
         UpdateUserResources();
-        uint256 GemCount;
-        if(_RequiredGem != 0){
-            GemCount = ICityClash(owner()).GetPlayerGems(msg.sender);
+        require(UserDetails.Gold >= _RequiredGold && UserDetails.Elixr >= _RequiredElixr,
+         "Resources Requirement not met");
+        UserDetails.Gold = UserDetails.Gold.sub(_RequiredGold);
+        UserDetails.Elixr = UserDetails.Elixr.sub(_RequiredElixr);
+        if(_RequiredGem > 0){
+            require(ICityClash(owner()).SubGemFromVillage(msg.sender,_RequiredGem),"No Gem Balance");
         }
-        require(UserDetails.Gold >= _RequiredGold && UserDetails.Elixr >= _RequiredElixr  &&
-        GemCount >= _RequiredGem
-        , "Resources Requirement not met");
-        /////////////////////////////////////////////////////////////
+        UserDetails.GoldRate = UserDetails.GoldRate.add(_GoldRate);
+        UserDetails.ElixrRate = UserDetails.GoldRate.add(_ElixrRate);
+        UserDetails.Buildings[_ID].CoolOff = _Time.add(now);
+        if(_GemReward > 0){
+            require(ICityClash(owner()).AddGemFromVillage(msg.sender,_GemReward),"Something Went Wrong");
+        }
+    }
+
+     function TrainTroops(uint256 _ID, uint256 _count) public isVillageOwner{
+        (uint256 _Defence, uint256 _Attack, uint256 _Steal, uint256 _RequiredGold,
+        uint256 _RequiredElixr, uint256 _RequiredGem, uint256 _Time) =
+        ICityClash(owner()).GetToopsDetails(_ID);
+        require(_Time > 0,"no troop available");
+       /////////////////////////////////////////////////////
     }
 
     function UpdateUserResources() internal{
         uint256 currentTime = now;
         UserDetails.Gold += UserDetails.GoldRate.mul(currentTime.sub(UserDetails.TimeStamp));
         UserDetails.Elixr += UserDetails.ElixrRate.mul(currentTime.sub(UserDetails.TimeStamp));
+        UserDetails.TimeStamp = currentTime;
     }
     function DestroyVillage() external onlyOwner{
         selfdestruct(owner());

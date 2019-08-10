@@ -128,5 +128,16 @@ contract CCvariables{
         _GemReward = Game.Buildings[_ID].Upgrade[_level].GemReward;
         _Time = Game.Buildings[_ID].Upgrade[_level].Time;
     }
+    function GetToopsDetails(uint256 _ID) public view
+    returns(uint256 _Defence, uint256 _Attack, uint256 _Steal, uint256 _RequiredGold,
+    uint256 _RequiredElixr, uint256 _RequiredGem, uint256 _Time){
+        _Defence = Game.Troops[_ID].Train.Defence;
+        _Attack = Game.Troops[_ID].Train.Attack;
+        _Steal = Game.Troops[_ID].Train.Steal;
+        _RequiredGold = Game.Troops[_ID].Train.RequiredGold;
+        _RequiredElixr = Game.Troops[_ID].Train.RequiredElixr;
+        _RequiredGem = Game.Troops[_ID].Train.RequiredGem;
+        _Time = Game.Troops[_ID].Train.Time;
+    }
 
 }

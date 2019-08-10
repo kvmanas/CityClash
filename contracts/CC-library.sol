@@ -41,14 +41,13 @@ library CClibrary{
         uint256 RequiredGold;
         uint256 RequiredElixr;
         uint256 RequiredGem;
-        uint256 GemReward;
         uint256 Time;
         //future troop housesapce implimentaton
     }
     struct TroopsModel{
         bytes32 name;
         bytes32 image;
-        mapping(uint256 => TrainModel) Train;
+        TrainModel Train;
     }
     struct CCModel{
         address[] Villages;
@@ -71,9 +70,9 @@ library CClibrary{
     * @param self Game
     * @param _amount Gem amount to be reduced
     */
-    function subThisPlayerGems(CCModel storage self, uint256 _amount) internal{
-        require(self.Players[msg.sender].GemsCount >= _amount, "insufficient gems");
-        self.Players[msg.sender].GemsCount = self.Players[msg.sender].GemsCount.sub(_amount);
+    function subPlayerGems(CCModel storage self, address _user, uint256 _amount) internal{
+        require(self.Players[_user].GemsCount >= _amount, "insufficient gems");
+        self.Players[_user].GemsCount = self.Players[_user].GemsCount.sub(_amount);
     }
     /**
     * Add Gem to user

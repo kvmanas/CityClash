@@ -29,7 +29,7 @@ contract CityClash is Ownable , CCmodifiers{
     function CreateVillage() public{
         uint256 NumberOfTown = Game.getPlayerTowns().length;
         uint256 GemsRequired = NumberOfTown.mul(TownBasicPrice ** NumberOfTown);
-        Game.subThisPlayerGems(GemsRequired);
+        Game.subPlayerGems(msg.sender,GemsRequired);
         Game.addPlayerGems(address(this),GemsRequired);
         address NewTown = address(new Village());
         Game.Villages.push(NewTown);
@@ -97,7 +97,7 @@ contract CityClash is Ownable , CCmodifiers{
         isSameValue(msg.value,village.SellPrice);
         uint256 NumberOfTown = Game.getPlayerTowns().length;
         uint256 GemsRequired = NumberOfTown.mul(TownBasicPrice ** NumberOfTown).div(2);
-        Game.subThisPlayerGems(GemsRequired);
+        Game.subPlayerGems(msg.sender,GemsRequired);
         uint256 GemtoSeller = GemsRequired.mul(SellCommission).div(100);
         uint256 GemtoContract = GemsRequired.sub(GemtoSeller);
         Game.addPlayerGems(village.Seller,GemtoSeller);
@@ -125,7 +125,7 @@ contract CityClash is Ownable , CCmodifiers{
     * @param _amount uint of the amount of the token the user wishes to withdraw
     */
     function withdrawGems(uint256 _amount) public HaveGem(_amount) {
-        Game.subThisPlayerGems(_amount);
+        Game.subPlayerGems(msg.sender,_amount);
         require(IToken(CityToken).transfer(msg.sender, _amount),"Token Transfer Error");
     }
 
@@ -183,9 +183,8 @@ contract CityClash is Ownable , CCmodifiers{
         NewUpgrade.Time = _Time;
         Game.Buildings[_ID].Upgrade[_level] = NewUpgrade;
     }
-    function ChangeTroopTrain(uint256 _ID, uint256 _level, uint256 _Defence, uint256 _Attack,
-    uint256 _Steal, uint256 _RequiredGold, uint256 _RequiredElixr, uint256 _RequiredGem
-    , uint256 _Time) public
+    function ChangeTroopTrain(uint256 _ID, uint256 _Defence, uint256 _Attack,
+    uint256 _Steal, uint256 _RequiredGold, uint256 _RequiredElixr, uint256 _Time) public
     isArrayLength(Game.Troops.length,_ID) onlyOwner{
         CClibrary.TrainModel memory NewTrain;
         NewTrain.Defence = _Defence;
@@ -193,8 +192,19 @@ contract CityClash is Ownable , CCmodifiers{
         NewTrain.Steal = _Steal;
         NewTrain.RequiredGold = _RequiredGold;
         NewTrain.RequiredElixr = _RequiredElixr;
-        NewTrain.RequiredGem = _RequiredGem;
         NewTrain.Time = _Time;
-        Game.Troops[_ID].Train[_level] = NewTrain;
+        Game.Troops[_ID].Train = NewTrain;
+    }
+    function SubGemFromVillage(address _User, uint256 _amount) public isVillage returns(bool){
+        require(_amount > 0, "Value must be greater than zero");
+        Game.subPlayerGems(_User,_amount);
+        Game.addPlayerGems(address(this),_amount);
+        return true;
+    }
+    function AddGemFromVillage(address _User, uint256 _amount) public isVillage returns(bool){
+        require(_amount > 0, "Value must be greater than zero");
+        Game.subPlayerGems(address(this),_amount);
+        Game.addPlayerGems(_User,_amount);
+        return true;
     }
 }
