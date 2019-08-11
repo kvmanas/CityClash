@@ -6,8 +6,7 @@ import "./SafeMath.sol";
 contract Village is Ownable{
     using SafeMath for uint256;
     struct TroopsModel{
-        uint256 Number;
-        uint256 CoolOff;
+        uint256 Count;
     }
     struct BuildingModel{
         uint256 Level;
@@ -26,7 +25,18 @@ contract Village is Ownable{
         mapping(uint256 => TroopsModel) Troops;
     }
     UserModel public UserDetails;
-
+    struct QueueModel{
+        uint256 ID;
+        uint256 Count;
+        uint256 Time;
+        uint256 Attack;
+        uint256 Defence;
+        uint256 Steal;
+    }
+    mapping(uint256 => QueueModel)  TroopsQueue;
+    uint256 public CompletedQueue;
+    uint256 public TotalQueue;
+    uint256 public completionTime;
     constructor() public{
         UserDetails.GoldRate = 1;
         UserDetails.ElixrRate = 1;
@@ -52,6 +62,7 @@ contract Village is Ownable{
         if(_RequiredGem > 0){
             require(ICityClash(owner()).SubGemFromVillage(msg.sender,_RequiredGem),"No Gem Balance");
         }
+        UpdateUserTroops();
         UserDetails.GoldRate = UserDetails.GoldRate.add(_GoldRate);
         UserDetails.ElixrRate = UserDetails.GoldRate.add(_ElixrRate);
         UserDetails.Buildings[_ID].CoolOff = _Time.add(now);
@@ -65,7 +76,27 @@ contract Village is Ownable{
         uint256 _RequiredElixr, uint256 _RequiredGem, uint256 _Time) =
         ICityClash(owner()).GetToopsDetails(_ID);
         require(_Time > 0,"no troop available");
-       /////////////////////////////////////////////////////
+        UpdateUserResources();
+        require(UserDetails.Gold >= _RequiredGold.mul(_count) && UserDetails.Elixr >=
+        _RequiredElixr.mul(_count),"Resources Requirement not met");
+        UserDetails.Gold = UserDetails.Gold.sub(_RequiredGold.mul(_count));
+        UserDetails.Elixr = UserDetails.Elixr.sub(_RequiredElixr.mul(_count));
+        if(_RequiredGem > 0){
+            require(ICityClash(owner()).SubGemFromVillage(msg.sender,_RequiredGem),"No Gem Balance");
+        }
+        UpdateUserTroops();
+        if(completionTime < now){
+            completionTime = now;
+        }
+        QueueModel memory Queue;
+        Queue.ID = _ID;
+        Queue.Count = _count;
+        Queue.Time = completionTime.add(_count.mul(_Time));
+        Queue.Attack = _Attack.mul(_count);
+        Queue.Defence = _Defence.mul(_count);
+        Queue.Steal = _Steal.mul(_count);
+        TroopsQueue[TotalQueue] = Queue;
+        TotalQueue++;
     }
 
     function UpdateUserResources() internal{
@@ -73,6 +104,15 @@ contract Village is Ownable{
         UserDetails.Gold += UserDetails.GoldRate.mul(currentTime.sub(UserDetails.TimeStamp));
         UserDetails.Elixr += UserDetails.ElixrRate.mul(currentTime.sub(UserDetails.TimeStamp));
         UserDetails.TimeStamp = currentTime;
+    }
+    function UpdateUserTroops() internal{
+        for(uint256 i = CompletedQueue; i < TotalQueue && TroopsQueue[i].Time < now ; i++){
+            UserDetails.Attack = UserDetails.Attack.add(TroopsQueue[i].Attack);
+            UserDetails.Defence = UserDetails.Defence.add(TroopsQueue[i].Defence);
+            UserDetails.Steal = UserDetails.Steal.add(TroopsQueue[i].Steal);
+            UserDetails.Troops[TroopsQueue[i].ID].Count = UserDetails.Troops[TroopsQueue[i].ID].Count.add(TroopsQueue[i].Count);
+            CompletedQueue++;
+        }
     }
     function DestroyVillage() external onlyOwner{
         selfdestruct(owner());
