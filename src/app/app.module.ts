@@ -14,6 +14,7 @@ import { RouterComponent } from './Components/Home/router/router.component';
 import { AboutComponent } from './Components/Home/about/about.component';
 import { GrouterComponent } from './Components/Game/grouter/grouter.component';
 import { BuildComponent } from './Components/Game/build/build.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,12 @@ import { BuildComponent } from './Components/Game/build/build.component';
     GrouterComponent,
     BuildComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, AngularMaterialModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    AngularMaterialModule,
+    SweetAlert2Module.forRoot()
+  ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
