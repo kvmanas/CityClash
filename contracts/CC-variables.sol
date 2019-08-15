@@ -101,7 +101,7 @@ contract CCvariables{
         uint256[] memory _SellPrice = new uint256[](j);
         uint256[] memory _Position = new uint256[](j);
         j = 0;
-        for (uint i = 0; i < Game.SellOrders.length; i++) {
+        for (uint256 i = 0; i < Game.SellOrders.length; i++) {
             if(Game.SellOrders[i].IsFilled){
                 _SellVillage[j] = Game.SellOrders[i].SellVillage;
                 _Seller[j] = Game.SellOrders[i].Seller;
@@ -137,6 +137,27 @@ contract CCvariables{
         _RequiredElixr = Game.Troops[_ID].Train.RequiredElixr;
         _RequiredGem = Game.Troops[_ID].Train.RequiredGem;
         _Time = Game.Troops[_ID].Train.Time;
+    }
+    function GetBuildings() public view returns(uint256[] memory ,bytes32[] memory,bytes32[] memory){
+        uint256 j;
+        for (uint256 i = 0; i < Game.Buildings.length; i++) {
+            if(Game.Buildings[i].state){
+                j++;
+            }
+        }
+        bytes32[] memory _name = new bytes32[](j);
+        bytes32[] memory _image = new bytes32[](j);
+        uint256[] memory _id = new uint256[](j);
+        j = 0;
+        for (uint256 i = 0; i < Game.Buildings.length; i++) {
+            if(Game.Buildings[i].state){
+                _id[j] = i;
+                _name[j] = Game.Buildings[i].name;
+                _image[j] = Game.Buildings[i].image;
+                j++;
+            }
+        }
+        return (_id,_name, _image);
     }
 
 }

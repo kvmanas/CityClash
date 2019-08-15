@@ -32,6 +32,7 @@ library CClibrary{
     struct BuildingModel{
         bytes32 name;
         bytes32 image;
+        bool state;
         mapping(uint256 => UpgradeModel) Upgrade;
     }
     struct TrainModel{

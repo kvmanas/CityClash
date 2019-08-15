@@ -154,6 +154,7 @@ contract CityClash is Ownable , CCmodifiers{
         CClibrary.BuildingModel memory NewBuilding;
         NewBuilding.name = _name;
         NewBuilding.image = _hash;
+        NewBuilding.state = true;
         Game.Buildings.push(NewBuilding);
     }
     function DeleteBuilding(uint256 _ID) public onlyOwner isArrayLength(Game.Buildings.length,_ID){
