@@ -1,6 +1,9 @@
+import { AdminGuard } from './Guards/Admin/admin.guard';
 import { GmainComponent } from './Components/Game/gmain/gmain.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +18,10 @@ import { AboutComponent } from './Components/Home/about/about.component';
 import { GrouterComponent } from './Components/Game/grouter/grouter.component';
 import { BuildComponent } from './Components/Game/build/build.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { AdminrouterComponent } from './Components/Admin/adminrouter/adminrouter.component';
+import { AdminHomeComponent } from './Components/Admin/admin-home/admin-home.component';
+import { AdminBuildComponent } from './Components/Admin/admin-build/admin-build.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,15 +33,21 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     RouterComponent,
     AboutComponent,
     GrouterComponent,
-    BuildComponent
+    BuildComponent,
+    AdminrouterComponent,
+    AdminHomeComponent,
+    AdminBuildComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     AngularMaterialModule,
+    FlexLayoutModule,
     SweetAlert2Module.forRoot()
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

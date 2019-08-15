@@ -4,6 +4,9 @@ import { Web3Model } from '../../Models/web3.model';
 declare let require: any;
 
 const Web3 = require('web3');
+const CCJSON = require('../../../../build/contracts/CityClash.json');
+const ERC20JSON = require('../../../../build/contracts/CityGem.json');
+const VillageJSON = require('../../../../build/contracts/Village.json');
 declare let window: any;
 declare let ethereum: any;
 declare let web3: any;
@@ -17,7 +20,10 @@ export class Web3Service {
     Web3Model
   >({
     account: null,
-    network: null
+    network: null,
+    gameinstance: null,
+    tokenInstance: null,
+    towninstance: null
   });
   RefreshedAccount = interval(1000);
   public AccountSubscription: Subscription;
@@ -45,13 +51,37 @@ export class Web3Service {
           //   /* ... */
           // });
         }
+        // check contract deployed on this network
+        const Net = await this.GetNetwork();
+        if (typeof CCJSON.networks[Net] === 'undefined') {
+          reject('Contract Not Deployed on Network with Id:' + Net);
+        }
+        // observe changes on  account and network
         this.AccountSubscription = this.RefreshedAccount.subscribe(async () => {
           let Account = await this.GetAccount();
           const Network = await this.GetNetwork();
-          this.Web3Details$.next({
-            account: Account,
-            network: Network
-          });
+          if (
+            this.Web3Details$.value.network !== Network ||
+            this.Web3Details$.value.account !== Account
+          ) {
+            const GameInstance = new window.web3.eth.Contract(
+              CCJSON.abi,
+              CCJSON.networks[Network].address
+            );
+            const TokenAddress = await GameInstance.methods.CityToken().call();
+            const TokenInstance = new window.web3.eth.Contract(
+              ERC20JSON.abi,
+              TokenAddress
+            );
+            const TownInstance = new window.web3.eth.Contract(VillageJSON.abi);
+            this.Web3Details$.next({
+              account: Account,
+              network: Network,
+              gameinstance: GameInstance,
+              tokenInstance: TokenInstance,
+              towninstance: TownInstance
+            });
+          }
           localStorage.setItem('isLogged', 'true');
           if (Account == null) {
             await this.web3logout();
@@ -73,7 +103,10 @@ export class Web3Service {
     this.AccountSubscription.unsubscribe();
     this.Web3Details$.next({
       account: null,
-      network: null
+      network: null,
+      gameinstance: null,
+      tokenInstance: null,
+      towninstance: null
     });
     localStorage.setItem('isLogged', 'false');
   }
@@ -99,22 +132,23 @@ export class Web3Service {
         if (err) {
           reject('Something Went Wrong, while getting network ID ');
         }
-        switch (netId) {
-          case 1:
-            resolve('Main');
-            break;
-          case 3:
-            resolve('Ropsten');
-            break;
-          case 42:
-            resolve('Kovan');
-            break;
-          case 4:
-            resolve('Rinkeby');
-            break;
-          default:
-            resolve(null);
-        }
+        resolve(netId);
+        // switch (netId) {
+        //   case 1:
+        //     resolve('Main');
+        //     break;
+        //   case 3:
+        //     resolve('Ropsten');
+        //     break;
+        //   case 42:
+        //     resolve('Kovan');
+        //     break;
+        //   case 4:
+        //     resolve('Rinkeby');
+        //     break;
+        //   default:
+        //     resolve(null);
+        // }
       });
     });
   }

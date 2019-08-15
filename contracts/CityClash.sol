@@ -1,26 +1,24 @@
 pragma solidity ^0.5.0;
 import "./Ownable.sol";
-import "./Village.sol";
-import "./ERC20.sol";
 import "./IERC20.sol";
 import "./CC-modifiers.sol";
+import "./ICClink.sol";
 
 contract CityClash is Ownable , CCmodifiers{
     address public CityToken;
     uint256 public TownBasicPrice;
     uint256 public SellCommission;
-    // struct BuildingModel{
-    //     uint256 id;
+    address private GameLink;
 
-    // }
-
-    constructor( uint256 initialSupply,
-        string memory tokenName,
-        uint8 decimalUnits,
-        string memory tokenSymbol) public{
-            CityToken = address(new CityGem(initialSupply,tokenName,decimalUnits,tokenSymbol,msg.sender));
-
+    constructor( address _GameLink) public{
+            GameLink = _GameLink;
     }
+
+    function CreateToken(uint256 initialSupply, string memory tokenName, uint8 decimalUnits,
+        string memory tokenSymbol) public onlyOwner{
+        CityToken = ICClink(GameLink).createToken(initialSupply,tokenName,decimalUnits,tokenSymbol,msg.sender);
+    }
+
     /**
     * This function handles creation of new village
     * Requires Gems to create new village.
@@ -31,7 +29,7 @@ contract CityClash is Ownable , CCmodifiers{
         uint256 GemsRequired = NumberOfTown.mul(TownBasicPrice ** NumberOfTown);
         Game.subPlayerGems(msg.sender,GemsRequired);
         Game.addPlayerGems(address(this),GemsRequired);
-        address NewTown = address(new Village());
+        address NewTown = ICClink(GameLink).createVillage();
         Game.Villages.push(NewTown);
         Game.addPlayerVillage(NewTown);
     }
@@ -46,7 +44,7 @@ contract CityClash is Ownable , CCmodifiers{
     isArrayIndex(Game.getPlayerTowns(),_position) {
         //check provided position and index corresponding to village
         isSameAddress(Game.getPlayerTowns()[_position],_village);
-        Village(_village).DestroyVillage();
+        ICClink(GameLink).destroyVillage(_village);
         Game.VillageOwner[_village] = address(0);
         Game.Players[msg.sender].Towns[_position] = Game.getPlayerTowns()[Game.getPlayerTowns().length - 1];
         Game.Players[msg.sender].Towns.pop();
@@ -146,6 +144,10 @@ contract CityClash is Ownable , CCmodifiers{
     function changeSellCommission(uint256 _value) public onlyOwner{
         require(_value >= 0 && _value <= 100, "Value must be b/w 0 to 100");
         SellCommission = _value;
+    }
+    function depositGemOwner(uint256 _amount) public onlyOwner{
+        require(IToken(CityToken).transferFrom(msg.sender, address(this), _amount),"Token Transfer Error");
+        Game.addPlayerGems(address(this),_amount);
     }
 
     function AddBuilding(bytes32 _name, bytes32 _hash) public onlyOwner{

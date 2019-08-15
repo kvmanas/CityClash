@@ -13,12 +13,17 @@
     <mat-nav-list *ngIf="ContentType === 1">
       <a mat-list-item routerLink="/Home">Home</a>
       <a mat-list-item routerLink="/Home/About">About</a>
-      <a mat-list-item routerLink="/Admin">Admin</a>
     </mat-nav-list>
     <mat-nav-list *ngIf="ContentType === 2">
       <a mat-list-item routerLink="/Home">Home</a>
       <a mat-list-item routerLink="/Villages/Build">Build</a>
-      <a mat-list-item routerLink="/Home/About">Admin</a>
+      <a mat-list-item routerLink="/Admin">Admin</a>
+      <a (click)="logOut()">Log Out</a>
+    </mat-nav-list>
+    <mat-nav-list *ngIf="ContentType === 3">
+      <a mat-list-item routerLink="/Home">Home</a>
+      <a mat-list-item routerLink="/Admin/Buildings">Buildings</a>
+      <a (click)="logOut()">Log Out</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -32,13 +37,16 @@
         <div *ngIf="ContentType === 1">
           <a routerLink="/Home">Home</a>
           <a routerLink="/Home/About">About</a>
-          <a routerLink="/Admin">Admin</a>
-          <a routerLink="/Game">Villages</a>
         </div>
         <div *ngIf="ContentType === 2">
           <a routerLink="/Home">Home</a>
-          <a routerLink="/Home/About">About</a>
           <a routerLink="/Villages/Build">Build</a>
+          <a routerLink="/Admin">Admin</a>
+          <a (click)="logOut()">Log Out</a>
+        </div>
+        <div *ngIf="ContentType === 3">
+          <a routerLink="/Home">Home</a>
+          <a routerLink="/Admin/Buildings">Buildings</a>
           <a (click)="logOut()">Log Out</a>
         </div>
       </div>

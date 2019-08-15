@@ -1,0 +1,39 @@
+<swal #depositeError title="Oops..." text="" type="error"> </swal>
+<div fxLayout="column" fxFlexFill>
+  <span fxFlex="20"></span>
+  <div fxFlex="80">
+    <div fxLayout="row" fxFlexFill>
+      <span fxFlex="20"></span>
+      <div fxflex="80">
+        <h4>CityClah Contract Address: {{ CCAddress }}</h4>
+        <h4>CityGem Contract Address: {{ CCGAddress }}</h4>
+        <h4>Contract Own Gem Balance: {{ ContractownBalance / 100 }} CCG</h4>
+        <h4>Contract Total Balance: {{ ContractBalance / 100 }} CCG</h4>
+        <h4>Admin Gem Balance: {{ AdminBalance / 100 }} CCG</h4>
+        <br /><br />
+        <mat-form-field
+          appearance="outline"
+          style="width: 60%; margin-left: 10%"
+        >
+          <mat-label>Deposite Gem to Contract</mat-label>
+          <input
+            [formControl]="amount"
+            matInput
+            type="number"
+            matInput
+            placeholder="CCG Amount"
+          />
+          <mat-icon fontSet="fas" fontIcon="fa-gem" matSuffix></mat-icon>
+        </mat-form-field>
+        <button
+          style="width: 20% ; padding: 10px; margin-left: 10%"
+          mat-raised-button
+          color="primary"
+          (click)="DepositeGem()"
+        >
+          Deposite
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

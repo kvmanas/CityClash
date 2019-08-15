@@ -37,12 +37,14 @@ contract Village is Ownable{
     uint256 public CompletedQueue;
     uint256 public TotalQueue;
     uint256 public completionTime;
-    constructor() public{
+    address payable private CCgame;
+    constructor(address payable _CCgame) public{
+        CCgame = _CCgame;
         UserDetails.GoldRate = 1;
         UserDetails.ElixrRate = 1;
     }
     modifier isVillageOwner() {
-        require(ICityClash(owner()).GetVillageOwner(address(this)) == msg.sender,"User is not Village owner");
+        require(ICityClash(CCgame).GetVillageOwner(address(this)) == msg.sender,"User is not Village owner");
         _;
     }
 
@@ -50,7 +52,7 @@ contract Village is Ownable{
         require(UserDetails.Buildings[_ID].Level == _level.sub(1),"Invalid Upgrade");
         (uint256 _RequiredBuilding, uint256 _RequiredLevel, uint256 _RequiredGold, uint256 _RequiredElixr,
         uint256 _RequiredGem, uint256 _GoldRate, uint256 _ElixrRate, uint256 _GemReward, uint256 _Time ) =
-        ICityClash(owner()).GetBuildingUpgrades(_ID,_level);
+        ICityClash(CCgame).GetBuildingUpgrades(_ID,_level);
         require(_Time > 0,"no upgrades available");
         require(UserDetails.Buildings[_ID].CoolOff < now, "Upgrading in Process");
         require(UserDetails.Buildings[_RequiredBuilding].Level >= _RequiredLevel, "Building Requirement not met");
@@ -60,21 +62,21 @@ contract Village is Ownable{
         UserDetails.Gold = UserDetails.Gold.sub(_RequiredGold);
         UserDetails.Elixr = UserDetails.Elixr.sub(_RequiredElixr);
         if(_RequiredGem > 0){
-            require(ICityClash(owner()).SubGemFromVillage(msg.sender,_RequiredGem),"No Gem Balance");
+            require(ICityClash(CCgame).SubGemFromVillage(msg.sender,_RequiredGem),"No Gem Balance");
         }
         UpdateUserTroops();
         UserDetails.GoldRate = UserDetails.GoldRate.add(_GoldRate);
         UserDetails.ElixrRate = UserDetails.GoldRate.add(_ElixrRate);
         UserDetails.Buildings[_ID].CoolOff = _Time.add(now);
         if(_GemReward > 0){
-            require(ICityClash(owner()).AddGemFromVillage(msg.sender,_GemReward),"Something Went Wrong");
+            require(ICityClash(CCgame).AddGemFromVillage(msg.sender,_GemReward),"Something Went Wrong");
         }
     }
 
      function TrainTroops(uint256 _ID, uint256 _count) public isVillageOwner{
         (uint256 _Defence, uint256 _Attack, uint256 _Steal, uint256 _RequiredGold,
         uint256 _RequiredElixr, uint256 _RequiredGem, uint256 _Time) =
-        ICityClash(owner()).GetToopsDetails(_ID);
+        ICityClash(CCgame).GetToopsDetails(_ID);
         require(_Time > 0,"no troop available");
         UpdateUserResources();
         require(UserDetails.Gold >= _RequiredGold.mul(_count) && UserDetails.Elixr >=
@@ -82,7 +84,7 @@ contract Village is Ownable{
         UserDetails.Gold = UserDetails.Gold.sub(_RequiredGold.mul(_count));
         UserDetails.Elixr = UserDetails.Elixr.sub(_RequiredElixr.mul(_count));
         if(_RequiredGem > 0){
-            require(ICityClash(owner()).SubGemFromVillage(msg.sender,_RequiredGem),"No Gem Balance");
+            require(ICityClash(CCgame).SubGemFromVillage(msg.sender,_RequiredGem),"No Gem Balance");
         }
         UpdateUserTroops();
         if(completionTime < now){
@@ -115,7 +117,7 @@ contract Village is Ownable{
         }
     }
     function DestroyVillage() external onlyOwner{
-        selfdestruct(owner());
+        selfdestruct(CCgame);
     }
 
 }

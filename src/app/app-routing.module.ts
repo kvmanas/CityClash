@@ -1,3 +1,7 @@
+import { AdminBuildComponent } from './Components/Admin/admin-build/admin-build.component';
+import { AdminHomeComponent } from './Components/Admin/admin-home/admin-home.component';
+import { AdminrouterComponent } from './Components/Admin/adminrouter/adminrouter.component';
+import { AdminGuard } from './Guards/Admin/admin.guard';
 import { MainComponent } from './Components/Home/main/main.component';
 import { AboutComponent } from './Components/Home/about/about.component';
 import { NgModule } from '@angular/core';
@@ -39,6 +43,21 @@ const routes: Routes = [
       {
         path: 'Village',
         component: BuildComponent
+      }
+    ]
+  },
+  {
+    path: 'Admin',
+    component: AdminrouterComponent,
+    canActivate: [AuthGuard, AdminGuard],
+    children: [
+      {
+        path: '',
+        component: AdminHomeComponent
+      },
+      {
+        path: 'Buildings',
+        component: AdminBuildComponent
       }
     ]
   }
