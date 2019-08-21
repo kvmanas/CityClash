@@ -1,7 +1,19 @@
+import { map } from 'rxjs/operators';
 import { AdminService } from './../../../Services/Admin/admin.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
+import { MatDialog } from '@angular/material/dialog';
+import { AdminBuildViewUpgradesComponent } from '../admin-build-view-upgrades/admin-build-view-upgrades.component';
+import { BuildingModel, BUpgradeModel } from 'src/app/Models/building.model';
+import { AdminBuildAddUpgradesComponent } from '../admin-build-add-upgrades/admin-build-add-upgrades.component';
+
 declare let window: any;
+
+export interface UpGradeModel {
+  id: string;
+  level: string;
+  data: BUpgradeModel;
+}
 @Component({
   selector: 'app-admin-build',
   templateUrl: './admin-build.component.html',
@@ -16,8 +28,10 @@ export class AdminBuildComponent implements OnInit {
   private AlertSuccess: SwalComponent;
   @ViewChild('deleteBuilding', { static: false })
   private deleteBuilding: SwalComponent;
-  constructor(private adminService: AdminService) {}
-  buildings: object;
+  buildings: Array<BuildingModel>;
+
+  constructor(private adminService: AdminService, private dialog: MatDialog) {}
+
   async ngOnInit() {
     this.RefreshData();
   }
@@ -97,4 +111,34 @@ export class AdminBuildComponent implements OnInit {
       this.AlertError.show();
     }
   };
+  async viewUpgrades(index: string) {
+    const Upgrades: BUpgradeModel[] = await this.adminService.Game.GetBuildingUpgrades(
+      this.buildings[index].id
+    );
+    this.dialog.open(AdminBuildViewUpgradesComponent, {
+      width: '80%',
+      data: { index, buildings: this.buildings, Upgrades }
+    });
+  }
+  AddUpgrade(index: string): void {
+    const AddUpDialog = this.dialog.open(AdminBuildAddUpgradesComponent, {
+      width: '80%',
+      data: { index, buildings: this.buildings }
+    });
+    AddUpDialog.afterClosed().subscribe((result: UpGradeModel) => {
+      if (typeof result !== 'undefined') {
+        this.adminService
+          .AddBuildUpgrade(result.id, result.level, result.data)
+          .then(() => {
+            this.AlertSuccess.text = 'Upgrades Added Successfully';
+            this.RefreshData();
+            this.AlertSuccess.show();
+          })
+          .catch(() => {
+            this.AlertError.text = 'Something Went Wrong';
+            this.AlertError.show();
+          });
+      }
+    });
+  }
 }

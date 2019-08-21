@@ -21,6 +21,11 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AdminrouterComponent } from './Components/Admin/adminrouter/adminrouter.component';
 import { AdminHomeComponent } from './Components/Admin/admin-home/admin-home.component';
 import { AdminBuildComponent } from './Components/Admin/admin-build/admin-build.component';
+import { AdminBuildViewUpgradesComponent } from './Components/Admin/admin-build-view-upgrades/admin-build-view-upgrades.component';
+import { AdminBuildAddUpgradesComponent } from './Components/Admin/admin-build-add-upgrades/admin-build-add-upgrades.component';
+import { AdminTroopAddDetailsComponent } from './Components/Admin/admin-troop-add-details/admin-troop-add-details.component';
+import { AdminTroopViewDetailsComponent } from './Components/Admin/admin-troop-view-details/admin-troop-view-details.component';
+import { AdminTroopComponent } from './Components/Admin/admin-troop/admin-troop.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +41,12 @@ import { AdminBuildComponent } from './Components/Admin/admin-build/admin-build.
     BuildComponent,
     AdminrouterComponent,
     AdminHomeComponent,
-    AdminBuildComponent
+    AdminBuildComponent,
+    AdminBuildViewUpgradesComponent,
+    AdminBuildAddUpgradesComponent,
+    AdminTroopAddDetailsComponent,
+    AdminTroopViewDetailsComponent,
+    AdminTroopComponent
   ],
   imports: [
     FormsModule,
@@ -48,6 +58,10 @@ import { AdminBuildComponent } from './Components/Admin/admin-build/admin-build.
     SweetAlert2Module.forRoot()
   ],
   providers: [AuthGuard, AdminGuard],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AdminBuildViewUpgradesComponent,
+    AdminBuildAddUpgradesComponent
+  ]
 })
 export class AppModule {}

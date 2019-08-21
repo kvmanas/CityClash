@@ -159,5 +159,25 @@ contract CCvariables{
         }
         return (_id,_name, _image);
     }
-
+    function GetTroops() public view returns(uint256[] memory ,bytes32[] memory,bytes32[] memory){
+        uint256 j;
+        for (uint256 i = 0; i < Game.Troops.length; i++) {
+            if(Game.Troops[i].state){
+                j++;
+            }
+        }
+        bytes32[] memory _name = new bytes32[](j);
+        bytes32[] memory _image = new bytes32[](j);
+        uint256[] memory _id = new uint256[](j);
+        j = 0;
+        for (uint256 i = 0; i < Game.Troops.length; i++) {
+            if(Game.Troops[i].state){
+                _id[j] = i;
+                _name[j] = Game.Troops[i].name;
+                _image[j] = Game.Troops[i].image;
+                j++;
+            }
+        }
+        return (_id,_name, _image);
+    }
 }

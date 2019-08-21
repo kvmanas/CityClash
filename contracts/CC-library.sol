@@ -48,6 +48,7 @@ library CClibrary{
     struct TroopsModel{
         bytes32 name;
         bytes32 image;
+        bool state;
         TrainModel Train;
     }
     struct CCModel{

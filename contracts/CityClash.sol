@@ -164,6 +164,7 @@ contract CityClash is Ownable , CCmodifiers{
         CClibrary.TroopsModel memory NewTroop;
         NewTroop.name = _name;
         NewTroop.image = _hash;
+        NewTroop.state = true;
         Game.Troops.push(NewTroop);
     }
     function DeleteTroops(uint256 _ID) public onlyOwner isArrayLength(Game.Troops.length,_ID){

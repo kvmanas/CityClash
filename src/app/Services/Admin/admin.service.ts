@@ -2,6 +2,8 @@ import { error } from 'util';
 import { Injectable } from '@angular/core';
 import { Web3Model } from '../../Models/web3.model';
 import { GameService } from '../Game/game.service';
+import { BUpgradeModel } from 'src/app/Models/building.model';
+import { resolve } from 'q';
 declare let web3: any;
 @Injectable({
   providedIn: 'root'
@@ -36,8 +38,6 @@ export class AdminService {
       );
       try {
         const imageHash = await this.Game.UploadtoSwarm(FileBuffer);
-        console.log(web3.utils.fromAscii(name));
-        console.log(web3.utils.fromAscii(imageHash));
 
         await this.Game.web3data.gameinstance.methods
           .AddBuilding(web3.utils.fromAscii(name), '0x' + imageHash)
@@ -45,7 +45,6 @@ export class AdminService {
             from: this.Game.web3data.account,
             gas: 6000000
           });
-        console.log(imageHash);
         callback(false);
       } catch {
         callback(true);
@@ -69,5 +68,48 @@ export class AdminService {
     } catch {
       callback(true);
     }
+  };
+  public AddBuildUpgrade = (id: string, level: string, data: BUpgradeModel) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await this.Game.web3data.gameinstance.methods
+          .ChangeBuildingUpgrade(id, level, ...Object.values(data))
+          .send({
+            from: this.Game.web3data.account,
+            gas: 6000000
+          });
+        resolve();
+      } catch {
+        reject();
+      }
+    });
+  };
+  public AddTroop = (
+    name: string,
+    file: File,
+    callback: (error: boolean) => void
+  ) => {
+    const fileReader = new FileReader();
+    fileReader.onload = async e => {
+      const FileBuffer = Buffer.from(
+        new Uint8Array(fileReader.result as ArrayBuffer)
+      );
+      try {
+        const imageHash = await this.Game.UploadtoSwarm(FileBuffer);
+        await this.Game.web3data.gameinstance.methods
+          .AddTroops(web3.utils.fromAscii(name), '0x' + imageHash)
+          .send({
+            from: this.Game.web3data.account,
+            gas: 6000000
+          });
+        callback(false);
+      } catch {
+        callback(true);
+      }
+    };
+    fileReader.onerror = () => {
+      callback(true);
+    };
+    fileReader.readAsArrayBuffer(file);
   };
 }

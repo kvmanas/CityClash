@@ -1,6 +1,6 @@
 <swal
-  #addBuilding
-  title="Add Building"
+  #addTroop
+  title="Add Troop"
   html=""
   preConfirm=""
   showCancelButton="true"
@@ -8,7 +8,7 @@
 >
 </swal>
 <swal
-  #deleteBuilding
+  #deleteTroop
   title="Are you sure?"
   text=""
   preConfirm=""
@@ -23,7 +23,7 @@
   <mat-toolbar-row>
     <span class="spacer"></span>
     <button
-      (click)="AddBuilding()"
+      (click)="AddTroop()"
       mat-raised-button
       style="background-color: #111f3d"
     >
@@ -39,21 +39,16 @@
     fxLayoutAlign="space-around start"
     fxFlexFill
   >
-    <div *ngFor="let building of buildings; index as i" fxFlex="23">
+    <div *ngFor="let troop of troops; index as i" fxFlex="23">
       <div fxLayout="column" fxLayoutGap="20px grid">
         <span></span>
         <div>
           <mat-card>
             <mat-card-header>
-              <mat-card-title>{{ building.name }}</mat-card-title>
-              <mat-card-subtitle>ID: {{ building.id }}</mat-card-subtitle>
+              <mat-card-title>{{ troop.name }}</mat-card-title>
+              <mat-card-subtitle>ID: {{ troop.id }}</mat-card-subtitle>
             </mat-card-header>
-            <img
-              mat-card-image
-              [src]="building.image"
-              width="200"
-              height="150"
-            />
+            <img mat-card-image [src]="troop.image" width="200" height="150" />
             <mat-card-actions>
               <div fxLayout="row" fxLayoutAlign="space-around center">
                 <button
@@ -66,7 +61,7 @@
                 <button (click)="AddUpgrade(i)" mat-fab color="primary">
                   <mat-icon fontSet="fas" fontIcon="fa-edit"></mat-icon>
                 </button>
-                <button (click)="DeleteBuilding(i)" mat-fab color="warn">
+                <button (click)="DeleteTroop(i)" mat-fab color="warn">
                   <mat-icon fontSet="fas" fontIcon="fa-trash"></mat-icon>
                 </button>
               </div>

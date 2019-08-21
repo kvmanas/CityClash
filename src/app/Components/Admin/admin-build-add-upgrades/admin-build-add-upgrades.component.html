@@ -1,0 +1,185 @@
+<form [formGroup]="BuildUpForm" (ngSubmit)="onSave()">
+  <div>
+    <h3>
+      Add / Edit {{ data.buildings[data.index].name }} (ID:
+      {{ data.buildings[data.index].id }}) Upgrade
+    </h3>
+    <mat-divider></mat-divider>
+    <mat-form-field appearance="outline" fxFlexFill>
+      <mat-label>Upgrade Level</mat-label>
+      <input
+        type="number"
+        min="0"
+        oninput="validity.valid||(value='');"
+        matInput
+        placeholder="Building Upgrade Level"
+        required
+        [formControl]="UpLevel"
+      />
+    </mat-form-field>
+    <table cellspacing="0" fxFlexFill>
+      <tr
+        fxLayout="row"
+        fxLayoutGap="20px grid"
+        fxLayoutAlign="space-between center"
+        fxFlexFill
+      >
+        <td fxFlex="50%">
+          <mat-form-field appearance="outline" fxFlexFill>
+            <mat-label>Required Building</mat-label>
+            <mat-select required formControlName="_RequiredBuilding">
+              <mat-option *ngFor="let item of data.buildings" [value]="item.id">
+                {{ item.name }} (ID: {{ item.id }})
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td fxFlex="50%">
+          <mat-form-field appearance="outline" fxFlexFill>
+            <mat-label>Required Level</mat-label>
+            <input
+              type="number"
+              min="0"
+              oninput="validity.valid||(value='');"
+              matInput
+              placeholder="Required Building Level"
+              formControlName="_RequiredLevel"
+              required
+            />
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+    <table cellspacing="0" fxFlexFill>
+      <tr
+        fxLayout="row"
+        fxLayoutGap="20px grid"
+        fxLayoutAlign="space-between center"
+        fxFlexFill
+      >
+        <td fxFlex="33%">
+          <mat-form-field appearance="outline" fxFlexFill>
+            <mat-label>Required Gold</mat-label>
+            <input
+              type="number"
+              min="0"
+              oninput="validity.valid||(value='');"
+              matInput
+              placeholder="Required Gold to Upgrade"
+              formControlName="_RequiredGold"
+              required
+            />
+            <mat-icon fontSet="fas" fontIcon="fa-coins" matSuffix></mat-icon>
+          </mat-form-field>
+        </td>
+        <td fxFlex="33%">
+          <mat-form-field appearance="outline" fxFlexFill>
+            <mat-label>Required Elixr</mat-label>
+            <input
+              type="number"
+              min="0"
+              oninput="validity.valid||(value='');"
+              matInput
+              placeholder="Required Elixr to Upgrade"
+              formControlName="_RequiredElixr"
+              required
+            />
+            <mat-icon fontSet="fas" fontIcon="fa-flask" matSuffix></mat-icon>
+          </mat-form-field>
+        </td>
+        <td fxFlex="33%">
+          <mat-form-field appearance="outline" fxFlexFill>
+            <mat-label>Required Gems</mat-label>
+            <input
+              type="number"
+              min="0"
+              oninput="validity.valid||(value='');"
+              matInput
+              placeholder="Required Gems to Upgrade"
+              formControlName="_RequiredGem"
+              required
+            />
+            <mat-icon fontSet="fas" fontIcon="fa-gem" matSuffix></mat-icon>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+    <table cellspacing="0" fxFlexFill>
+      <tr
+        fxLayout="row"
+        fxLayoutGap="20px grid"
+        fxLayoutAlign="space-between center"
+        fxFlexFill
+      >
+        <td fxFlex="33%">
+          <mat-form-field appearance="outline" fxFlexFill>
+            <mat-label>Gold Rate</mat-label>
+            <input
+              type="number"
+              min="0"
+              oninput="validity.valid||(value='');"
+              matInput
+              placeholder="Change in Gold/sec"
+              formControlName="_GoldRate"
+              required
+            />
+          </mat-form-field>
+        </td>
+        <td fxFlex="33%">
+          <mat-form-field appearance="outline" fxFlexFill>
+            <mat-label>Elixr Rate</mat-label>
+            <input
+              type="number"
+              min="0"
+              oninput="validity.valid||(value='');"
+              matInput
+              placeholder="Change in Elixr/sec"
+              formControlName="_ElixrRate"
+              required
+            />
+          </mat-form-field>
+        </td>
+        <td fxFlex="33%">
+          <mat-form-field appearance="outline" fxFlexFill>
+            <mat-label>Gems Reward</mat-label>
+            <input
+              type="number"
+              min="0"
+              oninput="validity.valid||(value='');"
+              matInput
+              placeholder="Upgrade Reward in Gems"
+              formControlName="_GemReward"
+              required
+            />
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+    <mat-form-field appearance="outline" fxFlexFill>
+      <mat-label>Upgrading Time</mat-label>
+      <input
+        type="number"
+        min="0"
+        oninput="validity.valid||(value='');"
+        matInput
+        placeholder="Upgrading Time in Minutes"
+        formControlName="_Time"
+        required
+      />
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxFlexFill>
+    <button
+      color="primary"
+      mat-raised-button
+      type="submit"
+      [disabled]="!BuildUpForm.valid || !UpLevel.valid"
+    >
+      Save
+    </button>
+    <button mat-button (click)="onCancel()">Cancel</button>
+  </div>
+</form>

@@ -11,6 +11,7 @@ import { AuthGuard } from './Guards/Auth/auth.guard';
 import { RouterComponent } from './Components/Home/router/router.component';
 import { GrouterComponent } from './Components/Game/grouter/grouter.component';
 import { BuildComponent } from './Components/Game/build/build.component';
+import { AdminTroopComponent } from './Components/Admin/admin-troop/admin-troop.component';
 const routes: Routes = [
   {
     path: '',
@@ -58,6 +59,10 @@ const routes: Routes = [
       {
         path: 'Buildings',
         component: AdminBuildComponent
+      },
+      {
+        path: 'Troops',
+        component: AdminTroopComponent
       }
     ]
   }
