@@ -2,8 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminService } from 'src/app/Services/Admin/admin.service';
-import { TroopModel } from 'src/app/Models/troop.model';
+import { TroopModel, TroopDetailsModel } from 'src/app/Models/troop.model';
+import { AdminTroopViewDetailsComponent } from '../admin-troop-view-details/admin-troop-view-details.component';
+import { AdminTroopAddDetailsComponent } from '../admin-troop-add-details/admin-troop-add-details.component';
 
+export interface TroopDtModel {
+  id: string;
+  data: TroopDetailsModel;
+}
 @Component({
   selector: 'app-admin-troop',
   templateUrl: './admin-troop.component.html',
@@ -52,7 +58,7 @@ export class AdminTroopComponent implements OnInit {
           this.addTroop.nativeSwal.showValidationMessage('Invalid Troop Image');
           resolve(false);
         }
-        this.adminService.AddBuilding(TroopName, TroopFile, err => {
+        this.adminService.AddTroop(TroopName, TroopFile, err => {
           if (err) {
             resolve(false);
           } else {
@@ -63,7 +69,7 @@ export class AdminTroopComponent implements OnInit {
     };
     const result = await this.addTroop.show();
     if (result.value) {
-      this.AlertSuccess.text = 'Building Added Successfully';
+      this.AlertSuccess.text = 'Troop Added Successfully';
       this.RefreshData();
       this.AlertSuccess.show();
     } else {
@@ -71,4 +77,57 @@ export class AdminTroopComponent implements OnInit {
       this.AlertError.show();
     }
   };
+  DeleteTroop = async (index: number) => {
+    this.deleteTroop.text = 'Deleting ' + this.troops[index].name + ' ..!!';
+    this.deleteTroop.preConfirm = () => {
+      return new Promise(resolve => {
+        this.adminService.DeleteTroop(this.troops[index].id, err => {
+          if (err) {
+            resolve(false);
+          } else {
+            resolve(true);
+          }
+        });
+      });
+    };
+    const result = await this.deleteTroop.show();
+    if (result.value) {
+      this.AlertSuccess.text = 'Troop Deleted Successfully';
+      this.RefreshData();
+      this.AlertSuccess.show();
+    } else {
+      this.AlertError.text = 'Something Went Wrong';
+      this.AlertError.show();
+    }
+  };
+  async viewDetails(index: string) {
+    const Details: TroopDetailsModel = await this.adminService.Game.GetTroopDetails(
+      this.troops[index].id
+    );
+    this.dialog.open(AdminTroopViewDetailsComponent, {
+      width: '80%',
+      data: { index, troops: this.troops, details: Details }
+    });
+  }
+  AddDetails(index: string): void {
+    const AddUpDialog = this.dialog.open(AdminTroopAddDetailsComponent, {
+      width: '80%',
+      data: { index, troops: this.troops }
+    });
+    AddUpDialog.afterClosed().subscribe((result: TroopDtModel) => {
+      if (typeof result !== 'undefined') {
+        this.adminService
+          .AddTroopDetails(result.id, result.data)
+          .then(() => {
+            this.AlertSuccess.text = 'Upgrades Added Successfully';
+            this.RefreshData();
+            this.AlertSuccess.show();
+          })
+          .catch(() => {
+            this.AlertError.text = 'Something Went Wrong';
+            this.AlertError.show();
+          });
+      }
+    });
+  }
 }

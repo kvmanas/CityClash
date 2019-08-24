@@ -14,7 +14,15 @@ export class AdminHomeComponent implements OnInit {
   ContractownBalance: number;
   ContractBalance: number;
   AdminBalance: number;
+  SellCommission: number;
+  BasicPrice: number;
   amount = new FormControl('');
+  sellCommission = new FormControl('', [
+    Validators.required,
+    Validators.min(0),
+    Validators.max(100)
+  ]);
+  basicPrice = new FormControl('', [Validators.required, Validators.min(0)]);
   @ViewChild('depositeError', { static: false })
   private depositeError: SwalComponent;
   constructor(private Admin: AdminService) {}
@@ -35,12 +43,43 @@ export class AdminHomeComponent implements OnInit {
       Validators.min(1),
       Validators.max(this.AdminBalance / 100)
     ]);
+    this.SellCommission = await this.Admin.Game.SellCommission();
+    console.log(JSON.stringify(this.SellCommission));
+    this.BasicPrice = await this.Admin.Game.BasicPrice();
   };
   DepositeGem = async () => {
     if (this.amount.valid) {
       const damount = Math.floor(this.amount.value * 100);
       try {
         await this.Admin.OwnerDeposite(damount);
+        this.RefreshData();
+      } catch {
+        this.depositeError.text = 'Something Went Wrong';
+        this.depositeError.show();
+      }
+    } else {
+      this.depositeError.text = 'Invalid Amount';
+      this.depositeError.show();
+    }
+  };
+  ChangeSellCommission = async () => {
+    if (this.sellCommission.valid) {
+      try {
+        await this.Admin.changeSellCommission(this.sellCommission.value);
+        this.RefreshData();
+      } catch {
+        this.depositeError.text = 'Something Went Wrong';
+        this.depositeError.show();
+      }
+    } else {
+      this.depositeError.text = 'Invalid Commission';
+      this.depositeError.show();
+    }
+  };
+  ChangeBasicPrice = async () => {
+    if (this.basicPrice.valid) {
+      try {
+        await this.Admin.changeBasicPrice(this.basicPrice.value * 100);
         this.RefreshData();
       } catch {
         this.depositeError.text = 'Something Went Wrong';

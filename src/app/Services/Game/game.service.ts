@@ -5,7 +5,7 @@ import { Bzz } from '@erebos/api-bzz-browser';
 import { BuildingModel, BUpgradeModel } from 'src/app/Models/building.model';
 import { resolve } from 'dns';
 import { reject } from 'q';
-import { TroopModel } from 'src/app/Models/troop.model';
+import { TroopModel, TroopDetailsModel } from 'src/app/Models/troop.model';
 declare let web3: any;
 
 @Injectable({
@@ -20,6 +20,24 @@ export class GameService {
       this.web3data = data;
     });
   }
+  public SellCommission = () => {
+    return new Promise<number>((resolve, reject) => {
+      this.web3data.gameinstance.methods
+        .SellCommission()
+        .call()
+        .then(d => resolve(d))
+        .catch(e => reject(e));
+    });
+  };
+  public BasicPrice = () => {
+    return new Promise<number>((resolve, reject) => {
+      this.web3data.gameinstance.methods
+        .TownBasicPrice()
+        .call()
+        .then(d => resolve(d))
+        .catch(e => reject(e));
+    });
+  };
   public GemBalance = (address: string) => {
     return new Promise<number>((resolve, reject) => {
       this.web3data.gameinstance.methods
@@ -106,6 +124,14 @@ export class GameService {
           resolve(a);
         })
         .catch(e => reject(e));
+    });
+  };
+  public GetTroopDetails = id => {
+    return new Promise<TroopDetailsModel>(async resolve => {
+      const d = await this.web3data.gameinstance.methods
+        .GetToopsDetails(id)
+        .call();
+      resolve(d);
     });
   };
   public SwarmLink = (hash: string): string => {

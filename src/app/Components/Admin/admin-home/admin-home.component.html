@@ -10,6 +10,8 @@
         <h4>Contract Own Gem Balance: {{ ContractownBalance / 100 }} CCG</h4>
         <h4>Contract Total Balance: {{ ContractBalance / 100 }} CCG</h4>
         <h4>Admin Gem Balance: {{ AdminBalance / 100 }} CCG</h4>
+        <h4>Sell Commission: {{ SellCommission }} CCG</h4>
+        <h4>Town Basic Price: {{ BasicPrice / 100 }} CCG</h4>
         <br /><br />
         <mat-form-field
           appearance="outline"
@@ -32,6 +34,48 @@
           (click)="DepositeGem()"
         >
           Deposite
+        </button>
+        <mat-form-field
+          appearance="outline"
+          style="width: 60%; margin-left: 10%"
+        >
+          <mat-label>Change Sell Commission</mat-label>
+          <input
+            [formControl]="sellCommission"
+            matInput
+            type="number"
+            matInput
+            placeholder="Commission in %"
+          />
+        </mat-form-field>
+        <button
+          style="width: 20% ; padding: 10px; margin-left: 10%"
+          mat-raised-button
+          color="primary"
+          (click)="ChangeSellCommission()"
+        >
+          Change
+        </button>
+        <mat-form-field
+          appearance="outline"
+          style="width: 60%; margin-left: 10%"
+        >
+          <mat-label>Change Town basic Price</mat-label>
+          <input
+            [formControl]="basicPrice"
+            matInput
+            type="number"
+            matInput
+            placeholder="Price in CCG"
+          />
+        </mat-form-field>
+        <button
+          style="width: 20% ; padding: 10px; margin-left: 10%"
+          mat-raised-button
+          color="primary"
+          (click)="ChangeBasicPrice()"
+        >
+          Change
         </button>
       </div>
     </div>

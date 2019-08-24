@@ -22,6 +22,7 @@
     </mat-nav-list>
     <mat-nav-list *ngIf="ContentType === 3">
       <a mat-list-item routerLink="/Home">Home</a>
+      <a mat-list-item routerLink="/Admin">Dashboard</a>
       <a mat-list-item routerLink="/Admin/Buildings">Buildings</a>
       <a mat-list-item routerLink="/Admin/Troops">Troops</a>
       <a (click)="logOut()">Log Out</a>
@@ -47,6 +48,7 @@
         </div>
         <div *ngIf="ContentType === 3">
           <a routerLink="/Home">Home</a>
+          <a routerLink="/Admin">Dashboard</a>
           <a routerLink="/Admin/Buildings">Buildings</a>
           <a routerLink="/Admin/Troops">Troops</a>
           <a (click)="logOut()">Log Out</a>

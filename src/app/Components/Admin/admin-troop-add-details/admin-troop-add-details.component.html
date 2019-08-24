@@ -1,1 +1,140 @@
-<p>admin-troop-add-details works!</p>
+<form [formGroup]="TroopDtForm" (ngSubmit)="onSave()">
+  <div>
+    <h3>
+      Add / Edit {{ data.troops[data.index].name }} (ID:
+      {{ data.troops[data.index].id }}) Details
+    </h3>
+    <mat-divider></mat-divider>
+
+    <table cellspacing="0" fxFlexFill>
+      <tr
+        fxLayout="row"
+        fxLayoutGap="20px grid"
+        fxLayoutAlign="space-between center"
+        fxFlexFill
+      >
+        <td fxFlex="33%">
+          <mat-form-field appearance="outline" fxFlexFill>
+            <mat-label>Defence</mat-label>
+            <input
+              type="number"
+              min="0"
+              oninput="validity.valid||(value='');"
+              matInput
+              placeholder="Troop Defence Power"
+              formControlName="_Defence"
+              required
+            />
+          </mat-form-field>
+        </td>
+        <td fxFlex="33%">
+          <mat-form-field appearance="outline" fxFlexFill>
+            <mat-label>Attack</mat-label>
+            <input
+              type="number"
+              min="0"
+              oninput="validity.valid||(value='');"
+              matInput
+              placeholder="Troop Attack Power"
+              formControlName="_Attack"
+              required
+            />
+          </mat-form-field>
+        </td>
+        <td fxFlex="33%">
+          <mat-form-field appearance="outline" fxFlexFill>
+            <mat-label>Steal</mat-label>
+            <input
+              type="number"
+              min="0"
+              oninput="validity.valid||(value='');"
+              matInput
+              placeholder="Troop Steal Power"
+              formControlName="_Steal"
+              required
+            />
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+    <table cellspacing="0" fxFlexFill>
+      <tr
+        fxLayout="row"
+        fxLayoutGap="20px grid"
+        fxLayoutAlign="space-between center"
+        fxFlexFill
+      >
+        <td fxFlex="33%">
+          <mat-form-field appearance="outline" fxFlexFill>
+            <mat-label>Required Gold</mat-label>
+            <input
+              type="number"
+              min="0"
+              oninput="validity.valid||(value='');"
+              matInput
+              placeholder="Required Gold to Upgrade"
+              formControlName="_RequiredGold"
+              required
+            />
+            <mat-icon fontSet="fas" fontIcon="fa-coins" matSuffix></mat-icon>
+          </mat-form-field>
+        </td>
+        <td fxFlex="33%">
+          <mat-form-field appearance="outline" fxFlexFill>
+            <mat-label>Required Elixr</mat-label>
+            <input
+              type="number"
+              min="0"
+              oninput="validity.valid||(value='');"
+              matInput
+              placeholder="Required Elixr to Upgrade"
+              formControlName="_RequiredElixr"
+              required
+            />
+            <mat-icon fontSet="fas" fontIcon="fa-flask" matSuffix></mat-icon>
+          </mat-form-field>
+        </td>
+        <td fxFlex="33%">
+          <mat-form-field appearance="outline" fxFlexFill>
+            <mat-label>Required Gems</mat-label>
+            <input
+              type="number"
+              min="0"
+              oninput="validity.valid||(value='');"
+              matInput
+              placeholder="Required Gems to Upgrade"
+              formControlName="_RequiredGem"
+              required
+            />
+            <mat-icon fontSet="fas" fontIcon="fa-gem" matSuffix></mat-icon>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+    <mat-form-field appearance="outline" fxFlexFill>
+      <mat-label>Upgrading Time</mat-label>
+      <input
+        type="number"
+        min="0"
+        oninput="validity.valid||(value='');"
+        matInput
+        placeholder="Upgrading Time in Minutes"
+        formControlName="_Time"
+        required
+      />
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxFlexFill>
+    <button
+      color="primary"
+      mat-raised-button
+      type="submit"
+      [disabled]="!TroopDtForm.valid"
+    >
+      Save
+    </button>
+    <button mat-button (click)="onCancel()">Cancel</button>
+  </div>
+</form>

@@ -1,1 +1,21 @@
-<p>admin-troop-view-details works!</p>
+<div fxLayout="column" fxFlexFill>
+  <span fxFlex="20"></span>
+  <div fxFlex="80">
+    <div fxLayout="row" fxFlexFill>
+      <span fxFlex="20"></span>
+      <div fxflex="80">
+        <h3>Troop Power</h3>
+        <h4>Defence : {{ data.details._Defence }}</h4>
+        <h4>Attack : {{ data.details._Attack }}</h4>
+        <h4>Steal : {{ data.details._Steal }}</h4>
+        <br /><br />
+        <h3>Required resources</h3>
+        <h4>Gold: {{ data.details._RequiredGold }}</h4>
+        <h4>Elixr : {{ data.details._RequiredElixr }}</h4>
+        <h4>Gem : {{ data.details._RequiredGem }}</h4>
+        <br /><br />
+        <h4>Time : {{ data.details._Time / 60 }} minutes</h4>
+      </div>
+    </div>
+  </div>
+</div>

@@ -61,7 +61,9 @@ import { AdminTroopComponent } from './Components/Admin/admin-troop/admin-troop.
   bootstrap: [AppComponent],
   entryComponents: [
     AdminBuildViewUpgradesComponent,
-    AdminBuildAddUpgradesComponent
+    AdminBuildAddUpgradesComponent,
+    AdminTroopAddDetailsComponent,
+    AdminTroopViewDetailsComponent
   ]
 })
 export class AppModule {}
