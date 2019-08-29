@@ -1,1 +1,91 @@
-<p>main works!</p>
+<swal
+  #AlertMain
+  title=""
+  html=""
+  preConfirm=""
+  showCancelButton="true"
+  showLoaderOnConfirm="true"
+  confirmButtonText="OK"
+>
+</swal>
+<swal
+  #AlertDelete
+  title="Are you sure?"
+  text=""
+  preConfirm=""
+  showCancelButton="true"
+  showLoaderOnConfirm="true"
+  type="warning"
+>
+</swal>
+<swal #AlertError title="Oops..." text="" type="error"> </swal>
+<swal #AlertSuccess title="Success!" text="" type="success"> </swal>
+<mat-toolbar color="warn">
+  <mat-toolbar-row>
+    <span class="spacer"></span>
+    <button
+      (click)="CreateVillage()"
+      mat-raised-button
+      style="background-color: #111f3d; right: 20px"
+    >
+      <mat-icon fontSet="fas" fontIcon="fa-plus"></mat-icon> New Village
+    </button>
+    <button
+      (click)="DeposieGem()"
+      mat-raised-button
+      style="background-color: #111f3d"
+    >
+      <mat-icon fontSet="fas" fontIcon="fa-plus"></mat-icon> Deposite Gem
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div>
+  <div
+    fxLayout="row wrap"
+    fxLayoutGap="10px grid"
+    fxLayoutAlign="space-around start"
+    fxFlexFill
+  >
+    <div *ngFor="let town of userDt._Towns; index as i" fxFlex="23">
+      <div fxLayout="column" fxLayoutGap="20px grid">
+        <span></span>
+        <div>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>ID: {{ i }}</mat-card-title>
+              <mat-card-subtitle>{{ town }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+              <div
+                fxLayout="row"
+                fxLayoutAlign="space-around center"
+                *ngIf="userDt.Owner[i] === gameService.web3data.account"
+              >
+                <button
+                  (click)="viewVillage(i)"
+                  mat-fab
+                  style="background-color: #1fa22e"
+                >
+                  <mat-icon fontSet="fas" fontIcon="fa-eye"></mat-icon>
+                </button>
+                <button (click)="SellVillage(i)" mat-fab color="primary">
+                  <mat-icon
+                    fontSet="fas"
+                    fontIcon="fa-hand-holding-usd"
+                  ></mat-icon>
+                </button>
+                <button (click)="DeleteTown(i)" mat-fab color="warn">
+                  <mat-icon fontSet="fas" fontIcon="fa-trash"></mat-icon>
+                </button>
+              </div>
+              <div *ngIf="userDt.Owner[i] !== gameService.web3data.account">
+                In Sell Orders
+              </div>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

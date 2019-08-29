@@ -9,12 +9,10 @@ contract CCvariables{
     * function to Get Player Details .
     * @param _player  Player Address
     * @return _Towns Player TownList
-    * @return _LastAttack Player last attack timestamp
     * @return _GemsCount Player  Gem balance
     */
-    function GetPlayerDetails(address _player) public view  returns(address[] memory _Towns , uint256 _LastAttack , uint256 _GemsCount){
+    function GetPlayerDetails(address _player) public view  returns(address[] memory _Towns , uint256 _GemsCount){
         _Towns = Game.Players[_player].Towns;
-        _LastAttack = Game.Players[_player].LastAttack;
         _GemsCount = Game.Players[_player].GemsCount;
     }
     function GetPlayerGems(address _player) public view  returns(uint256 _GemsCount){

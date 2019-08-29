@@ -1,6 +1,22 @@
-<mat-toolbar>
+<mat-toolbar
+  *ngIf="{
+    userDt: gameService.UserDetails$ | async,
+    web3Dt: web3service.Web3Details$ | async
+  } as data"
+>
   <mat-toolbar-row>
-    <mat-toolbar-row>
+    <mat-toolbar-row *ngIf="ContentType === 2">
+      <div class="nextline">
+        <span class="padding">User: {{ data.web3Dt.account }}</span>
+        <span class="padding smallsize"
+          >Network: {{ data.web3Dt.network }}</span
+        >
+      </div>
+      <span class="spacer"></span>
+      <mat-icon fontSet="fas" fontIcon="fa-gem" class="padding gem"></mat-icon>
+      {{ data.userDt._GemsCount / 100 }}
+    </mat-toolbar-row>
+    <mat-toolbar-row *ngIf="ContentType === 4">
       <div class="nextline">
         <span class="padding">User: {{ UserAddress }}</span>
         <span class="padding smallsize">Network: {{ Network }}</span>

@@ -1,0 +1,82 @@
+<mat-tab-group>
+  <mat-tab label="Sell Orders">
+    <div
+      fxLayout="row wrap"
+      fxLayoutGap="10px grid"
+      fxLayoutAlign="space-around start"
+      fxFlexFill
+    >
+      <div *ngFor="let sellorder of sellOrders; index as i" fxFlex="63">
+        <div fxLayout="column" fxLayoutGap="20px grid">
+          <span></span>
+          <div>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title
+                  >{{ i + 1 }}: {{ sellorder.Town }}</mat-card-title
+                >
+                <mat-card-subtitle
+                  >Seller: {{ sellorder.Seller }}</mat-card-subtitle
+                >
+              </mat-card-header>
+              <mat-card-actions>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                  <div style="margin-left: 20px;">
+                    Price: {{ sellorder.SellPrice }} ETH
+                  </div>
+                  <button
+                    (click)="BuyTown(i)"
+                    mat-raised-button
+                    color="warn"
+                    style="background-color: #1fa22e"
+                  >
+                    Buy
+                  </button>
+                </div>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="My Orders">
+    <div
+      fxLayout="row wrap"
+      fxLayoutGap="10px grid"
+      fxLayoutAlign="space-around start"
+      fxFlexFill
+    >
+      <div *ngFor="let playerOrder of playerOrders; index as i" fxFlex="63">
+        <div fxLayout="column" fxLayoutGap="20px grid">
+          <span></span>
+          <div>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title
+                  >{{ i + 1 }}: {{ playerOrder.Town }}</mat-card-title
+                >
+              </mat-card-header>
+              <mat-card-actions>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                  <div style="margin-left: 20px;">
+                    Price: {{ playerOrder.SellPrice }} ETH
+                  </div>
+                  <button
+                    (click)="CancelOrder(i)"
+                    mat-raised-button
+                    color="warn"
+                    style="background-color: #da1313"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Filled Orders"> </mat-tab>
+</mat-tab-group>

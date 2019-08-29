@@ -16,7 +16,7 @@
     </mat-nav-list>
     <mat-nav-list *ngIf="ContentType === 2">
       <a mat-list-item routerLink="/Home">Home</a>
-      <a mat-list-item routerLink="/Villages/Build">Build</a>
+      <a mat-list-item routerLink="/Game/Market">Market</a>
       <a mat-list-item routerLink="/Admin">Admin</a>
       <a (click)="logOut()">Log Out</a>
     </mat-nav-list>
@@ -42,7 +42,7 @@
         </div>
         <div *ngIf="ContentType === 2">
           <a routerLink="/Home">Home</a>
-          <a routerLink="/Villages/Build">Build</a>
+          <a routerLink="/Game/Market">Market</a>
           <a routerLink="/Admin">Admin</a>
           <a (click)="logOut()">Log Out</a>
         </div>
@@ -65,7 +65,10 @@
       </button>
     </mat-toolbar>
     <ng-content></ng-content>
-    <app-footer *ngIf="ContentType === 2"></app-footer>
+    <app-footer
+      [ContentType]="ContentType"
+      *ngIf="ContentType === 2"
+    ></app-footer>
     <!-- Add Content Here -->
   </mat-sidenav-content>
 </mat-sidenav-container>

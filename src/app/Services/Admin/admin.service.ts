@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Web3Model } from '../../Models/web3.model';
 import { GameService } from '../Game/game.service';
 import { BUpgradeModel } from 'src/app/Models/building.model';
-import { resolve } from 'q';
 import { TroopDetailsModel } from 'src/app/Models/troop.model';
 declare let web3: any;
 @Injectable({

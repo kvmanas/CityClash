@@ -25,7 +25,7 @@ export class Web3Service {
     tokenInstance: null,
     towninstance: null
   });
-  RefreshedAccount = interval(1000);
+  private RefreshedAccount = interval(1000);
   public AccountSubscription: Subscription;
   public async web3login() {
     return new Promise(async (resolve, reject) => {

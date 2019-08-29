@@ -6,7 +6,6 @@ import "./SafeMath.sol";
 library CClibrary{
     using SafeMath for uint256;
     struct PlayerModel{
-        uint256 LastAttack;
         address[] Towns;
         uint256 GemsCount;
     }

@@ -12,6 +12,7 @@ import { RouterComponent } from './Components/Home/router/router.component';
 import { GrouterComponent } from './Components/Game/grouter/grouter.component';
 import { BuildComponent } from './Components/Game/build/build.component';
 import { AdminTroopComponent } from './Components/Admin/admin-troop/admin-troop.component';
+import { MarketComponent } from './Components/Game/market/market.component';
 const routes: Routes = [
   {
     path: '',
@@ -44,6 +45,10 @@ const routes: Routes = [
       {
         path: 'Village',
         component: BuildComponent
+      },
+      {
+        path: 'Market',
+        component: MarketComponent
       }
     ]
   },

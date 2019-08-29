@@ -44,7 +44,6 @@ export class AdminHomeComponent implements OnInit {
       Validators.max(this.AdminBalance / 100)
     ]);
     this.SellCommission = await this.Admin.Game.SellCommission();
-    console.log(JSON.stringify(this.SellCommission));
     this.BasicPrice = await this.Admin.Game.BasicPrice();
   };
   DepositeGem = async () => {

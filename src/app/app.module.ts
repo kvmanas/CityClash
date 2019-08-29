@@ -26,6 +26,7 @@ import { AdminBuildAddUpgradesComponent } from './Components/Admin/admin-build-a
 import { AdminTroopAddDetailsComponent } from './Components/Admin/admin-troop-add-details/admin-troop-add-details.component';
 import { AdminTroopViewDetailsComponent } from './Components/Admin/admin-troop-view-details/admin-troop-view-details.component';
 import { AdminTroopComponent } from './Components/Admin/admin-troop/admin-troop.component';
+import { MarketComponent } from './Components/Game/market/market.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AdminTroopComponent } from './Components/Admin/admin-troop/admin-troop.
     AdminBuildAddUpgradesComponent,
     AdminTroopAddDetailsComponent,
     AdminTroopViewDetailsComponent,
-    AdminTroopComponent
+    AdminTroopComponent,
+    MarketComponent
   ],
   imports: [
     FormsModule,
