@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +28,8 @@ import { AdminTroopAddDetailsComponent } from './Components/Admin/admin-troop-ad
 import { AdminTroopViewDetailsComponent } from './Components/Admin/admin-troop-view-details/admin-troop-view-details.component';
 import { AdminTroopComponent } from './Components/Admin/admin-troop/admin-troop.component';
 import { MarketComponent } from './Components/Game/market/market.component';
+import { VmainComponent } from './Components/Village/vmain/vmain.component';
+import { VrouterComponent } from './Components/Village/vrouter/vrouter.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,9 @@ import { MarketComponent } from './Components/Game/market/market.component';
     AdminTroopAddDetailsComponent,
     AdminTroopViewDetailsComponent,
     AdminTroopComponent,
-    MarketComponent
+    MarketComponent,
+    VmainComponent,
+    VrouterComponent
   ],
   imports: [
     FormsModule,
@@ -57,7 +62,8 @@ import { MarketComponent } from './Components/Game/market/market.component';
     AppRoutingModule,
     AngularMaterialModule,
     FlexLayoutModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    HttpClientModule
   ],
   providers: [AuthGuard, AdminGuard],
   bootstrap: [AppComponent],

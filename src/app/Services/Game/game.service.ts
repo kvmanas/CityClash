@@ -7,6 +7,7 @@ import { TroopModel, TroopDetailsModel } from 'src/app/Models/troop.model';
 import { interval, BehaviorSubject, Subscription } from 'rxjs';
 import { UserModel } from 'src/app/Models/game.model';
 import { delay } from 'rxjs/operators';
+import { VillageService } from '../Village/village.service';
 declare let web3: any;
 
 @Injectable({
@@ -24,7 +25,10 @@ export class GameService {
   });
   private RefreshedUser = interval(1000).pipe(delay(500));
   public UserSubscription: Subscription;
-  constructor(private web3service: Web3Service) {
+  constructor(
+    private web3service: Web3Service,
+    public village: VillageService
+  ) {
     this.bzz = new Bzz({ url: 'https://swarm-gateways.net' });
     web3service.Web3Details$.subscribe(data => {
       this.web3data = data;
@@ -269,6 +273,31 @@ export class GameService {
       this.web3data.gameinstance.methods
         .GetFilledSellOrders()
         .call()
+        .then(d => resolve(d))
+        .catch(e => reject(e));
+    });
+  };
+  public BuyVillage = (index, value) => {
+    return new Promise((resolve, reject) => {
+      this.web3data.gameinstance.methods
+        .BuyUserVillage(index)
+        .send({
+          from: this.web3data.account,
+          gas: 6000000,
+          value: web3.utils.toWei(String(value), 'ether')
+        })
+        .then(d => resolve(d))
+        .catch(e => reject(e));
+    });
+  };
+  public cancelOrder = index => {
+    return new Promise((resolve, reject) => {
+      this.web3data.gameinstance.methods
+        .CancelSellOrder(index)
+        .send({
+          from: this.web3data.account,
+          gas: 6000000
+        })
         .then(d => resolve(d))
         .catch(e => reject(e));
     });

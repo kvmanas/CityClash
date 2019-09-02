@@ -13,6 +13,9 @@ import { GrouterComponent } from './Components/Game/grouter/grouter.component';
 import { BuildComponent } from './Components/Game/build/build.component';
 import { AdminTroopComponent } from './Components/Admin/admin-troop/admin-troop.component';
 import { MarketComponent } from './Components/Game/market/market.component';
+import { VrouterComponent } from './Components/Village/vrouter/vrouter.component';
+import { VillageGuard } from './Guards/Village/village.guard';
+import { VmainComponent } from './Components/Village/vmain/vmain.component';
 const routes: Routes = [
   {
     path: '',
@@ -49,6 +52,17 @@ const routes: Routes = [
       {
         path: 'Market',
         component: MarketComponent
+      }
+    ]
+  },
+  {
+    path: 'Village/:id',
+    component: VrouterComponent,
+    canActivate: [AuthGuard, VillageGuard],
+    children: [
+      {
+        path: '',
+        component: VmainComponent
       }
     ]
   },

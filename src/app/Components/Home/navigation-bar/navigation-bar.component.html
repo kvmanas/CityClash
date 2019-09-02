@@ -27,6 +27,12 @@
       <a mat-list-item routerLink="/Admin/Troops">Troops</a>
       <a (click)="logOut()">Log Out</a>
     </mat-nav-list>
+    <mat-nav-list *ngIf="ContentType === 4">
+      <a mat-list-item routerLink="/Home">Home</a>
+      <a mat-list-item [routerLink]="['/Village', village]">Dashboard</a>
+      <a mat-list-item [routerLink]="['/Village', village, 'Build']">Build</a>
+      <a (click)="logOut()">Log Out</a>
+    </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
@@ -53,6 +59,12 @@
           <a routerLink="/Admin/Troops">Troops</a>
           <a (click)="logOut()">Log Out</a>
         </div>
+        <div *ngIf="ContentType === 4">
+          <a routerLink="/Home">Home</a>
+          <a [routerLink]="['/Village', village]">Dashboard</a>
+          <a [routerLink]="['/Village', village, 'Build']">Build</a>
+          <a (click)="logOut()">Log Out</a>
+        </div>
       </div>
       <button
         type="button"
@@ -67,7 +79,7 @@
     <ng-content></ng-content>
     <app-footer
       [ContentType]="ContentType"
-      *ngIf="ContentType === 2"
+      *ngIf="ContentType === 2 || ContentType === 4"
     ></app-footer>
     <!-- Add Content Here -->
   </mat-sidenav-content>

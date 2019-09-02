@@ -4,6 +4,7 @@ import { GameService } from './../../../Services/Game/game.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { Web3Service } from 'src/app/Services/Web3/web3.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gmain',
@@ -23,7 +24,8 @@ export class GmainComponent implements OnInit {
   TownBasicPrice: number;
   constructor(
     private gameService: GameService,
-    private web3service: Web3Service
+    private web3service: Web3Service,
+    private router: Router
   ) {
     gameService.UserDetails$.subscribe(data => {
       this.userDt = data;
@@ -168,5 +170,9 @@ export class GmainComponent implements OnInit {
       this.RefreshData();
       this.AlertSuccess.show();
     }
+  };
+  viewVillage = index => {
+    const TownAddress = this.userDt._Towns[index];
+    this.router.navigate(['/Village', TownAddress]);
   };
 }

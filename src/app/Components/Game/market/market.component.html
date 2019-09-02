@@ -1,3 +1,25 @@
+<swal
+  #AlertMain
+  title=""
+  html=""
+  preConfirm=""
+  showCancelButton="true"
+  showLoaderOnConfirm="true"
+  confirmButtonText="OK"
+>
+</swal>
+<swal
+  #AlertDelete
+  title="Are you sure?"
+  text=""
+  preConfirm=""
+  showCancelButton="true"
+  showLoaderOnConfirm="true"
+  type="warning"
+>
+</swal>
+<swal #AlertError title="Oops..." text="" type="error"> </swal>
+<swal #AlertSuccess title="Success!" text="" type="success"> </swal>
 <mat-tab-group>
   <mat-tab label="Sell Orders">
     <div
@@ -78,5 +100,38 @@
       </div>
     </div>
   </mat-tab>
-  <mat-tab label="Filled Orders"> </mat-tab>
+  <mat-tab label="Filled Orders">
+    <div
+      fxLayout="row wrap"
+      fxLayoutGap="10px grid"
+      fxLayoutAlign="space-around start"
+      fxFlexFill
+    >
+      <div *ngFor="let filledOrder of FilledOrders; index as i" fxFlex="63">
+        <div fxLayout="column" fxLayoutGap="20px grid">
+          <span></span>
+          <div>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title
+                  >{{ i + 1 }}: {{ filledOrder.Town }}</mat-card-title
+                >
+                <mat-card-subtitle
+                  >Price: {{ filledOrder.SellPrice }} ETH</mat-card-subtitle
+                >
+              </mat-card-header>
+              <mat-card-actions>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                  <div style="margin-left: 20px;">
+                    Seller: {{ filledOrder.Seller }} <br />
+                    Buyer: {{ filledOrder.Buyer }}
+                  </div>
+                </div>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
 </mat-tab-group>

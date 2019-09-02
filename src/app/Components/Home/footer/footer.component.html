@@ -18,8 +18,8 @@
     </mat-toolbar-row>
     <mat-toolbar-row *ngIf="ContentType === 4">
       <div class="nextline">
-        <span class="padding">User: {{ UserAddress }}</span>
-        <span class="padding smallsize">Network: {{ Network }}</span>
+        <span class="padding">User: {{ data.web3Dt.account }}</span>
+        <span class="padding smallsize">Village: {{ village }}</span>
       </div>
       <span class="spacer"></span>
       <mat-icon
@@ -34,7 +34,8 @@
         class="padding elixir"
       ></mat-icon
       >0
-      <mat-icon fontSet="fas" fontIcon="fa-gem" class="padding gem"></mat-icon>0
+      <mat-icon fontSet="fas" fontIcon="fa-gem" class="padding gem"></mat-icon
+      >{{ data.userDt._GemsCount / 100 }}
     </mat-toolbar-row>
   </mat-toolbar-row>
 </mat-toolbar>

@@ -3,7 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Web3Service } from 'src/app/Services/Web3/web3.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class NavigationBarComponent implements OnInit {
   @Input()
   ContentType: number;
-
+  village: string;
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.XSmall)
     .pipe(map(result => result.matches));
@@ -21,7 +21,8 @@ export class NavigationBarComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private web3service: Web3Service,
-    private route: Router
+    private route: Router,
+    private activedRoute: ActivatedRoute
   ) {}
 
   logOut = async () => {
@@ -29,5 +30,10 @@ export class NavigationBarComponent implements OnInit {
     console.log('LogOut Button Pressed');
     this.route.navigateByUrl('/Home');
   };
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.ContentType === 4) {
+      this.village = this.activedRoute.snapshot.params.id;
+      console.log(this.village);
+    }
+  }
 }

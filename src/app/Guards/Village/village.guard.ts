@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
-import { Web3Model } from '../../Models/web3.model';
-import { Web3Service } from '../../Services/Web3/web3.service';
-import { map } from 'rxjs/operators';
+import {
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  UrlTree,
+  Router
+} from '@angular/router';
 import { Observable } from 'rxjs';
-declare let window: any;
+import { Web3Service } from 'src/app/Services/Web3/web3.service';
+import { Web3Model } from 'src/app/Models/web3.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuard implements CanActivate {
+export class VillageGuard implements CanActivate {
   constructor(private route: Router, private web3service: Web3Service) {}
   private web3var: Web3Model;
-  async canActivate(): Promise<boolean> {
+  async canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
     if (typeof this.web3service.AccountSubscription !== 'undefined') {
       if (this.web3service.AccountSubscription.closed) {
         localStorage.setItem('isLogged', 'false');
@@ -23,8 +27,10 @@ export class AdminGuard implements CanActivate {
       await this.web3service.web3login();
     }
     this.web3var = this.web3service.Web3Details$.value;
-    const GameOwner = await this.web3var.gameinstance.methods.owner().call();
-    if (GameOwner === this.web3var.account) {
+    const VillageOwner = await this.web3var.gameinstance.methods
+      .GetVillageOwner(route.paramMap.get('id'))
+      .call();
+    if (VillageOwner === this.web3var.account) {
       return true;
     }
     this.route.navigateByUrl('/Home');

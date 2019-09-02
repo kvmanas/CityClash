@@ -101,6 +101,7 @@ contract CityClash is Ownable , CCmodifiers{
         Game.addPlayerGems(village.Seller,GemtoSeller);
         Game.addPlayerGems(address(this),GemtoContract);
         village.Seller.transfer(msg.value);
+        Game.SellOrders[_position].Buyer = msg.sender;
         Game.SellOrders[_position].IsFilled = true;
         Game.addPlayerVillage(village.SellVillage);
         Game.Players[village.Seller].Towns[village.TownPosition] = Game.Players[village.Seller].Towns[ Game.Players[village.Seller].Towns.length - 1 ];
