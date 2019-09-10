@@ -1,0 +1,41 @@
+<swal #AlertError title="Oops..." text="" type="error"> </swal>
+<swal #AlertSuccess title="Success!" text="" type="success"> </swal>
+<div
+  fxLayout="row wrap"
+  fxLayoutGap="10px grid"
+  fxLayoutAlign="space-around start"
+  fxFlexFill
+>
+  <div *ngFor="let enemy of Enemies; index as i" fxFlex="63">
+    <div fxLayout="column" fxLayoutGap="20px grid">
+      <span></span>
+      <div>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ i + 1 }}: {{ enemy }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-actions>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+              <button
+                (click)="VewTown(i)"
+                mat-raised-button
+                color="warn"
+                style="margin-left: 20px;background-color: #1f3da2"
+              >
+                View
+              </button>
+              <button
+                (click)="AttackTown(i)"
+                mat-raised-button
+                color="warn"
+                style="background-color: #1fa22e"
+              >
+                Attack
+              </button>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

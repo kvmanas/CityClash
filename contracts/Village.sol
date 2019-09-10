@@ -33,18 +33,30 @@ contract Village is Ownable{
         uint256 Defence;
         uint256 Steal;
     }
-    mapping(uint256 => QueueModel)  TroopsQueue;
+    mapping(uint256 => QueueModel) public  TroopsQueue;
     uint256 public CompletedQueue;
     uint256 public TotalQueue;
     uint256 public completionTime;
     address payable private CCgame;
+    event Battle(
+       address attacker,
+       address defender,
+       uint256 Gold,
+       uint256 Elixr,
+       bool success
+    );
     constructor(address payable _CCgame) public{
         CCgame = _CCgame;
         UserDetails.GoldRate = 1;
         UserDetails.ElixrRate = 1;
+        UserDetails.TimeStamp = now;
     }
     modifier isVillageOwner() {
         require(ICityClash(CCgame).GetVillageOwner(address(this)) == msg.sender,"User is not Village owner");
+        _;
+    }
+    modifier isFromVillage() {
+        require(ICityClash(CCgame).GetVillageOwner(msg.sender) != address(0),"Caller is not Village");
         _;
     }
 
@@ -66,7 +78,8 @@ contract Village is Ownable{
         }
         UpdateUserTroops();
         UserDetails.GoldRate = UserDetails.GoldRate.add(_GoldRate);
-        UserDetails.ElixrRate = UserDetails.GoldRate.add(_ElixrRate);
+        UserDetails.ElixrRate = UserDetails.ElixrRate.add(_ElixrRate);
+        UserDetails.Buildings[_ID].Level = _level;
         UserDetails.Buildings[_ID].CoolOff = _Time.add(now);
         if(_GemReward > 0){
             require(ICityClash(CCgame).AddGemFromVillage(msg.sender,_GemReward),"Something Went Wrong");
@@ -98,6 +111,7 @@ contract Village is Ownable{
         Queue.Defence = _Defence.mul(_count);
         Queue.Steal = _Steal.mul(_count);
         TroopsQueue[TotalQueue] = Queue;
+        completionTime = Queue.Time;
         TotalQueue++;
     }
 
@@ -115,6 +129,51 @@ contract Village is Ownable{
             UserDetails.Troops[TroopsQueue[i].ID].Count = UserDetails.Troops[TroopsQueue[i].ID].Count.add(TroopsQueue[i].Count);
             CompletedQueue++;
         }
+    }
+    function GetUpgradeDetails(uint256 _id) public view  returns(uint256 _Level , uint256 _CoolOff){
+        _Level = UserDetails.Buildings[_id].Level;
+        _CoolOff = UserDetails.Buildings[_id].CoolOff;
+    }
+    function GetTrainDetails(uint256 _id) public view  returns(uint256 _Count){
+        _Count = UserDetails.Troops[_id].Count;
+    }
+    function AttackEnemy(address _Enemy) public isVillageOwner{
+        require(ICityClash(CCgame).GetVillageOwner(_Enemy) != address(0),"Invalid village");
+        require(ICityClash(CCgame).GetVillageOwner(_Enemy) != msg.sender,"User Can't attack own village");
+        UpdateUserResources();
+        UpdateUserTroops();
+        (uint256 _GoldSteal, uint256 _ElixrSteal) = Village(_Enemy).DefenceAttack(address(this),UserDetails.Attack, UserDetails.Steal);
+         UserDetails.Gold = UserDetails.Gold.add(_GoldSteal);
+         UserDetails.Elixr = UserDetails.Gold.add(_ElixrSteal);
+
+    }
+    function DefenceAttack(address _Attacker, uint256 _Attack, uint256 _Steal) public
+    isFromVillage returns(uint256 _GoldSteal , uint256 _ElixrSteal){
+        UpdateUserResources();
+        UpdateUserTroops();
+        bool success;
+        if(_Attack >= UserDetails.Defence){
+            success = true;
+            if(UserDetails.Gold < _Steal){
+                UserDetails.Gold = 0;
+                _GoldSteal = UserDetails.Gold;
+            }else{
+                UserDetails.Gold = UserDetails.Gold.sub(_Steal);
+                _GoldSteal = _Steal;
+            }
+            if(UserDetails.Elixr < _Steal){
+                UserDetails.Elixr = 0;
+                _ElixrSteal = UserDetails.Elixr;
+            }else{
+                UserDetails.Elixr = UserDetails.Elixr.sub(_Steal);
+                _ElixrSteal = _Steal;
+            }
+        }else{
+            success = false;
+            _GoldSteal = 0;
+            _ElixrSteal = 0;
+        }
+        emit Battle(_Attacker,address(this),_GoldSteal,_ElixrSteal,success);
     }
     function DestroyVillage() external onlyOwner{
         selfdestruct(CCgame);

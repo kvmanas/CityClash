@@ -47,6 +47,14 @@
                     Price: {{ sellorder.SellPrice }} ETH
                   </div>
                   <button
+                    (click)="VewTown(sellorder.Town)"
+                    mat-raised-button
+                    color="warn"
+                    style="margin-left: 20px;background-color: #1f3da2"
+                  >
+                    View
+                  </button>
+                  <button
                     (click)="BuyTown(i)"
                     mat-raised-button
                     color="warn"

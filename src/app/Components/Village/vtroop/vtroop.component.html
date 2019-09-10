@@ -1,0 +1,135 @@
+<swal
+  #AlertMain
+  title=""
+  html=""
+  preConfirm=""
+  showCancelButton="true"
+  showLoaderOnConfirm="true"
+>
+</swal>
+<swal #AlertError title="Oops..." text="" type="error"> </swal>
+<swal #AlertSuccess title="Success!" text="" type="success"> </swal>
+<mat-toolbar color="warn" style="height:160px">
+  <mat-toolbar-row
+    fxLayout="row wrap"
+    fxLayoutGap="2px grid"
+    fxLayoutAlign="start start"
+    fxFlexFill
+  >
+    Training Queue
+    <div *ngFor="let Queue of TroopQueue; index as j" fxFlex="10">
+      <div fxLayout="column" fxLayoutGap="10px grid">
+        <span></span>
+        <div>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{ QueueDetails[j].name }}</mat-card-title>
+              <mat-card-subtitle>Count: {{ Queue.Count }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+              <div
+                fxLayout="column"
+                fxLayoutAlign="start start"
+                *ngIf="+Queue.Time - TimeS > 0"
+              >
+                {{ (+Queue.Time - TimeS) / 60 | number: '1.0-2' }} min left
+              </div>
+              <div *ngIf="+Queue.Time - TimeS <= 0">
+                Completed
+              </div>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div></mat-toolbar-row
+  >
+</mat-toolbar>
+<div>
+  <div
+    fxLayout="row wrap"
+    fxLayoutGap="10px grid"
+    fxLayoutAlign="space-around start"
+    fxFlexFill
+  >
+    <div *ngFor="let troop of Troops; index as i" fxFlex="23">
+      <div fxLayout="column" fxLayoutGap="20px grid">
+        <span></span>
+        <div>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{ troop.name }}</mat-card-title>
+              <mat-card-subtitle
+                >Count: {{ currentSatus[i] }}</mat-card-subtitle
+              >
+            </mat-card-header>
+            <img mat-card-image [src]="troop.image" width="200" height="150" />
+            <mat-card-actions>
+              <div fxLayout="column" fxLayoutAlign="space-around start">
+                <span
+                  >Gold: {{ TroopDetails[i]._RequiredGold }}
+                  <mat-icon
+                    fontSet="fas"
+                    fontIcon="fa-arrow-down"
+                    class="padding redc"
+                  ></mat-icon>
+                </span>
+                <span
+                  >Elixr: {{ TroopDetails[i]._RequiredElixr
+                  }}<mat-icon
+                    fontSet="fas"
+                    fontIcon="fa-arrow-down"
+                    class="padding redc"
+                  ></mat-icon
+                ></span>
+                <span
+                  >Gem: {{ +TroopDetails[i]._RequiredGem / 100
+                  }}<mat-icon
+                    fontSet="fas"
+                    fontIcon="fa-arrow-down"
+                    class="padding redc"
+                  ></mat-icon
+                ></span>
+                <span
+                  >Attack: {{ TroopDetails[i]._Attack
+                  }}<mat-icon
+                    fontSet="fas"
+                    fontIcon="fa-arrow-up"
+                    class="padding greenc"
+                  ></mat-icon
+                ></span>
+                <span
+                  >Defence: {{ TroopDetails[i]._Defence
+                  }}<mat-icon
+                    fontSet="fas"
+                    fontIcon="fa-arrow-up"
+                    class="padding greenc"
+                  ></mat-icon
+                ></span>
+                <span
+                  >Steal: {{ TroopDetails[i]._Steal
+                  }}<mat-icon
+                    fontSet="fas"
+                    fontIcon="fa-arrow-up"
+                    class="padding greenc"
+                  ></mat-icon
+                ></span>
+                <span>Time: {{ TroopDetails[i]._Time / 60 }} min </span>
+                <div fxFlexFill>
+                  <div fxLayout="row" fxLayoutAlign="end end" fxFlexFill>
+                    <button
+                      (click)="TrainTroop(i)"
+                      mat-raised-button
+                      color="primary"
+                    >
+                      Train
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

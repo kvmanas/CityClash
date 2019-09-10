@@ -19,23 +19,51 @@
     <mat-toolbar-row *ngIf="ContentType === 4">
       <div class="nextline">
         <span class="padding">User: {{ data.web3Dt.account }}</span>
-        <span class="padding smallsize">Village: {{ village }}</span>
+        <span class="padding smallsize">Village: {{ village.address }}</span>
       </div>
       <span class="spacer"></span>
-      <mat-icon
-        fontSet="fas"
-        fontIcon="fa-coins"
-        class="padding gold"
-      ></mat-icon
-      >0
-      <mat-icon
-        fontSet="fas"
-        fontIcon="fa-flask"
-        class="padding elixir"
-      ></mat-icon
-      >0
-      <mat-icon fontSet="fas" fontIcon="fa-gem" class="padding gem"></mat-icon
-      >{{ data.userDt._GemsCount / 100 }}
+      <div class="nextline">
+        <div>
+          <mat-icon
+            fontSet="fas"
+            fontIcon="fa-coins"
+            class="padding gold"
+          ></mat-icon
+          >{{ Gold }}
+          <mat-icon
+            fontSet="fas"
+            fontIcon="fa-flask"
+            class="padding elixir"
+          ></mat-icon
+          >{{ Elixr }}
+          <mat-icon
+            fontSet="fas"
+            fontIcon="fa-gem"
+            class="padding gem"
+          ></mat-icon
+          >{{ data.userDt._GemsCount / 100 }}
+        </div>
+        <div>
+          <mat-icon
+            fontSet="fas"
+            fontIcon="fa-utensils"
+            class="padding elixir"
+          ></mat-icon
+          >{{ village.data.Attack }}
+          <mat-icon
+            fontSet="fas"
+            fontIcon="fa-shield-alt"
+            class="padding gem"
+          ></mat-icon
+          >{{ village.data.Defence }}
+          <mat-icon
+            fontSet="fas"
+            fontIcon="fa-shopping-bag"
+            class="padding gold"
+          ></mat-icon
+          >{{ village.data.Steal }}
+        </div>
+      </div>
     </mat-toolbar-row>
   </mat-toolbar-row>
 </mat-toolbar>

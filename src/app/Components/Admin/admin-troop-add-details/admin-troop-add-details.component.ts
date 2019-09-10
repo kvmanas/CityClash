@@ -37,6 +37,7 @@ export class AdminTroopAddDetailsComponent implements OnInit {
   onSave(): void {
     if (this.TroopDtForm.valid) {
       this.TroopDtForm.value._Time *= 60;
+      this.TroopDtForm.value._RequiredGem *= 100;
       this.dialogRef.close({
         id: this.data.troops[this.data.index].id,
         data: this.TroopDtForm.value

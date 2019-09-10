@@ -30,6 +30,12 @@ import { AdminTroopComponent } from './Components/Admin/admin-troop/admin-troop.
 import { MarketComponent } from './Components/Game/market/market.component';
 import { VmainComponent } from './Components/Village/vmain/vmain.component';
 import { VrouterComponent } from './Components/Village/vrouter/vrouter.component';
+import {
+  VtroopComponent,
+  VtrainDialogComponent
+} from './Components/Village/vtroop/vtroop.component';
+import { VbattleComponent } from './Components/Village/vbattle/vbattle.component';
+import { VviewComponent } from './Components/Village/vview/vview.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +59,11 @@ import { VrouterComponent } from './Components/Village/vrouter/vrouter.component
     AdminTroopComponent,
     MarketComponent,
     VmainComponent,
-    VrouterComponent
+    VrouterComponent,
+    VtroopComponent,
+    VtrainDialogComponent,
+    VbattleComponent,
+    VviewComponent
   ],
   imports: [
     FormsModule,
@@ -71,7 +81,9 @@ import { VrouterComponent } from './Components/Village/vrouter/vrouter.component
     AdminBuildViewUpgradesComponent,
     AdminBuildAddUpgradesComponent,
     AdminTroopAddDetailsComponent,
-    AdminTroopViewDetailsComponent
+    AdminTroopViewDetailsComponent,
+    VtrainDialogComponent,
+    VviewComponent
   ]
 })
 export class AppModule {}

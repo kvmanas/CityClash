@@ -16,6 +16,8 @@ import { MarketComponent } from './Components/Game/market/market.component';
 import { VrouterComponent } from './Components/Village/vrouter/vrouter.component';
 import { VillageGuard } from './Guards/Village/village.guard';
 import { VmainComponent } from './Components/Village/vmain/vmain.component';
+import { VtroopComponent } from './Components/Village/vtroop/vtroop.component';
+import { VbattleComponent } from './Components/Village/vbattle/vbattle.component';
 const routes: Routes = [
   {
     path: '',
@@ -63,6 +65,14 @@ const routes: Routes = [
       {
         path: '',
         component: VmainComponent
+      },
+      {
+        path: 'Troops',
+        component: VtroopComponent
+      },
+      {
+        path: 'Battle',
+        component: VbattleComponent
       }
     ]
   },

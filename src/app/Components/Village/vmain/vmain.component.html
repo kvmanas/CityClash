@@ -1,1 +1,135 @@
-<p>vmain works!</p>
+<swal
+  #AlertMain
+  title=""
+  html=""
+  preConfirm=""
+  showCancelButton="true"
+  showLoaderOnConfirm="true"
+>
+</swal>
+<swal #AlertError title="Oops..." text="" type="error"> </swal>
+<swal #AlertSuccess title="Success!" text="" type="success"> </swal>
+
+<div>
+  <div
+    fxLayout="row wrap"
+    fxLayoutGap="10px grid"
+    fxLayoutAlign="space-around start"
+    fxFlexFill
+  >
+    <div *ngFor="let building of buildings; index as i" fxFlex="23">
+      <div fxLayout="column" fxLayoutGap="20px grid">
+        <span></span>
+        <div>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{ building.name }}</mat-card-title>
+              <mat-card-subtitle
+                >Level: {{ currentSatus[i]._Level }}</mat-card-subtitle
+              >
+            </mat-card-header>
+            <img
+              mat-card-image
+              [src]="building.image"
+              width="200"
+              height="150"
+            />
+            <mat-card-actions *ngIf="nextUpdate[i]._Time > 0">
+              <div fxLayout="column" fxLayoutAlign="space-around start">
+                <span
+                  >Gold: {{ nextUpdate[i]._RequiredGold }}
+                  <mat-icon
+                    fontSet="fas"
+                    fontIcon="fa-arrow-down"
+                    class="padding redc"
+                  ></mat-icon
+                ></span>
+                <span
+                  >Elixr: {{ nextUpdate[i]._RequiredElixr
+                  }}<mat-icon
+                    fontSet="fas"
+                    fontIcon="fa-arrow-down"
+                    class="padding redc"
+                  ></mat-icon
+                ></span>
+                <span
+                  >Gem: {{ +nextUpdate[i]._RequiredGem / 100
+                  }}<mat-icon
+                    fontSet="fas"
+                    fontIcon="fa-arrow-down"
+                    class="padding redc"
+                  ></mat-icon
+                ></span>
+                <span
+                  >Gold rate: {{ nextUpdate[i]._GoldRate
+                  }}<mat-icon
+                    fontSet="fas"
+                    fontIcon="fa-arrow-up"
+                    class="padding greenc"
+                  ></mat-icon
+                ></span>
+                <span
+                  >Elixr rate: {{ nextUpdate[i]._ElixrRate
+                  }}<mat-icon
+                    fontSet="fas"
+                    fontIcon="fa-arrow-up"
+                    class="padding greenc"
+                  ></mat-icon
+                ></span>
+                <span
+                  >Gem: {{ +nextUpdate[i]._GemReward / 100
+                  }}<mat-icon
+                    fontSet="fas"
+                    fontIcon="fa-arrow-up"
+                    class="padding greenc"
+                  ></mat-icon
+                ></span>
+                <span>Time: {{ nextUpdate[i]._Time / 60 }} min </span>
+                <div
+                  *ngIf="
+                    TimeS < +currentSatus[i]._CoolOff;
+                    then isUpdating;
+                    else noUpdating
+                  "
+                ></div>
+                <ng-template #isUpdating>
+                  {{ +currentSatus[i]._CoolOff - TimeS }} seconds left
+                </ng-template>
+                <ng-template #noUpdating>
+                  <div
+                    fxFlexFill
+                    *ngIf="
+                      currentSatus[nextUpdate[i]._RequiredBuilding]._Level >=
+                        nextUpdate[i]._RequiredLevel;
+                      then Upgradable;
+                      else noUpgrade
+                    "
+                  ></div>
+                  <ng-template #Upgradable>
+                    <div fxLayout="row" fxLayoutAlign="end end" fxFlexFill>
+                      <button
+                        (click)="Upgrade(i)"
+                        mat-raised-button
+                        color="primary"
+                      >
+                        Upgrade
+                      </button>
+                    </div>
+                  </ng-template>
+                  <ng-template #noUpgrade>
+                    <span class="redc">
+                      Require
+                      {{ buildings[nextUpdate[i]._RequiredBuilding].name }}
+                      Level
+                      {{ nextUpdate[i]._RequiredLevel }}
+                    </span>
+                  </ng-template>
+                </ng-template>
+              </div>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

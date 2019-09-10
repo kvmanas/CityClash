@@ -45,7 +45,8 @@ export class AdminBuildAddUpgradesComponent implements OnInit {
   onSave(): void {
     if (this.BuildUpForm.valid && this.UpLevel.valid) {
       this.BuildUpForm.value._Time *= 60;
-      console.log(this.BuildUpForm.value);
+      this.BuildUpForm.value._RequiredGem *= 100;
+      this.BuildUpForm.value._GemReward *= 100;
       this.dialogRef.close({
         id: this.data.buildings[this.data.index].id,
         level: this.UpLevel.value,

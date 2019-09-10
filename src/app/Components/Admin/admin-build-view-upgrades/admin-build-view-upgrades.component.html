@@ -21,7 +21,7 @@
     <td mat-cell *matCellDef="let element" style="line-height: 2">
       Gold: {{ element._RequiredGold }}<br />
       Elixr: {{ element._RequiredElixr }}<br />
-      Gems: {{ element._RequiredGem }}
+      Gems: {{ +element._RequiredGem / 100 }}
     </td>
   </ng-container>
   <ng-container matColumnDef="Upgrades">
@@ -29,7 +29,7 @@
     <td mat-cell *matCellDef="let element" style="line-height: 2">
       Gold Rate: + {{ element._GoldRate }} /sec<br />
       Elixr Rate: + {{ element._ElixrRate }} /sec<br />
-      Gems: + {{ element._GemReward }}
+      Gems: + {{ +element._GemReward / 100 }}
     </td>
   </ng-container>
   <ng-container matColumnDef="Time">

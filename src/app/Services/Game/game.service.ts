@@ -7,7 +7,6 @@ import { TroopModel, TroopDetailsModel } from 'src/app/Models/troop.model';
 import { interval, BehaviorSubject, Subscription } from 'rxjs';
 import { UserModel } from 'src/app/Models/game.model';
 import { delay } from 'rxjs/operators';
-import { VillageService } from '../Village/village.service';
 declare let web3: any;
 
 @Injectable({
@@ -25,10 +24,7 @@ export class GameService {
   });
   private RefreshedUser = interval(1000).pipe(delay(500));
   public UserSubscription: Subscription;
-  constructor(
-    private web3service: Web3Service,
-    public village: VillageService
-  ) {
+  constructor(private web3service: Web3Service) {
     this.bzz = new Bzz({ url: 'https://swarm-gateways.net' });
     web3service.Web3Details$.subscribe(data => {
       this.web3data = data;
@@ -299,6 +295,19 @@ export class GameService {
           gas: 6000000
         })
         .then(d => resolve(d))
+        .catch(e => reject(e));
+    });
+  };
+  public GetAllVillages = () => {
+    return new Promise<Array<string>>((resolve, reject) => {
+      this.web3data.gameinstance.methods
+        .GetVillages()
+        .call({
+          from: this.web3data.account
+        })
+        .then(d => {
+          resolve(d);
+        })
         .catch(e => reject(e));
     });
   };

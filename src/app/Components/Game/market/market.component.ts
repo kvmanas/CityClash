@@ -3,6 +3,8 @@ import { GameService } from 'src/app/Services/Game/game.service';
 import { Web3Service } from 'src/app/Services/Web3/web3.service';
 import { UserModel, SellOrders } from 'src/app/Models/game.model';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
+import { MatDialog } from '@angular/material/dialog';
+import { VviewComponent } from '../../Village/vview/vview.component';
 declare let web3: any;
 
 @Component({
@@ -26,7 +28,8 @@ export class MarketComponent implements OnInit {
   TownBasicPrice: number;
   constructor(
     private gameService: GameService,
-    private web3service: Web3Service
+    private web3service: Web3Service,
+    public dialog: MatDialog
   ) {
     gameService.UserDetails$.subscribe(data => {
       if (this.gameService.web3data.gameinstance) {
@@ -145,5 +148,11 @@ export class MarketComponent implements OnInit {
       this.RefreshData();
       this.AlertSuccess.show();
     }
+  };
+  VewTown = Town => {
+    this.dialog.open(VviewComponent, {
+      width: '250px',
+      data: Town
+    });
   };
 }

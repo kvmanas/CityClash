@@ -12,7 +12,7 @@
         <h3>Required resources</h3>
         <h4>Gold: {{ data.details._RequiredGold }}</h4>
         <h4>Elixr : {{ data.details._RequiredElixr }}</h4>
-        <h4>Gem : {{ data.details._RequiredGem }}</h4>
+        <h4>Gem : {{ +data.details._RequiredGem / 100 }}</h4>
         <br /><br />
         <h4>Time : {{ data.details._Time / 60 }} minutes</h4>
       </div>

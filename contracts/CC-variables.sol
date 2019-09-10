@@ -19,20 +19,20 @@ contract CCvariables{
         _GemsCount = Game.Players[_player].GemsCount;
     }
     /**
-    * function to Get All Villages .
+    * function to Get All Villages Excluding Caller Village.
     * @return  Villages
     */
     function GetVillages() public view returns(address[] memory){
         uint256 j;
         for (uint256 i = 0; i < Game.Villages.length; i++) {
-            if(GetVillageOwner(Game.Villages[i]) != address(0)){
+            if(GetVillageOwner(Game.Villages[i]) != address(0) && GetVillageOwner(Game.Villages[i]) != msg.sender){
                 j++;
             }
         }
         address[] memory _villages = new address[](j);
         j = 0;
         for (uint256 i = 0; i < Game.Villages.length; i++) {
-            if(GetVillageOwner(Game.Villages[i]) != address(0)){
+            if(GetVillageOwner(Game.Villages[i]) != address(0) && GetVillageOwner(Game.Villages[i]) != msg.sender){
                  _villages[j] = Game.Villages[i];
                  j++;
             }

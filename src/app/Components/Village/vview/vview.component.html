@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Village Details</h1>
+<div mat-dialog-content>
+  <p>Gold:{{ towndt.Gold }}</p>
+  <p>Elixr:{{ towndt.Elixr }}</p>
+  <p>Gold Production:{{ towndt.GoldRate }}/s</p>
+  <p>Elixr Production:{{ towndt.ElixrRate }} /s</p>
+  <p>Attack:{{ towndt.Attack }}</p>
+  <p>Defence:{{ towndt.Defence }}</p>
+  <p>Steal:{{ towndt.Steal }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+</div>

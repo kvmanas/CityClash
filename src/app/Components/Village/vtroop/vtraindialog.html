@@ -1,0 +1,69 @@
+<h1 mat-dialog-title>Train Troops</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input
+      matInput
+      type="number"
+      [(ngModel)]="count"
+      (ngModelChange)="dataChanged($event)"
+      min="0"
+      oninput="validity.valid||(value='');"
+      name="data"
+    />
+  </mat-form-field>
+  <p>
+    Gold:{{ Gold
+    }}<mat-icon
+      fontSet="fas"
+      fontIcon="fa-arrow-down"
+      class="padding redc"
+    ></mat-icon>
+  </p>
+  <p>
+    Elixr:{{ Elixr
+    }}<mat-icon
+      fontSet="fas"
+      fontIcon="fa-arrow-down"
+      class="padding redc"
+    ></mat-icon>
+  </p>
+  <p>
+    Gem:{{ Gem
+    }}<mat-icon
+      fontSet="fas"
+      fontIcon="fa-arrow-down"
+      class="padding redc"
+    ></mat-icon>
+  </p>
+  <p>
+    Attack:{{ Attack
+    }}<mat-icon
+      fontSet="fas"
+      fontIcon="fa-arrow-up"
+      class="padding greenc"
+    ></mat-icon>
+  </p>
+  <p>
+    Defence:{{ Defence
+    }}<mat-icon
+      fontSet="fas"
+      fontIcon="fa-arrow-up"
+      class="padding greenc"
+    ></mat-icon>
+  </p>
+  <p>
+    Steal:{{ Steal
+    }}<mat-icon
+      fontSet="fas"
+      fontIcon="fa-arrow-up"
+      class="padding greenc"
+    ></mat-icon>
+  </p>
+  <p>Time:{{ Time / 60 }} min</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onTrain()" cdkFocusInitial>
+    Train
+  </button>
+</div>

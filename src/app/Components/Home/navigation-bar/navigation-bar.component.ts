@@ -1,3 +1,4 @@
+import { VillageService } from './../../../Services/Village/village.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
@@ -22,7 +23,8 @@ export class NavigationBarComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private web3service: Web3Service,
     private route: Router,
-    private activedRoute: ActivatedRoute
+    private activedRoute: ActivatedRoute,
+    private villageService: VillageService
   ) {}
 
   logOut = async () => {
@@ -30,10 +32,9 @@ export class NavigationBarComponent implements OnInit {
     console.log('LogOut Button Pressed');
     this.route.navigateByUrl('/Home');
   };
-  ngOnInit() {
+  async ngOnInit() {
     if (this.ContentType === 4) {
       this.village = this.activedRoute.snapshot.params.id;
-      console.log(this.village);
     }
   }
 }
