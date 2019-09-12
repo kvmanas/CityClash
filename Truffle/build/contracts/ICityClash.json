@@ -1,0 +1,2155 @@
+{
+  "contractName": "ICityClash",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_village",
+          "type": "address"
+        }
+      ],
+      "name": "GetVillageOwner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_ID",
+          "type": "uint256"
+        },
+        {
+          "name": "_level",
+          "type": "uint256"
+        }
+      ],
+      "name": "GetBuildingUpgrades",
+      "outputs": [
+        {
+          "name": "_RequiredBuilding",
+          "type": "uint256"
+        },
+        {
+          "name": "_RequiredLevel",
+          "type": "uint256"
+        },
+        {
+          "name": "_RequiredGold",
+          "type": "uint256"
+        },
+        {
+          "name": "_RequiredElixr",
+          "type": "uint256"
+        },
+        {
+          "name": "_RequiredGem",
+          "type": "uint256"
+        },
+        {
+          "name": "_GoldRate",
+          "type": "uint256"
+        },
+        {
+          "name": "_ElixrRate",
+          "type": "uint256"
+        },
+        {
+          "name": "_GemReward",
+          "type": "uint256"
+        },
+        {
+          "name": "_Time",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_player",
+          "type": "address"
+        }
+      ],
+      "name": "GetPlayerGems",
+      "outputs": [
+        {
+          "name": "_GemsCount",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_User",
+          "type": "address"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "SubGemFromVillage",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_User",
+          "type": "address"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "AddGemFromVillage",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_ID",
+          "type": "uint256"
+        }
+      ],
+      "name": "GetToopsDetails",
+      "outputs": [
+        {
+          "name": "_Defence",
+          "type": "uint256"
+        },
+        {
+          "name": "_Attack",
+          "type": "uint256"
+        },
+        {
+          "name": "_Steal",
+          "type": "uint256"
+        },
+        {
+          "name": "_RequiredGold",
+          "type": "uint256"
+        },
+        {
+          "name": "_RequiredElixr",
+          "type": "uint256"
+        },
+        {
+          "name": "_RequiredGem",
+          "type": "uint256"
+        },
+        {
+          "name": "_Time",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.8+commit.23d335f2\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"name\":\"_ID\",\"type\":\"uint256\"}],\"name\":\"GetToopsDetails\",\"outputs\":[{\"name\":\"_Defence\",\"type\":\"uint256\"},{\"name\":\"_Attack\",\"type\":\"uint256\"},{\"name\":\"_Steal\",\"type\":\"uint256\"},{\"name\":\"_RequiredGold\",\"type\":\"uint256\"},{\"name\":\"_RequiredElixr\",\"type\":\"uint256\"},{\"name\":\"_RequiredGem\",\"type\":\"uint256\"},{\"name\":\"_Time\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_ID\",\"type\":\"uint256\"},{\"name\":\"_level\",\"type\":\"uint256\"}],\"name\":\"GetBuildingUpgrades\",\"outputs\":[{\"name\":\"_RequiredBuilding\",\"type\":\"uint256\"},{\"name\":\"_RequiredLevel\",\"type\":\"uint256\"},{\"name\":\"_RequiredGold\",\"type\":\"uint256\"},{\"name\":\"_RequiredElixr\",\"type\":\"uint256\"},{\"name\":\"_RequiredGem\",\"type\":\"uint256\"},{\"name\":\"_GoldRate\",\"type\":\"uint256\"},{\"name\":\"_ElixrRate\",\"type\":\"uint256\"},{\"name\":\"_GemReward\",\"type\":\"uint256\"},{\"name\":\"_Time\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_User\",\"type\":\"address\"},{\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"SubGemFromVillage\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_village\",\"type\":\"address\"}],\"name\":\"GetVillageOwner\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_User\",\"type\":\"address\"},{\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"AddGemFromVillage\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_player\",\"type\":\"address\"}],\"name\":\"GetPlayerGems\",\"outputs\":[{\"name\":\"_GemsCount\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/E/KBA/ethereum/project/Docker/Truffle/contracts/ICityClash.sol\":\"ICityClash\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/E/KBA/ethereum/project/Docker/Truffle/contracts/ICityClash.sol\":{\"keccak256\":\"0xd3961143ac4f0d761a55e15330e8c00812b73a3dd0680a80ac8f9cb3d725a33e\",\"urls\":[\"bzzr://ddfd1e9d0d6f2ce6233916428a50a2ec0678778d793ea18daabeaa314f0581d6\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.5.0;\r\n//CityClash interface refer CityClash.sol\r\ninterface ICityClash{\r\n    function GetVillageOwner(address _village) external view returns(address);\r\n    function GetBuildingUpgrades(uint256 _ID, uint256 _level) external view\r\n    returns(uint256 _RequiredBuilding, uint256 _RequiredLevel, uint256 _RequiredGold, uint256 _RequiredElixr,\r\n    uint256 _RequiredGem, uint256 _GoldRate, uint256 _ElixrRate, uint256 _GemReward, uint256 _Time);\r\n    function GetPlayerGems(address _player) external view  returns(uint256 _GemsCount);\r\n    function SubGemFromVillage(address _User, uint256 _amount) external returns(bool);\r\n    function AddGemFromVillage(address _User, uint256 _amount) external returns(bool);\r\n    function GetToopsDetails(uint256 _ID) external view\r\n    returns(uint256 _Defence, uint256 _Attack, uint256 _Steal, uint256 _RequiredGold,\r\n    uint256 _RequiredElixr, uint256 _RequiredGem, uint256 _Time);\r\n}",
+  "sourcePath": "E:\\KBA\\ethereum\\project\\Docker\\Truffle\\contracts\\ICityClash.sol",
+  "ast": {
+    "absolutePath": "/E/KBA/ethereum/project/Docker/Truffle/contracts/ICityClash.sol",
+    "exportedSymbols": {
+      "ICityClash": [
+        3073
+      ]
+    },
+    "id": 3074,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 2996,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:7"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 3073,
+        "linearizedBaseContracts": [
+          3073
+        ],
+        "name": "ICityClash",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 3003,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "GetVillageOwner",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2999,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2998,
+                  "name": "_village",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3003,
+                  "src": "120:16:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2997,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "120:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "119:18:7"
+            },
+            "returnParameters": {
+              "id": 3002,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3001,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3003,
+                  "src": "160:7:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3000,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "160:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "159:9:7"
+            },
+            "scope": 3073,
+            "src": "95:74:7",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 3028,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "GetBuildingUpgrades",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3008,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3005,
+                  "name": "_ID",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "204:11:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3004,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "204:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3007,
+                  "name": "_level",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "217:14:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3006,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "217:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "203:29:7"
+            },
+            "returnParameters": {
+              "id": 3027,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3010,
+                  "name": "_RequiredBuilding",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "260:25:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3009,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "260:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3012,
+                  "name": "_RequiredLevel",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "287:22:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3011,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "287:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3014,
+                  "name": "_RequiredGold",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "311:21:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3013,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "311:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3016,
+                  "name": "_RequiredElixr",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "334:22:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3015,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "334:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3018,
+                  "name": "_RequiredGem",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "363:20:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3017,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "363:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3020,
+                  "name": "_GoldRate",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "385:17:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3019,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "385:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3022,
+                  "name": "_ElixrRate",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "404:18:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3021,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "404:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3024,
+                  "name": "_GemReward",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "424:18:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3023,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "424:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3026,
+                  "name": "_Time",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "444:13:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3025,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "444:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "259:199:7"
+            },
+            "scope": 3073,
+            "src": "175:284:7",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 3035,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "GetPlayerGems",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3031,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3030,
+                  "name": "_player",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3035,
+                  "src": "488:15:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3029,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "488:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "487:17:7"
+            },
+            "returnParameters": {
+              "id": 3034,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3033,
+                  "name": "_GemsCount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3035,
+                  "src": "528:18:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3032,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "528:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "527:20:7"
+            },
+            "scope": 3073,
+            "src": "465:83:7",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 3044,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "SubGemFromVillage",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3040,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3037,
+                  "name": "_User",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3044,
+                  "src": "581:13:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3036,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "581:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3039,
+                  "name": "_amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3044,
+                  "src": "596:15:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3038,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "596:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "580:32:7"
+            },
+            "returnParameters": {
+              "id": 3043,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3042,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3044,
+                  "src": "630:4:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 3041,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "630:4:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "629:6:7"
+            },
+            "scope": 3073,
+            "src": "554:82:7",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 3053,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "AddGemFromVillage",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3049,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3046,
+                  "name": "_User",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3053,
+                  "src": "669:13:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3045,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "669:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3048,
+                  "name": "_amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3053,
+                  "src": "684:15:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3047,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "684:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "668:32:7"
+            },
+            "returnParameters": {
+              "id": 3052,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3051,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3053,
+                  "src": "718:4:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 3050,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "718:4:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "717:6:7"
+            },
+            "scope": 3073,
+            "src": "642:82:7",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 3072,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "GetToopsDetails",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3056,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3055,
+                  "name": "_ID",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3072,
+                  "src": "755:11:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3054,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "755:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "754:13:7"
+            },
+            "returnParameters": {
+              "id": 3071,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3058,
+                  "name": "_Defence",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3072,
+                  "src": "795:16:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3057,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "795:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3060,
+                  "name": "_Attack",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3072,
+                  "src": "813:15:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3059,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "813:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3062,
+                  "name": "_Steal",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3072,
+                  "src": "830:14:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3061,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "830:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3064,
+                  "name": "_RequiredGold",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3072,
+                  "src": "846:21:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3063,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "846:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3066,
+                  "name": "_RequiredElixr",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3072,
+                  "src": "874:22:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3065,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "874:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3068,
+                  "name": "_RequiredGem",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3072,
+                  "src": "898:20:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3067,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "898:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3070,
+                  "name": "_Time",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3072,
+                  "src": "920:13:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3069,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "920:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "794:140:7"
+            },
+            "scope": 3073,
+            "src": "730:205:7",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 3074,
+        "src": "68:870:7"
+      }
+    ],
+    "src": "0:938:7"
+  },
+  "legacyAST": {
+    "absolutePath": "/E/KBA/ethereum/project/Docker/Truffle/contracts/ICityClash.sol",
+    "exportedSymbols": {
+      "ICityClash": [
+        3073
+      ]
+    },
+    "id": 3074,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 2996,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:7"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 3073,
+        "linearizedBaseContracts": [
+          3073
+        ],
+        "name": "ICityClash",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 3003,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "GetVillageOwner",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2999,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2998,
+                  "name": "_village",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3003,
+                  "src": "120:16:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2997,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "120:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "119:18:7"
+            },
+            "returnParameters": {
+              "id": 3002,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3001,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3003,
+                  "src": "160:7:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3000,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "160:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "159:9:7"
+            },
+            "scope": 3073,
+            "src": "95:74:7",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 3028,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "GetBuildingUpgrades",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3008,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3005,
+                  "name": "_ID",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "204:11:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3004,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "204:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3007,
+                  "name": "_level",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "217:14:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3006,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "217:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "203:29:7"
+            },
+            "returnParameters": {
+              "id": 3027,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3010,
+                  "name": "_RequiredBuilding",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "260:25:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3009,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "260:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3012,
+                  "name": "_RequiredLevel",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "287:22:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3011,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "287:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3014,
+                  "name": "_RequiredGold",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "311:21:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3013,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "311:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3016,
+                  "name": "_RequiredElixr",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "334:22:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3015,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "334:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3018,
+                  "name": "_RequiredGem",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "363:20:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3017,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "363:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3020,
+                  "name": "_GoldRate",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "385:17:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3019,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "385:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3022,
+                  "name": "_ElixrRate",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "404:18:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3021,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "404:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3024,
+                  "name": "_GemReward",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "424:18:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3023,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "424:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3026,
+                  "name": "_Time",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3028,
+                  "src": "444:13:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3025,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "444:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "259:199:7"
+            },
+            "scope": 3073,
+            "src": "175:284:7",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 3035,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "GetPlayerGems",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3031,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3030,
+                  "name": "_player",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3035,
+                  "src": "488:15:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3029,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "488:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "487:17:7"
+            },
+            "returnParameters": {
+              "id": 3034,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3033,
+                  "name": "_GemsCount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3035,
+                  "src": "528:18:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3032,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "528:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "527:20:7"
+            },
+            "scope": 3073,
+            "src": "465:83:7",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 3044,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "SubGemFromVillage",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3040,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3037,
+                  "name": "_User",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3044,
+                  "src": "581:13:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3036,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "581:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3039,
+                  "name": "_amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3044,
+                  "src": "596:15:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3038,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "596:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "580:32:7"
+            },
+            "returnParameters": {
+              "id": 3043,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3042,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3044,
+                  "src": "630:4:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 3041,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "630:4:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "629:6:7"
+            },
+            "scope": 3073,
+            "src": "554:82:7",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 3053,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "AddGemFromVillage",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3049,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3046,
+                  "name": "_User",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3053,
+                  "src": "669:13:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3045,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "669:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3048,
+                  "name": "_amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3053,
+                  "src": "684:15:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3047,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "684:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "668:32:7"
+            },
+            "returnParameters": {
+              "id": 3052,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3051,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3053,
+                  "src": "718:4:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 3050,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "718:4:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "717:6:7"
+            },
+            "scope": 3073,
+            "src": "642:82:7",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 3072,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "GetToopsDetails",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3056,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3055,
+                  "name": "_ID",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3072,
+                  "src": "755:11:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3054,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "755:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "754:13:7"
+            },
+            "returnParameters": {
+              "id": 3071,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3058,
+                  "name": "_Defence",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3072,
+                  "src": "795:16:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3057,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "795:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3060,
+                  "name": "_Attack",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3072,
+                  "src": "813:15:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3059,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "813:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3062,
+                  "name": "_Steal",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3072,
+                  "src": "830:14:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3061,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "830:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3064,
+                  "name": "_RequiredGold",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3072,
+                  "src": "846:21:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3063,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "846:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3066,
+                  "name": "_RequiredElixr",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3072,
+                  "src": "874:22:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3065,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "874:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3068,
+                  "name": "_RequiredGem",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3072,
+                  "src": "898:20:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3067,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "898:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3070,
+                  "name": "_Time",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3072,
+                  "src": "920:13:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3069,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "920:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "794:140:7"
+            },
+            "scope": 3073,
+            "src": "730:205:7",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 3074,
+        "src": "68:870:7"
+      }
+    ],
+    "src": "0:938:7"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.8+commit.23d335f2.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.11",
+  "updatedAt": "2019-09-12T13:16:28.172Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

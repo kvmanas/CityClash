@@ -1,0 +1,51 @@
+version: '2.0'
+
+services:
+  ethereum-client:
+    container_name: eth-client
+    build:
+      context: .
+      dockerfile: ./EthereumClient/Dockerfile
+      # args:
+      #   GETH_TYPE: ${GETH_TYPE}
+    expose:
+      - 8545
+    ports:
+      - '30303:30303'
+      - '30303:30303/udp'
+      - '8545:8545'
+    environment:
+      - GETH_TYPE=${GETH_TYPE}
+  truffle:
+    container_name: truffle
+    depends_on:
+      - ethereum-client
+    expose:
+      - 3010
+    ports:
+      - 3010:3010
+    environment:
+      - GETH_TYPE=${GETH_TYPE}
+      - SEED_WORD=${SEED_WORD}
+      - INFURA_ID=${INFURA_ID}
+    build:
+      context: .
+      dockerfile: ./Truffle/Dockerfile
+  web-app:
+    container_name: web-app
+    depends_on:
+      - truffle
+    expose:
+      - 80
+    ports:
+      - 80:80
+    build:
+      context: .
+      dockerfile: ./Web/Dockerfile
+  # game-storage:
+  #   container_name: game-storage
+  #   build:
+  #     context: .
+  #     dockerfile: ./StorageService/DockerFile
+  #   volumes:
+  #     - '.:/CityClash'

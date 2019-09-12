@@ -1,18 +1,20 @@
 {
-  "name": "cityclash",
+  "name": "truffleservice",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "author": "",
+  "author": "Anas KVM",
   "license": "ISC",
   "dependencies": {
-    "bip39": "^3.0.2",
-    "envfile": "^3.0.0",
-    "ethereumjs-wallet": "^0.6.3",
-    "inquirer": "^7.0.0"
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "truffle-hdwallet-provider": "^1.0.17"
   }
 }

@@ -1,0 +1,652 @@
+{
+  "contractName": "IToken",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "name": "_value",
+          "type": "uint256"
+        }
+      ],
+      "name": "transfer",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "name": "_value",
+          "type": "uint256"
+        }
+      ],
+      "name": "transferFrom",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.8+commit.23d335f2\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"name\":\"_from\",\"type\":\"address\"},{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Token interface necessary for working with tokens within the exchange contract.\\r\",\"methods\":{\"transfer(address,uint256)\":{\"return\":\"Whether the transfer was successful or not\"},\"transferFrom(address,address,uint256)\":{\"return\":\"Whether the transfer was successful or not\"}},\"title\":\"Token\\r\"},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/E/KBA/ethereum/project/Docker/Truffle/contracts/IERC20.sol\":\"IToken\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/E/KBA/ethereum/project/Docker/Truffle/contracts/IERC20.sol\":{\"keccak256\":\"0x77f834eca2b429b3805f03e87724b751af11e9fa92389ee4b56b53502657696a\",\"urls\":[\"bzzr://ea5d0eda4ffeb7e1a2f5a42c23ac620bcf330896cbf56df1b518ff6366f4e658\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.5.0;\r\n\r\n/**\r\n * @title Token\r\n * @dev Token interface necessary for working with tokens within the exchange contract.\r\n */\r\ninterface IToken {\r\n  /// @notice send `_value` token to `_to` from `msg.sender`\r\n  /// @param _to The address of the recipient\r\n  /// @param _value The amount of token to be transferred\r\n  /// @return Whether the transfer was successful or not\r\n  function transfer(address _to, uint256 _value) external returns (bool success);\r\n\r\n  /// @notice send `_value` token to `_to` from `_from` on the condition it is approved by `_from`\r\n  /// @param _from The address of the sender\r\n  /// @param _to The address of the recipient\r\n  /// @param _value The amount of token to be transferred\r\n  /// @return Whether the transfer was successful or not\r\n  function transferFrom(address _from, address _to, uint256 _value) external returns (bool success);\r\n}",
+  "sourcePath": "E:\\KBA\\ethereum\\project\\Docker\\Truffle\\contracts\\IERC20.sol",
+  "ast": {
+    "absolutePath": "/E/KBA/ethereum/project/Docker/Truffle/contracts/IERC20.sol",
+    "exportedSymbols": {
+      "IToken": [
+        3096
+      ]
+    },
+    "id": 3097,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 3075,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:8"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": "@title Token\r\n@dev Token interface necessary for working with tokens within the exchange contract.\r",
+        "fullyImplemented": false,
+        "id": 3096,
+        "linearizedBaseContracts": [
+          3096
+        ],
+        "name": "IToken",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": "@return Whether the transfer was successful or not",
+            "id": 3084,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "transfer",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3080,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3077,
+                  "name": "_to",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3084,
+                  "src": "409:11:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3076,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "409:7:8",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3079,
+                  "name": "_value",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3084,
+                  "src": "422:14:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3078,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "422:7:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "408:29:8"
+            },
+            "returnParameters": {
+              "id": 3083,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3082,
+                  "name": "success",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3084,
+                  "src": "456:12:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 3081,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "456:4:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "455:14:8"
+            },
+            "scope": 3096,
+            "src": "391:79:8",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": "@return Whether the transfer was successful or not",
+            "id": 3095,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "transferFrom",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3091,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3086,
+                  "name": "_from",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3095,
+                  "src": "808:13:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3085,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "808:7:8",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3088,
+                  "name": "_to",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3095,
+                  "src": "823:11:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3087,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "823:7:8",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3090,
+                  "name": "_value",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3095,
+                  "src": "836:14:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3089,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "836:7:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "807:44:8"
+            },
+            "returnParameters": {
+              "id": 3094,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3093,
+                  "name": "success",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3095,
+                  "src": "870:12:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 3092,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "870:4:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "869:14:8"
+            },
+            "scope": 3096,
+            "src": "786:98:8",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 3097,
+        "src": "143:744:8"
+      }
+    ],
+    "src": "0:887:8"
+  },
+  "legacyAST": {
+    "absolutePath": "/E/KBA/ethereum/project/Docker/Truffle/contracts/IERC20.sol",
+    "exportedSymbols": {
+      "IToken": [
+        3096
+      ]
+    },
+    "id": 3097,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 3075,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:8"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": "@title Token\r\n@dev Token interface necessary for working with tokens within the exchange contract.\r",
+        "fullyImplemented": false,
+        "id": 3096,
+        "linearizedBaseContracts": [
+          3096
+        ],
+        "name": "IToken",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": "@return Whether the transfer was successful or not",
+            "id": 3084,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "transfer",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3080,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3077,
+                  "name": "_to",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3084,
+                  "src": "409:11:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3076,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "409:7:8",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3079,
+                  "name": "_value",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3084,
+                  "src": "422:14:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3078,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "422:7:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "408:29:8"
+            },
+            "returnParameters": {
+              "id": 3083,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3082,
+                  "name": "success",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3084,
+                  "src": "456:12:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 3081,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "456:4:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "455:14:8"
+            },
+            "scope": 3096,
+            "src": "391:79:8",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": "@return Whether the transfer was successful or not",
+            "id": 3095,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "transferFrom",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3091,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3086,
+                  "name": "_from",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3095,
+                  "src": "808:13:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3085,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "808:7:8",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3088,
+                  "name": "_to",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3095,
+                  "src": "823:11:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3087,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "823:7:8",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3090,
+                  "name": "_value",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3095,
+                  "src": "836:14:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3089,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "836:7:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "807:44:8"
+            },
+            "returnParameters": {
+              "id": 3094,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3093,
+                  "name": "success",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3095,
+                  "src": "870:12:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 3092,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "870:4:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "869:14:8"
+            },
+            "scope": 3096,
+            "src": "786:98:8",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 3097,
+        "src": "143:744:8"
+      }
+    ],
+    "src": "0:887:8"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.8+commit.23d335f2.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.11",
+  "updatedAt": "2019-09-12T13:16:28.180Z",
+  "devdoc": {
+    "details": "Token interface necessary for working with tokens within the exchange contract.\r",
+    "methods": {
+      "transfer(address,uint256)": {
+        "return": "Whether the transfer was successful or not"
+      },
+      "transferFrom(address,address,uint256)": {
+        "return": "Whether the transfer was successful or not"
+      }
+    },
+    "title": "Token\r"
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
