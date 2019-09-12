@@ -8,6 +8,10 @@ import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
+/**
+ * Main UI component
+ * loggin to access Game
+ */
 export class MainComponent implements OnInit {
   constructor(private web3service: Web3Service, private route: Router) {}
   @ViewChild('loginSuccess', { static: false })

@@ -6,6 +6,10 @@ import { map } from 'rxjs/operators';
 import { Web3Service } from 'src/app/Services/Web3/web3.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
+/**
+ * Navigation Bar Component
+ * Showing content according to url paths
+ */
 @Component({
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',

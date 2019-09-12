@@ -7,7 +7,10 @@ export interface DialogData {
   buildings: Array<BuildingModel>;
   Upgrades: BUpgradeModel;
 }
-
+/**
+ * Admin View Building Upgarde Component
+ * Showing Table of all Building upgrades
+ */
 @Component({
   selector: 'app-admin-build-view-upgrades',
   templateUrl: './admin-build-view-upgrades.component.html',

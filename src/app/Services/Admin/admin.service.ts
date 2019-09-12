@@ -5,6 +5,11 @@ import { GameService } from '../Game/game.service';
 import { BUpgradeModel } from 'src/app/Models/building.model';
 import { TroopDetailsModel } from 'src/app/Models/troop.model';
 declare let web3: any;
+
+/** anugalr service for Admin to interact with CityClash contract
+ * like add / delete new building uint or troop
+ * change village basic price in gems, etc
+ */
 @Injectable({
   providedIn: 'root'
 })

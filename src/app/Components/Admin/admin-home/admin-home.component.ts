@@ -3,6 +3,13 @@ import { FormControl, Validators } from '@angular/forms';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { AdminService } from '../../../Services/Admin/admin.service';
 declare let web3: any;
+
+/**
+ * Admin Main Component
+ * Showing Details of Game like contract address, ERC20 address, etc
+ * option to deposite Gem to contract
+ * option to change sell commission and Basic price
+ */
 @Component({
   selector: 'app-admin-home',
   templateUrl: './admin-home.component.html',

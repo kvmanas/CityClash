@@ -6,6 +6,13 @@ import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { Web3Service } from 'src/app/Services/Web3/web3.service';
 import { Router } from '@angular/router';
 
+/**
+ * Main Game Component
+ * Showing villages owned by User
+ * option to sell and view Village
+ * option to deposite Gem
+ * option to delete village
+ */
 @Component({
   selector: 'app-gmain',
   templateUrl: './gmain.component.html',

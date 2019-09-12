@@ -6,6 +6,8 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 declare let window: any;
 
+// Guard to check is user Admin or not
+// if user is not admin redirect to /Home
 @Injectable({
   providedIn: 'root'
 })
@@ -23,7 +25,9 @@ export class AdminGuard implements CanActivate {
       await this.web3service.web3login();
     }
     this.web3var = this.web3service.Web3Details$.value;
+    //get game admin address
     const GameOwner = await this.web3var.gameinstance.methods.owner().call();
+    //check logged user is game admin
     if (GameOwner === this.web3var.account) {
       return true;
     }

@@ -13,7 +13,14 @@ contract CityClash is Ownable , CCmodifiers{
     constructor( address _GameLink) public{
             GameLink = _GameLink;
     }
-
+    /**
+    * This function is to create of ERC20 token (Gems in Game)
+    * only owner Can execute function.
+    * @param initialSupply total supply of token
+    * @param tokenName Erc20 token Name
+    * @param decimalUnits Amount of decimals for display purposes
+    * @param tokenSymbol  Set the symbol for display purposes
+    */
     function CreateToken(uint256 initialSupply, string memory tokenName, uint8 decimalUnits,
         string memory tokenSymbol) public onlyOwner{
         CityToken = ICClink(GameLink).createToken(initialSupply,tokenName,decimalUnits,tokenSymbol,msg.sender);
@@ -112,7 +119,7 @@ contract CityClash is Ownable , CCmodifiers{
     * This function handles deposits of Gems to the contract.
     * If token transfer fails, transaction is reverted and remaining gas is refunded.
     * @dev Note: Remember to call Token(address).approve(this, amount) or this contract will not be able to do the transfer on your behalf.
-    * @param _amount uint of the amount of the token the user wishes to deposit
+    * @param _amount the amount of the token the user wishes to deposit
     */
     function depositGems(uint256 _amount) public {
         require(IToken(CityToken).transferFrom(msg.sender, address(this), _amount),"Token Transfer Error");
@@ -146,11 +153,22 @@ contract CityClash is Ownable , CCmodifiers{
         require(_value >= 0 && _value <= 100, "Value must be b/w 0 to 100");
         SellCommission = _value;
     }
+    /**
+    * function to deposite Gem on contract account balnace.
+    * Only Owner  can execute this function.
+    * @param _amount amount of the token
+    */
     function depositGemOwner(uint256 _amount) public onlyOwner{
         require(IToken(CityToken).transferFrom(msg.sender, address(this), _amount),"Token Transfer Error");
         Game.addPlayerGems(address(this),_amount);
     }
-
+    /**
+    * function to Add building Uint in Game.
+    * Only Owner  can execute this function.
+    * @dev Note: Upload image to Swarm to get Hash of the file
+    * @param _name name of the Building
+    * @param _hash 32 byte file hash from swarm
+    */
     function AddBuilding(bytes32 _name, bytes32 _hash) public onlyOwner{
         CClibrary.BuildingModel memory NewBuilding;
         NewBuilding.name = _name;
@@ -158,9 +176,21 @@ contract CityClash is Ownable , CCmodifiers{
         NewBuilding.state = true;
         Game.Buildings.push(NewBuilding);
     }
+    /**
+    * function to delete building Uint in Game.
+    * Only Owner  can execute this function.
+    * @param _ID index of building to be deleted from array
+    */
     function DeleteBuilding(uint256 _ID) public onlyOwner isArrayLength(Game.Buildings.length,_ID){
         delete Game.Buildings[_ID];
     }
+    /**
+    * function to Add Troop in Game.
+    * Only Owner  can execute this function.
+    * @dev Note: Upload image to Swarm to get Hash of the file
+    * @param _name name of the Troop
+    * @param _hash 32 byte file hash from swarm
+    */
     function AddTroops(bytes32 _name, bytes32 _hash) public onlyOwner{
         CClibrary.TroopsModel memory NewTroop;
         NewTroop.name = _name;
@@ -168,10 +198,29 @@ contract CityClash is Ownable , CCmodifiers{
         NewTroop.state = true;
         Game.Troops.push(NewTroop);
     }
+    /**
+    * function to delete troop in Game.
+    * Only Owner  can execute this function.
+    * @param _ID index of troop to be deleted from array
+    */
     function DeleteTroops(uint256 _ID) public onlyOwner isArrayLength(Game.Troops.length,_ID){
         delete Game.Troops[_ID];
     }
-    //upgrade or add upgrade details
+    /**
+    * function to Add/Change Building Upgarde details.
+    * Only Owner  can execute this function.
+    * @param _ID builing id (array index)
+    * @param _level Upgrade level
+    * @param _RequiredBuilding Required Building ID to Upgarde
+    * @param _RequiredLevel Required Building Level to Upgrade
+    * @param _RequiredGold  Required Gold to upgrade
+    * @param _RequiredElixr Required Elixr to upgrade
+    * @param _RequiredGem Required Gem to upgrade
+    * @param _GoldRate Change in gold production rate
+    * @param _ElixrRate Change in elixr production rate
+    * @param _GemReward amount of gem reward to user
+    * @param _Time Cool off time to next Upgrade
+    */
     function ChangeBuildingUpgrade(uint256 _ID, uint256 _level, uint256 _RequiredBuilding,
     uint256 _RequiredLevel, uint256 _RequiredGold, uint256 _RequiredElixr, uint256 _RequiredGem,
     uint256 _GoldRate, uint256 _ElixrRate, uint256 _GemReward, uint256 _Time) public
@@ -188,6 +237,18 @@ contract CityClash is Ownable , CCmodifiers{
         NewUpgrade.Time = _Time;
         Game.Buildings[_ID].Upgrade[_level] = NewUpgrade;
     }
+    /**
+    * function to Change Troop Training details.
+    * Only Owner  can execute this function.
+    * @param _ID troop id (array index)
+    * @param _Defence Change in Defence power
+    * @param _Attack Change in Attack Power
+    * @param _Steal Change in Steal power
+    * @param _RequiredGold  Required Gold to upgrade
+    * @param _RequiredElixr Required Elixr to upgrade
+    * @param _RequiredGem Required Gem to upgrade
+    * @param _Time Time Required to upgrade troop
+    */
     function ChangeTroopTrain(uint256 _ID, uint256 _Defence, uint256 _Attack,
     uint256 _Steal, uint256 _RequiredGold, uint256 _RequiredElixr, uint256 _RequiredGem, uint256 _Time) public
     isArrayLength(Game.Troops.length,_ID) onlyOwner{
@@ -201,12 +262,24 @@ contract CityClash is Ownable , CCmodifiers{
         NewTrain.Time = _Time;
         Game.Troops[_ID].Train = NewTrain;
     }
+    /**
+    * function to substract gem from player account.
+    * Only a village can execute.
+    * @param _User player address
+    * @param _amount amount of gem to substract
+    */
     function SubGemFromVillage(address _User, uint256 _amount) public isVillage returns(bool){
         require(_amount > 0, "Value must be greater than zero");
         Game.subPlayerGems(_User,_amount);
         Game.addPlayerGems(address(this),_amount);
         return true;
     }
+     /**
+    * function to add gem to player account.
+    * Only a village can execute.
+    * @param _User player address
+    * @param _amount amount of gem to add
+    */
     function AddGemFromVillage(address _User, uint256 _amount) public isVillage returns(bool){
         require(_amount > 0, "Value must be greater than zero");
         Game.subPlayerGems(address(this),_amount);

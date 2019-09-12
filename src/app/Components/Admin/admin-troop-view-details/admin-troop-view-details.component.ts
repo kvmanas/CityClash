@@ -7,6 +7,10 @@ export interface DialogData {
   troops: Array<TroopModel>;
   details: TroopDetailsModel;
 }
+/**
+ * Admin View Troop Training Detail Component
+ * Showing Table of Training Detail
+ */
 @Component({
   selector: 'app-admin-troop-view-details',
   templateUrl: './admin-troop-view-details.component.html',

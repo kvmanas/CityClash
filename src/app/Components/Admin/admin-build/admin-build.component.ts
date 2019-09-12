@@ -14,6 +14,13 @@ export interface UpGradeModel {
   level: string;
   data: BUpgradeModel;
 }
+/**
+ * Admin Building Component
+ * Showing all Building available in Game
+ * option to add new building
+ * option to delete Building
+ * optiom to add upgrade to existing building
+ */
 @Component({
   selector: 'app-admin-build',
   templateUrl: './admin-build.component.html',

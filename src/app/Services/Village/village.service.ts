@@ -11,6 +11,10 @@ import {
 import { Web3Service } from '../Web3/web3.service';
 import { delay } from 'rxjs/operators';
 
+/** anugalr service to connect with VIllage contract
+ * like current village status (resources, building levels)
+ * Attack Enemy village, etc
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -26,6 +30,7 @@ export class VillageService {
   VillageSubscription: Subscription;
   private RefreshedUser = interval(1000).pipe(delay(500));
   constructor(private web3Service: Web3Service) {
+    //observe web3 accounts and Village contract instance
     web3Service.Web3Details$.subscribe(data => {
       this.web3data = data;
       this.towninstance = data.towninstance;

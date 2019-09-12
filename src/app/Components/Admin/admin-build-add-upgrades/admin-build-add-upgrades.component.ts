@@ -9,6 +9,10 @@ export interface DialogData {
   buildings: Array<BuildingModel>;
 }
 
+/**
+ * Admin Add Building Upgarde Component
+ * Showing Form to fill Upgrade detail
+ */
 @Component({
   selector: 'app-admin-build-add-upgrades',
   templateUrl: './admin-build-add-upgrades.component.html',

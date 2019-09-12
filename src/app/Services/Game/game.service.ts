@@ -9,6 +9,10 @@ import { UserModel } from 'src/app/Models/game.model';
 import { delay } from 'rxjs/operators';
 declare let web3: any;
 
+/** anugalr service to interact with CityClash contract
+ * like create new village, get player details, gem deposite
+ * sell village, buy village, get building details, etc
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +29,7 @@ export class GameService {
   private RefreshedUser = interval(1000).pipe(delay(500));
   public UserSubscription: Subscription;
   constructor(private web3service: Web3Service) {
+    // initialize Swarm instance
     this.bzz = new Bzz({ url: 'https://swarm-gateways.net' });
     web3service.Web3Details$.subscribe(data => {
       this.web3data = data;

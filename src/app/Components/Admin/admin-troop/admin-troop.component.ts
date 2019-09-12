@@ -10,6 +10,13 @@ export interface TroopDtModel {
   id: string;
   data: TroopDetailsModel;
 }
+/**
+ * Admin Troop Component
+ * Showing all Troops available in Game
+ * option to add new troop
+ * option to delete troop
+ * optiom to add details of troop training
+ */
 @Component({
   selector: 'app-admin-troop',
   templateUrl: './admin-troop.component.html',

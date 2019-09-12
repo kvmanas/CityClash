@@ -6,6 +6,11 @@ import { BuildingModel, BUpgradeModel } from 'src/app/Models/building.model';
 import { CurrentBuildStatus } from 'src/app/Models/village.model';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
+/**
+ * Village Main Component
+ * Showing Village Buildings and current status
+ * option to upgrade building
+ */
 @Component({
   selector: 'app-vmain',
   templateUrl: './vmain.component.html',

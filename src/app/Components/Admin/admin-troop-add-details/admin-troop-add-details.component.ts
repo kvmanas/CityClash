@@ -7,6 +7,10 @@ export interface DialogData {
   index: number;
   troops: Array<TroopModel>;
 }
+/**
+ * Admin Add troops training detail Component
+ * Showing Form to fill training detail
+ */
 @Component({
   selector: 'app-admin-troop-add-details',
   templateUrl: './admin-troop-add-details.component.html',

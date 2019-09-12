@@ -4,8 +4,10 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './background.component.html',
   styleUrls: ['./background.component.scss']
 })
+
+/**
+ * Background Animation Component
+ */
 export class BackgroundComponent implements OnInit {
- 
-    ngOnInit() {
-    }
+  ngOnInit() {}
 }

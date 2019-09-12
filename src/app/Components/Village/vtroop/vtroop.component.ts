@@ -11,6 +11,11 @@ import {
 } from '@angular/material/dialog';
 import { TroopQueueModel } from 'src/app/Models/village.model';
 
+/**
+ * Village Troop Component
+ * Showing Village Troops and Troop status
+ * option to train troops
+ */
 @Component({
   selector: 'app-vtroop',
   templateUrl: './vtroop.component.html',

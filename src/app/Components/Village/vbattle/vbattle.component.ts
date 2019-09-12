@@ -5,6 +5,12 @@ import { GameService } from 'src/app/Services/Game/game.service';
 import { MatDialog } from '@angular/material/dialog';
 import { VviewComponent } from '../vview/vview.component';
 
+/**
+ * Village Battle Component
+ * Showing Enemy Village List
+ * option to view Enemy village
+ * option to Attack Enemy
+ */
 @Component({
   selector: 'app-vbattle',
   templateUrl: './vbattle.component.html',

@@ -11,6 +11,8 @@ declare let window: any;
 declare let ethereum: any;
 declare let web3: any;
 
+//anugalr service to loggin with metamask
+
 @Injectable({
   providedIn: 'root'
 })
@@ -99,6 +101,7 @@ export class Web3Service {
       }
     });
   }
+  // logout function
   public async web3logout() {
     this.AccountSubscription.unsubscribe();
     this.Web3Details$.next({

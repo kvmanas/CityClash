@@ -1,5 +1,5 @@
 pragma solidity ^0.5.0;
-
+//CityClash interface refer CityClash.sol
 interface ICityClash{
     function GetVillageOwner(address _village) external view returns(address);
     function GetBuildingUpgrades(uint256 _ID, uint256 _level) external view

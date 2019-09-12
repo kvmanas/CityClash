@@ -3,6 +3,10 @@ import "./Ownable.sol";
 import "./ICityClash.sol";
 import "./SafeMath.sol";
 
+/**
+ * @title Village
+ * contract to store user village details
+ */
 contract Village is Ownable{
     using SafeMath for uint256;
     struct TroopsModel{
@@ -51,15 +55,22 @@ contract Village is Ownable{
         UserDetails.ElixrRate = 1;
         UserDetails.TimeStamp = now;
     }
+    // check caller is Village Owner
     modifier isVillageOwner() {
         require(ICityClash(CCgame).GetVillageOwner(address(this)) == msg.sender,"User is not Village owner");
         _;
     }
+    // check caller is village
     modifier isFromVillage() {
         require(ICityClash(CCgame).GetVillageOwner(msg.sender) != address(0),"Caller is not Village");
         _;
     }
-
+    /**
+    * function to Upgrade Builing of this village
+    * only village owner can execute
+    * @param _ID builing ID
+    * @param _level upgarade level
+    */
     function UpgradeBuilding(uint256 _ID, uint256 _level) public isVillageOwner{
         require(UserDetails.Buildings[_ID].Level == _level.sub(1),"Invalid Upgrade");
         (uint256 _RequiredBuilding, uint256 _RequiredLevel, uint256 _RequiredGold, uint256 _RequiredElixr,
@@ -85,8 +96,13 @@ contract Village is Ownable{
             require(ICityClash(CCgame).AddGemFromVillage(msg.sender,_GemReward),"Something Went Wrong");
         }
     }
-
-     function TrainTroops(uint256 _ID, uint256 _count) public isVillageOwner{
+    /**
+    * function to Train troop for this village
+    * only village owner can execute
+    * @param _ID troop ID
+    * @param _count number of troop to train
+    */
+    function TrainTroops(uint256 _ID, uint256 _count) public isVillageOwner{
         (uint256 _Defence, uint256 _Attack, uint256 _Steal, uint256 _RequiredGold,
         uint256 _RequiredElixr, uint256 _RequiredGem, uint256 _Time) =
         ICityClash(CCgame).GetToopsDetails(_ID);
@@ -114,13 +130,20 @@ contract Village is Ownable{
         completionTime = Queue.Time;
         TotalQueue++;
     }
-
+    /**
+    * function to update user resources
+    * internal call
+    */
     function UpdateUserResources() internal{
         uint256 currentTime = now;
         UserDetails.Gold += UserDetails.GoldRate.mul(currentTime.sub(UserDetails.TimeStamp));
         UserDetails.Elixr += UserDetails.ElixrRate.mul(currentTime.sub(UserDetails.TimeStamp));
         UserDetails.TimeStamp = currentTime;
     }
+    /**
+    * function to update troop training
+    * internal call
+    */
     function UpdateUserTroops() internal{
         for(uint256 i = CompletedQueue; i < TotalQueue && TroopsQueue[i].Time < now ; i++){
             UserDetails.Attack = UserDetails.Attack.add(TroopsQueue[i].Attack);
@@ -130,13 +153,29 @@ contract Village is Ownable{
             CompletedQueue++;
         }
     }
+    /**
+    * function to Get Building details
+    * @param _id Building ID
+    * @return _Level current building level
+    * @return _CoolOff Cool off time for next upgrade
+    */
     function GetUpgradeDetails(uint256 _id) public view  returns(uint256 _Level , uint256 _CoolOff){
         _Level = UserDetails.Buildings[_id].Level;
         _CoolOff = UserDetails.Buildings[_id].CoolOff;
     }
+    /**
+    * function to Get troop detail
+    * @param _id troop ID
+    * @return _Count trained troop count
+    */
     function GetTrainDetails(uint256 _id) public view  returns(uint256 _Count){
         _Count = UserDetails.Troops[_id].Count;
     }
+    /**
+    * function to Attack Enemy
+    * only village owner can execute
+    * @param _Enemy Enemy village address
+    */
     function AttackEnemy(address _Enemy) public isVillageOwner{
         require(ICityClash(CCgame).GetVillageOwner(_Enemy) != address(0),"Invalid village");
         require(ICityClash(CCgame).GetVillageOwner(_Enemy) != msg.sender,"User Can't attack own village");
@@ -147,6 +186,13 @@ contract Village is Ownable{
          UserDetails.Elixr = UserDetails.Gold.add(_ElixrSteal);
 
     }
+    /**
+    * function to defend attack
+    * only another village can execute
+    * @param _Attacker attacker village address
+    * @param _Attack enemy attack power
+    * @param _Steal enemy steal power
+    */
     function DefenceAttack(address _Attacker, uint256 _Attack, uint256 _Steal) public
     isFromVillage returns(uint256 _GoldSteal , uint256 _ElixrSteal){
         UpdateUserResources();
@@ -175,6 +221,10 @@ contract Village is Ownable{
         }
         emit Battle(_Attacker,address(this),_GoldSteal,_ElixrSteal,success);
     }
+     /**
+    * function to destroy village
+    * only owner can call
+    */
     function DestroyVillage() external onlyOwner{
         selfdestruct(CCgame);
     }

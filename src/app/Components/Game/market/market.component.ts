@@ -7,6 +7,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { VviewComponent } from '../../Village/vview/vview.component';
 declare let web3: any;
 
+/**
+ * Game Market Component
+ * Showing sell orders , filled orders and user orders
+ * option buy a sell order
+ * option cancel sell order
+ */
 @Component({
   selector: 'app-market',
   templateUrl: './market.component.html',

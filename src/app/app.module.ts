@@ -17,7 +17,6 @@ import { AuthGuard } from './Guards/Auth/auth.guard';
 import { RouterComponent } from './Components/Home/router/router.component';
 import { AboutComponent } from './Components/Home/about/about.component';
 import { GrouterComponent } from './Components/Game/grouter/grouter.component';
-import { BuildComponent } from './Components/Game/build/build.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AdminrouterComponent } from './Components/Admin/adminrouter/adminrouter.component';
 import { AdminHomeComponent } from './Components/Admin/admin-home/admin-home.component';
@@ -48,7 +47,6 @@ import { VviewComponent } from './Components/Village/vview/vview.component';
     RouterComponent,
     AboutComponent,
     GrouterComponent,
-    BuildComponent,
     AdminrouterComponent,
     AdminHomeComponent,
     AdminBuildComponent,

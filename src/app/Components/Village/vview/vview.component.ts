@@ -3,6 +3,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GameService } from 'src/app/Services/Game/game.service';
 import { VillageData } from 'src/app/Models/village.model';
 
+/**
+ * Village View Component
+ * Showing Village Current status
+ */
 @Component({
   selector: 'app-vview',
   templateUrl: './vview.component.html',

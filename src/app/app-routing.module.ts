@@ -10,7 +10,6 @@ import { GmainComponent } from './Components/Game/gmain/gmain.component';
 import { AuthGuard } from './Guards/Auth/auth.guard';
 import { RouterComponent } from './Components/Home/router/router.component';
 import { GrouterComponent } from './Components/Game/grouter/grouter.component';
-import { BuildComponent } from './Components/Game/build/build.component';
 import { AdminTroopComponent } from './Components/Admin/admin-troop/admin-troop.component';
 import { MarketComponent } from './Components/Game/market/market.component';
 import { VrouterComponent } from './Components/Village/vrouter/vrouter.component';
@@ -46,10 +45,6 @@ const routes: Routes = [
       {
         path: '',
         component: GmainComponent
-      },
-      {
-        path: 'Village',
-        component: BuildComponent
       },
       {
         path: 'Market',

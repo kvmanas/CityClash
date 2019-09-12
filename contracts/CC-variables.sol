@@ -15,6 +15,11 @@ contract CCvariables{
         _Towns = Game.Players[_player].Towns;
         _GemsCount = Game.Players[_player].GemsCount;
     }
+    /**
+    * function to Get Player Gem count
+    * @param _player  Player Address
+    * @return _GemsCount Player  Gem balance
+    */
     function GetPlayerGems(address _player) public view  returns(uint256 _GemsCount){
         _GemsCount = Game.Players[_player].GemsCount;
     }
@@ -111,6 +116,20 @@ contract CCvariables{
         }
         return (_SellVillage, _Seller, _Buyer, _SellPrice, _Position);
     }
+    /**
+    * function to Get Building Upgarede Detail .
+    * @param _ID Building ID
+    * @param _level Building level
+    * @return _RequiredBuilding Required Building ID to Upgarde
+    * @return _RequiredLevel Required Building Level to Upgrade
+    * @return _RequiredGold  Required Gold to upgrade
+    * @return _RequiredElixr Required Elixr to upgrade
+    * @return _RequiredGem Required Gem to upgrade
+    * @return _GoldRate Change in gold production rate
+    * @return _ElixrRate Change in elixr production rate
+    * @return _GemReward amount of gem reward to user
+    * @return _Time Cool off time to next Upgrade
+    */
 
     function GetBuildingUpgrades(uint256 _ID, uint256 _level) public view
     returns(uint256 _RequiredBuilding, uint256 _RequiredLevel, uint256 _RequiredGold, uint256 _RequiredElixr,
@@ -125,6 +144,17 @@ contract CCvariables{
         _GemReward = Game.Buildings[_ID].Upgrade[_level].GemReward;
         _Time = Game.Buildings[_ID].Upgrade[_level].Time;
     }
+    /**
+    * function to Get Troops training Detail .
+    * @param _ID troop ID
+    * @return _Defence Change in Defence power
+    * @return _Attack Change in Attack Power
+    * @return _Steal Change in Steal power
+    * @return _RequiredGold  Required Gold to upgrade
+    * @return _RequiredElixr Required Elixr to upgrade
+    * @return _RequiredGem Required Gem to upgrade
+    * @return _Time Time Required to upgrade troop
+    */
     function GetToopsDetails(uint256 _ID) public view
     returns(uint256 _Defence, uint256 _Attack, uint256 _Steal, uint256 _RequiredGold,
     uint256 _RequiredElixr, uint256 _RequiredGem, uint256 _Time){
@@ -136,6 +166,12 @@ contract CCvariables{
         _RequiredGem = Game.Troops[_ID].Train.RequiredGem;
         _Time = Game.Troops[_ID].Train.Time;
     }
+    /**
+    * function to Get All Builings
+    * @return _id array of Builing IDs 
+    * @return _name array of name of builings
+    * @return _image array of swarm hash of builings
+    */
     function GetBuildings() public view returns(uint256[] memory ,bytes32[] memory,bytes32[] memory){
         uint256 j;
         for (uint256 i = 0; i < Game.Buildings.length; i++) {
@@ -157,6 +193,12 @@ contract CCvariables{
         }
         return (_id,_name, _image);
     }
+    /**
+    * function to Get All troops
+    * @return _id array of troop IDs
+    * @return _name array of name of troop
+    * @return _image array of swarm hash of troop
+    */
     function GetTroops() public view returns(uint256[] memory ,bytes32[] memory,bytes32[] memory){
         uint256 j;
         for (uint256 i = 0; i < Game.Troops.length; i++) {

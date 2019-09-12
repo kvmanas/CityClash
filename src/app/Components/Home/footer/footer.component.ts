@@ -8,6 +8,11 @@ import { Subscription, interval } from 'rxjs';
 import { VillageModel } from 'src/app/Models/village.model';
 import { ActivatedRoute } from '@angular/router';
 
+/**
+ * Footer Component
+ * Showing content according to url paths
+ */
+
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
