@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, interval, Subscription } from 'rxjs';
 import { Web3Model } from '../../Models/web3.model';
+import { HttpClient } from '@angular/common/http';
 declare let require: any;
 
 const Web3 = require('web3');
-const CCJSON = require('../../../../build/contracts/CityClash.json');
-const ERC20JSON = require('../../../../build/contracts/CityGem.json');
-const VillageJSON = require('../../../../build/contracts/Village.json');
+let CCJSON;
+let ERC20JSON;
+let VillageJSON;
 declare let window: any;
 declare let ethereum: any;
 declare let web3: any;
+const BaseUrl = 'http://' + window.location.hostname + ':3010/contracts/';
 
 //anugalr service to loggin with metamask
 
@@ -17,7 +19,17 @@ declare let web3: any;
   providedIn: 'root'
 })
 export class Web3Service {
-  constructor() {}
+  constructor(private httpClient: HttpClient) {
+    httpClient.get(BaseUrl + 'CityClash.json').subscribe(res => {
+      CCJSON = res;
+    });
+    httpClient.get(BaseUrl + 'CityGem.json').subscribe(res => {
+      ERC20JSON = res;
+    });
+    httpClient.get(BaseUrl + 'Village.json').subscribe(res => {
+      VillageJSON = res;
+    });
+  }
   public Web3Details$: BehaviorSubject<Web3Model> = new BehaviorSubject<
     Web3Model
   >({
