@@ -19,17 +19,7 @@ const BaseUrl = 'http://' + window.location.hostname + ':3010/contracts/';
   providedIn: 'root'
 })
 export class Web3Service {
-  constructor(private httpClient: HttpClient) {
-    httpClient.get(BaseUrl + 'CityClash.json').subscribe(res => {
-      CCJSON = res;
-    });
-    httpClient.get(BaseUrl + 'CityGem.json').subscribe(res => {
-      ERC20JSON = res;
-    });
-    httpClient.get(BaseUrl + 'Village.json').subscribe(res => {
-      VillageJSON = res;
-    });
-  }
+  constructor(private httpClient: HttpClient) {}
   public Web3Details$: BehaviorSubject<Web3Model> = new BehaviorSubject<
     Web3Model
   >({
@@ -42,6 +32,11 @@ export class Web3Service {
   private RefreshedAccount = interval(1000);
   public AccountSubscription: Subscription;
   public async web3login() {
+    CCJSON = await this.httpClient.get(BaseUrl + 'CityClash.json').toPromise();
+    ERC20JSON = await this.httpClient.get(BaseUrl + 'CityGem.json').toPromise();
+    VillageJSON = await this.httpClient
+      .get(BaseUrl + 'Village.json')
+      .toPromise();
     return new Promise(async (resolve, reject) => {
       // check dapp browser
       if (window.ethereum || window.web3) {
