@@ -65,7 +65,7 @@ Enter Infura Project ID ( only in Ropsten Network mode)
 ? Enter Your Infura Project ID.. (0e9a3e7c18094e3a87e13cb1991e4b57)
 ```
 
-**Step 5:** Go http://localhost/, to Interact with game check video demonstration [here]()
+**Step 5:** Go http://localhost/, to Interact with game. check video demonstration [here](/Demo.mp4)
 
 **Step 6:** Use the following command to Stop Dapp
 
