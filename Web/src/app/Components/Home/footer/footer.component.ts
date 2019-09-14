@@ -65,7 +65,7 @@ export class FooterComponent implements OnInit, OnDestroy {
     this.gameService.UserSubscription.unsubscribe();
     if (this.ContentType === 4) {
       this.VillageSub.unsubscribe();
-      this.villageService.VillageSubscription.unsubscribe();
+      this.villageService.unsetVillage();
     }
   }
 }

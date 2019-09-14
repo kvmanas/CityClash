@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { VillageService } from 'src/app/Services/Village/village.service';
 import { GameService } from 'src/app/Services/Game/game.service';
 import { MatDialog } from '@angular/material/dialog';
 import { VviewComponent } from '../vview/vview.component';
+import { Subscription } from 'rxjs';
 
 /**
  * Village Battle Component
@@ -16,12 +17,14 @@ import { VviewComponent } from '../vview/vview.component';
   templateUrl: './vbattle.component.html',
   styleUrls: ['./vbattle.component.scss']
 })
-export class VbattleComponent implements OnInit {
+export class VbattleComponent implements OnInit, OnDestroy {
   @ViewChild('AlertError', { static: false })
   private AlertError: SwalComponent;
   @ViewChild('AlertSuccess', { static: false })
   private AlertSuccess: SwalComponent;
   Enemies: Array<string>;
+  VillageSub: Subscription;
+  isFirst = true;
   constructor(
     private villageService: VillageService,
     private gameService: GameService,
@@ -29,7 +32,15 @@ export class VbattleComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.Enemies = await this.gameService.GetAllVillages();
+    this.VillageSub = this.villageService.Village$.subscribe(async data => {
+      if (data.address && this.isFirst) {
+        this.Enemies = await this.gameService.GetAllVillages();
+        this.isFirst = false;
+      }
+    });
+  }
+  ngOnDestroy() {
+    this.VillageSub.unsubscribe();
   }
   VewTown = index => {
     this.dialog.open(VviewComponent, {

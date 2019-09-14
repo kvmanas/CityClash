@@ -46,6 +46,10 @@ export class VillageService {
       }
     });
   };
+  public unsetVillage = async () => {
+    this.VillageSubscription.unsubscribe();
+    this.Village$.next({ address: null, data: null });
+  };
   public VillageDetails = (): Promise<VillageData> => {
     return new Promise((resolve, reject) => {
       this.towninstance.methods
